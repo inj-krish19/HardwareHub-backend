@@ -1,0 +1,186 @@
+[
+    {
+        "title": "RAM not detected / no display",
+        "category": "RAM",
+        "question_tree": {
+            "id": "q1",
+            "question": "Is the RAM stick fully clicked into the slot (you hear a click and clips are locked)?",
+            "options": [
+                {
+                    "answer": "No / Not sure",
+                    "next": {
+                        "type": "conclusion",
+                        "text": "Reseat the RAM: power off, unplug, press the stick firmly until both side clips lock. Then power on."
+                    }
+                },
+                {
+                    "answer": "Yes, it's locked in",
+                    "next": {
+                        "id": "q2",
+                        "question": "Have you tried the RAM in a different slot on the motherboard?",
+                        "options": [
+                            {
+                                "answer": "No",
+                                "next": {
+                                    "type": "conclusion",
+                                    "text": "Try a different DIMM slot — this isolates whether it's a slot or stick issue."
+                                }
+                            },
+                            {
+                                "answer": "Yes, same issue in other slots",
+                                "next": {
+                                    "id": "q3",
+                                    "question": "Does the motherboard have a debug LED or beep code for RAM errors?",
+                                    "options": [
+                                        {
+                                            "answer": "Yes, RAM LED is lit / beeping",
+                                            "next": {
+                                                "type": "conclusion",
+                                                "text": "Likely faulty RAM stick or incompatible RAM. Test with a single known-good stick, then check the motherboard QVL (compatibility list) for your RAM."
+                                            }
+                                        },
+                                        {
+                                            "answer": "No / Don't know",
+                                            "next": {
+                                                "type": "escalate",
+                                                "text": "This may be a motherboard or CPU issue beyond basic checks — recommend professional diagnosis."
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "title": "Blue screen after RAM upgrade",
+        "category": "RAM",
+        "question_tree": {
+            "id": "q1",
+            "question": "Did the blue screen start right after adding or swapping RAM sticks?",
+            "options": [
+                {
+                    "answer": "Yes, immediately after",
+                    "next": {
+                        "id": "q2",
+                        "question": "Are all installed sticks the exact same speed and timing (check labels)?",
+                        "options": [
+                            {
+                                "answer": "No, they're mismatched",
+                                "next": {
+                                    "type": "conclusion",
+                                    "text": "Mismatched RAM (different speed/timing/brand) can cause instability. Run each stick individually to confirm, then either match kits or set speed manually in BIOS to the slowest stick's rated speed."
+                                }
+                            },
+                            {
+                                "answer": "Yes, they match",
+                                "next": {
+                                    "type": "conclusion",
+                                    "text": "Enable XMP/EXPO in BIOS if not already on, or run at JEDEC default speed as a stability test. Also run MemTest86 for at least one full pass to rule out a faulty stick."
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "answer": "No, it started later / unrelated timing",
+                    "next": {
+                        "type": "escalate",
+                        "text": "This is likely a software/driver issue rather than RAM — recommend checking Windows Event Viewer for the specific BSOD stop code, or professional diagnosis if crashes continue."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "title": "System won't boot after installing new RAM",
+        "category": "RAM",
+        "question_tree": {
+            "id": "q1",
+            "question": "Do you get any power (fans spin, lights on) when you press the power button?",
+            "options": [
+                {
+                    "answer": "No power at all",
+                    "next": {
+                        "type": "escalate",
+                        "text": "This points to a PSU or motherboard power issue, not RAM specifically — recommend professional diagnosis."
+                    }
+                },
+                {
+                    "answer": "Yes, power comes on but no boot/display",
+                    "next": {
+                        "id": "q2",
+                        "question": "Is the new RAM on the motherboard's QVL (Qualified Vendor List) for your board?",
+                        "options": [
+                            {
+                                "answer": "Not sure / didn't check",
+                                "next": {
+                                    "type": "conclusion",
+                                    "text": "Check your motherboard manufacturer's QVL page for your exact RAM model. Unlisted kits sometimes need a BIOS update to be recognized."
+                                }
+                            },
+                            {
+                                "answer": "Yes, it's listed",
+                                "next": {
+                                    "type": "conclusion",
+                                    "text": "Update your motherboard BIOS to the latest version — QVL-listed RAM sometimes needs a newer BIOS to be detected correctly, especially on AM5/LGA1700 boards."
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "title": "PC overheating / thermal throttling after RAM change",
+        "category": "RAM",
+        "question_tree": {
+            "id": "q1",
+            "question": "Did you increase RAM speed or enable XMP/EXPO around the same time the overheating started?",
+            "options": [
+                {
+                    "answer": "Yes",
+                    "next": {
+                        "type": "conclusion",
+                        "text": "Higher RAM speeds can slightly increase VRM/chipset heat on some boards. Check chipset temps in BIOS/HWiNFO; ensure case airflow covers the VRM area, and confirm RAM voltage isn't set above the kit's rated spec."
+                    }
+                },
+                {
+                    "answer": "No / unrelated to RAM change",
+                    "next": {
+                        "type": "escalate",
+                        "text": "Overheating unrelated to RAM changes is most likely CPU cooler, thermal paste, or case airflow — outside RAM scope, recommend a full thermal check."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "title": "RAM slot appears physically damaged",
+        "category": "RAM",
+        "question_tree": {
+            "id": "q1",
+            "question": "Are you able to see bent, broken, or missing pins in the DIMM slot with the stick removed?",
+            "options": [
+                {
+                    "answer": "Yes, visible damage",
+                    "next": {
+                        "type": "escalate",
+                        "text": "Physically damaged DIMM slots require professional repair or motherboard replacement — do not force a stick into a damaged slot."
+                    }
+                },
+                {
+                    "answer": "No visible damage, but suspect it's bad",
+                    "next": {
+                        "type": "conclusion",
+                        "text": "Test a known-good RAM stick in that specific slot alone. If it's still not detected while other slots work fine with the same stick, the slot itself is likely the fault — note this for a replacement/repair quote."
+                    }
+                }
+            ]
+        }
+    }
+]
