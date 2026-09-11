@@ -1,52 +1,59 @@
 [
     {
-        "title": "RAM not detected / no display",
+        "title": "RAM capacity showing less than installed",
         "category": "RAM",
+        "keywords": [
+            "only half my ram shows",
+            "missing ram capacity",
+            "16gb showing as 8gb",
+            "ram not detected by windows",
+            "usable memory is lower"
+        ],
         "question_tree": {
             "id": "q1",
-            "question": "Is the RAM stick fully clicked into the slot (you hear a click and clips are locked)?",
+            "question": "Is this a brand new RAM stick you just added, or one that was already working fine before?",
             "options": [
                 {
-                    "answer": "No / Not sure",
-                    "next": {
-                        "type": "conclusion",
-                        "text": "Reseat the RAM: power off, unplug, press the stick firmly until both side clips lock. Then power on."
-                    }
-                },
-                {
-                    "answer": "Yes, it's locked in",
+                    "answer": "Brand new stick",
                     "next": {
                         "id": "q2",
-                        "question": "Have you tried the RAM in a different slot on the motherboard?",
+                        "question": "Did you check if your motherboard (the main circuit board that connects all parts) is securely holding both sides of the stick until you heard a physical click?",
                         "options": [
                             {
-                                "answer": "No",
+                                "answer": "No, I might not have pushed it in all the way",
                                 "next": {
                                     "type": "conclusion",
-                                    "text": "Try a different DIMM slot — this isolates whether it's a slot or stick issue."
+                                    "text": "1. Turn off your PC completely, unplug the power cable, and open the side panel of your computer case.\n2. Press down firmly on both ends of the new RAM stick until the plastic clips on the sides snap closed by themselves.\n3. Plug the power back in and turn the PC on to check if Windows now detects the full amount."
                                 }
                             },
                             {
-                                "answer": "Yes, same issue in other slots",
+                                "answer": "Yes, it is clicked in completely",
                                 "next": {
-                                    "id": "q3",
-                                    "question": "Does the motherboard have a debug LED or beep code for RAM errors?",
-                                    "options": [
-                                        {
-                                            "answer": "Yes, RAM LED is lit / beeping",
-                                            "next": {
-                                                "type": "conclusion",
-                                                "text": "Likely faulty RAM stick or incompatible RAM. Test with a single known-good stick, then check the motherboard QVL (compatibility list) for your RAM."
-                                            }
-                                        },
-                                        {
-                                            "answer": "No / Don't know",
-                                            "next": {
-                                                "type": "escalate",
-                                                "text": "This may be a motherboard or CPU issue beyond basic checks — recommend professional diagnosis."
-                                            }
-                                        }
-                                    ]
+                                    "type": "conclusion",
+                                    "text": "1. Press the Windows key, type 'msconfig', open System Configuration, go to the 'Boot' tab, and click 'Advanced options'.\n2. Check if the box next to 'Maximum memory' is ticked — if it is, uncheck it, click OK, and restart your computer.\n3. If that doesn't fix it, check your motherboard manufacturer's website to see if your BIOS (the basic system software running before Windows) needs an update to recognize newer RAM sizes."
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "answer": "Old stick that used to work",
+                    "next": {
+                        "id": "q3",
+                        "question": "Have you noticed any physical dust buildup or debris inside the RAM slot (the long connector where memory sits)?",
+                        "options": [
+                            {
+                                "answer": "Yes, looks dusty",
+                                "next": {
+                                    "type": "conclusion",
+                                    "text": "1. Power down your PC, unplug it, and carefully remove the RAM stick from its slot.\n2. Use a can of compressed air to gently blow out any dust or debris from inside the empty slot.\n3. Wipe the gold pins of the RAM stick gently with a clean microfiber cloth before clicking it back into place."
+                                }
+                            },
+                            {
+                                "answer": "No, it looks clean",
+                                "next": {
+                                    "type": "escalate",
+                                    "text": "1. Note whether only one specific stick is failing to show up or if Windows is showing hardware reservation limits.\n2. One of your RAM sticks or the slot itself may have suffered permanent physical failure, so it's best to have a technician test the components individually with specialized hardware diagnostic tools."
                                 }
                             }
                         ]
@@ -56,77 +63,44 @@
         }
     },
     {
-        "title": "Blue screen after RAM upgrade",
+        "title": "Random crashes or Blue Screen errors",
         "category": "RAM",
+        "keywords": [
+            "blue screen of death",
+            "pc crashes randomly",
+            "game closing with memory error",
+            "bsod errors",
+            "unexpected restart while gaming"
+        ],
         "question_tree": {
             "id": "q1",
-            "question": "Did the blue screen start right after adding or swapping RAM sticks?",
+            "question": "Did you recently turn on an overclocking setting like XMP or DOCP in your BIOS (the low-level setup menu before Windows loads) to make your RAM run faster?",
             "options": [
                 {
-                    "answer": "Yes, immediately after",
+                    "answer": "Yes, I turned on XMP/DOCP recently",
                     "next": {
-                        "id": "q2",
-                        "question": "Are all installed sticks the exact same speed and timing (check labels)?",
-                        "options": [
-                            {
-                                "answer": "No, they're mismatched",
-                                "next": {
-                                    "type": "conclusion",
-                                    "text": "Mismatched RAM (different speed/timing/brand) can cause instability. Run each stick individually to confirm, then either match kits or set speed manually in BIOS to the slowest stick's rated speed."
-                                }
-                            },
-                            {
-                                "answer": "Yes, they match",
-                                "next": {
-                                    "type": "conclusion",
-                                    "text": "Enable XMP/EXPO in BIOS if not already on, or run at JEDEC default speed as a stability test. Also run MemTest86 for at least one full pass to rule out a faulty stick."
-                                }
-                            }
-                        ]
+                        "type": "conclusion",
+                        "text": "1. Restart your PC and repeatedly press the Delete or F2 key to enter your BIOS settings screen.\n2. Look for the XMP or DOCP profile option and turn it off or set it back to 'Default' or 'Auto'.\n3. Save changes and exit — often, aggressive speed boosts cause instability if the RAM can't handle the rated speed reliably."
                     }
                 },
                 {
-                    "answer": "No, it started later / unrelated timing",
-                    "next": {
-                        "type": "escalate",
-                        "text": "This is likely a software/driver issue rather than RAM — recommend checking Windows Event Viewer for the specific BSOD stop code, or professional diagnosis if crashes continue."
-                    }
-                }
-            ]
-        }
-    },
-    {
-        "title": "System won't boot after installing new RAM",
-        "category": "RAM",
-        "question_tree": {
-            "id": "q1",
-            "question": "Do you get any power (fans spin, lights on) when you press the power button?",
-            "options": [
-                {
-                    "answer": "No power at all",
-                    "next": {
-                        "type": "escalate",
-                        "text": "This points to a PSU or motherboard power issue, not RAM specifically — recommend professional diagnosis."
-                    }
-                },
-                {
-                    "answer": "Yes, power comes on but no boot/display",
+                    "answer": "No, I haven't changed any BIOS settings",
                     "next": {
                         "id": "q2",
-                        "question": "Is the new RAM on the motherboard's QVL (Qualified Vendor List) for your board?",
+                        "question": "Do you have more than one RAM stick installed in your computer right now?",
                         "options": [
                             {
-                                "answer": "Not sure / didn't check",
+                                "answer": "Yes, multiple sticks",
                                 "next": {
                                     "type": "conclusion",
-                                    "text": "Check your motherboard manufacturer's QVL page for your exact RAM model. Unlisted kits sometimes need a BIOS update to be recognized."
+                                    "text": "1. Power down your PC and take out all RAM sticks except for one single stick.\n2. Turn on the PC and use it normally to see if the crashes stop; if it still crashes, swap that stick for the other one.\n3. This process of elimination lets you find out if a single specific RAM stick has gone bad and needs replacement."
                                 }
                             },
                             {
-                                "answer": "Yes, it's listed",
+                                "answer": "No, just a single stick",
                                 "next": {
                                     "type": "conclusion",
-                                    "text": "Update your motherboard BIOS to the latest version — QVL-listed RAM sometimes needs a newer BIOS to be detected correctly, especially on AM5/LGA1700 boards."
+                                    "text": "1. Click the Windows Start menu, type 'Windows Memory Diagnostic', and select it.\n2. Choose 'Restart now and check for problems' and let your computer run the built-in scan while it reboots.\n3. Once Windows turns back on, check the notification center for any reported memory hardware errors."
                                 }
                             }
                         ]
@@ -136,48 +110,141 @@
         }
     },
     {
-        "title": "PC overheating / thermal throttling after RAM change",
+        "title": "PC turns on but no display on monitor",
         "category": "RAM",
+        "keywords": [
+            "pc turns on no screen",
+            "no display after touching ram",
+            "black screen on startup",
+            "computer running but no video",
+            "monitor says no signal after hardware change"
+        ],
         "question_tree": {
             "id": "q1",
-            "question": "Did you increase RAM speed or enable XMP/EXPO around the same time the overheating started?",
+            "question": "Did this black screen happen immediately after you installed, moved, or cleaned your RAM sticks?",
             "options": [
                 {
-                    "answer": "Yes",
+                    "answer": "Yes, right after touching the RAM",
                     "next": {
                         "type": "conclusion",
-                        "text": "Higher RAM speeds can slightly increase VRM/chipset heat on some boards. Check chipset temps in BIOS/HWiNFO; ensure case airflow covers the VRM area, and confirm RAM voltage isn't set above the kit's rated spec."
+                        "text": "1. Unplug the PC power cord completely from the wall outlet for safety.\n2. Take out the RAM sticks and re-insert them, making sure you hear a distinct click from both the top and bottom retaining clips.\n3. If your motherboard has four slots and you are using two sticks, ensure they are placed in the correct alternating slots (usually slot 2 and 4 counting away from the CPU) as recommended in your motherboard manual."
                     }
                 },
                 {
-                    "answer": "No / unrelated to RAM change",
+                    "answer": "No, it happened out of nowhere",
                     "next": {
-                        "type": "escalate",
-                        "text": "Overheating unrelated to RAM changes is most likely CPU cooler, thermal paste, or case airflow — outside RAM scope, recommend a full thermal check."
+                        "id": "q2",
+                        "question": "Does your motherboard have small indicator lights near the RAM slots that stay lit up with a red or orange glow when you turn the PC on?",
+                        "options": [
+                            {
+                                "answer": "Yes, a warning light is lit up",
+                                "next": {
+                                    "type": "conclusion",
+                                    "text": "1. Check the small text label next to the lit-up warning light — if it says 'DRAM', your computer is failing to communicate with your memory.\n2. Unplug your PC, take out all RAM sticks, wipe their contacts gently, and plug back just one stick in the primary slot to see if the light goes away."
+                                }
+                            },
+                            {
+                                "answer": "No / I don't see any warning lights",
+                                "next": {
+                                    "type": "escalate",
+                                    "text": "1. Note down whether your PC makes any unusual pattern of short or long beep sounds when you press the power button.\n2. A persistent no-display issue tied to memory detection failure can mean a damaged motherboard slot or CPU pin issue, which requires physical inspection by a professional repair technician."
+                                }
+                            }
+                        ]
                     }
                 }
             ]
         }
     },
     {
-        "title": "RAM slot appears physically damaged",
+        "title": "PC keeps restarting in a continuous loop",
         "category": "RAM",
+        "keywords": [
+            "computer keeps restarting",
+            "boot loop",
+            "pc turns on and off repeatedly",
+            "restarts on its own before loading windows",
+            "infinite reboot cycle"
+        ],
         "question_tree": {
             "id": "q1",
-            "question": "Are you able to see bent, broken, or missing pins in the DIMM slot with the stick removed?",
+            "question": "Does the computer manage to show the Windows login screen before restarting, or does it restart continuously before any picture appears?",
             "options": [
                 {
-                    "answer": "Yes, visible damage",
+                    "answer": "Restarts continuously before showing any picture",
                     "next": {
-                        "type": "escalate",
-                        "text": "Physically damaged DIMM slots require professional repair or motherboard replacement — do not force a stick into a damaged slot."
+                        "type": "conclusion",
+                        "text": "1. Unplug the power cable and open your PC case.\n2. Remove all RAM sticks from the motherboard completely.\n3. Put back only a single stick of RAM firmly into the second slot away from the processor, then try turning the system back on to break the loop."
                     }
                 },
                 {
-                    "answer": "No visible damage, but suspect it's bad",
+                    "answer": "It reaches Windows or the loading logo first, then restarts",
+                    "next": {
+                        "id": "q2",
+                        "question": "Have you installed any new software updates or hardware drivers right before this reboot loop started?",
+                        "options": [
+                            {
+                                "answer": "Yes, installed updates or drivers",
+                                "next": {
+                                    "type": "conclusion",
+                                    "text": "1. Turn your PC on and off manually three times in a row during startup to force Windows into the Automatic Repair menu.\n2. Navigate to Advanced Options > Troubleshoot > Advanced Options > Startup Settings and click Restart.\n3. Press F4 when prompted to boot into Safe Mode, then uninstall the recent driver or program causing the stability failure."
+                                }
+                            },
+                            {
+                                "answer": "No, nothing new was installed",
+                                "next": {
+                                    "type": "conclusion",
+                                    "text": "1. Shut down the system completely and unplug it from the wall socket.\n2. Locate the coin-sized silver battery (CMOS battery) on your motherboard, take it out gently for 5 minutes, and put it back in.\n3. This resets your BIOS and memory timings back to factory safety defaults, stopping instability loops caused by corrupted configuration settings."
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "title": "Startup warning beeps or motherboard error light",
+        "category": "RAM",
+        "keywords": [
+            "pc beeps when starting",
+            "red light on motherboard",
+            "orange light dram light",
+            "motherboard error beep",
+            "startup error code tones"
+        ],
+        "question_tree": {
+            "id": "q1",
+            "question": "When you turn on the computer, do you hear a repeating pattern of specific beep sounds (like 3 short beeps or a long beep)?",
+            "options": [
+                {
+                    "answer": "Yes, hearing specific beep codes",
                     "next": {
                         "type": "conclusion",
-                        "text": "Test a known-good RAM stick in that specific slot alone. If it's still not detected while other slots work fine with the same stick, the slot itself is likely the fault — note this for a replacement/repair quote."
+                        "text": "1. Count the exact number and length of the beeps (e.g., 3 short beeps is a classic memory error code on most motherboards).\n2. Look up your motherboard brand name online along with the beep pattern to confirm it points to a RAM error.\n3. Reseat your RAM sticks firmly into their slots to clear the connection fault triggering the audio alarm."
+                    }
+                },
+                {
+                    "answer": "No beeps, but there is a steady error light on the board",
+                    "next": {
+                        "id": "q2",
+                        "question": "Is the glowing light next to the label that says 'DRAM' or 'MEM_OK'?",
+                        "options": [
+                            {
+                                "answer": "Yes, it is next to DRAM",
+                                "next": {
+                                    "type": "conclusion",
+                                    "text": "1. Power down your system and locate the 'MEM_OK' button if your motherboard has one near the RAM slots.\n2. Press and hold that button for 3 seconds until an LED starts blinking; the motherboard will automatically test and fix safe memory compatibility settings for you.\n3. If there is no button, take out your RAM sticks and test them one by one in different slots."
+                                }
+                            },
+                            {
+                                "answer": "No, the light is next to CPU or BOOT instead",
+                                "next": {
+                                    "type": "escalate",
+                                    "text": "1. Record a short video of the motherboard indicator lights and startup behavior so you can show it to a hardware technician.\n2. Since the error points away from RAM toward core processor or boot systems, professional diagnostic equipment is required to safely test and swap those expensive parts."
+                                }
+                            }
+                        ]
                     }
                 }
             ]

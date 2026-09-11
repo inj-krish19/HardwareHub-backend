@@ -24,7 +24,12 @@ def seed_symptoms() -> None:
         for path in sorted(SEED_DIR.glob("*_symptoms.json")):
             data = json.loads(path.read_text())
             for entry in data:
-                symptom = Symptom(title=entry["title"], category=entry["category"])
+                keywords = entry.get("keywords")
+                symptom = Symptom(
+                    title=entry["title"],
+                    category=entry["category"],
+                    keywords=", ".join(keywords) if keywords else None,
+                )
                 db.add(symptom)
                 db.flush()
                 db.add(DiagnosisRule(symptom_id=symptom.id, question_tree=entry["question_tree"]))

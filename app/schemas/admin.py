@@ -9,6 +9,11 @@ class SymptomSeedEntry(BaseModel):
     title: str
     category: str
     question_tree: dict
+    keywords: list[str] = []  # optional synonyms, joined to a comma-string on save
+
+
+class SymptomKeywordsUpdate(BaseModel):
+    keywords: list[str]
 
 
 class ProductCreate(BaseModel):

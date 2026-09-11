@@ -1,7 +1,10 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy import select
 from sqlalchemy.orm import Session
+
+import uuid
 
 from app.core.admin_auth import require_admin
 from app.db.session import get_db
@@ -11,6 +14,7 @@ from app.schemas.admin import (
     BlogPostCreate,
     CategoryCreate,
     ProductCreate,
+    SymptomKeywordsUpdate,
     SymptomSeedEntry,
 )
 
@@ -31,13 +35,43 @@ def bulk_upload_symptoms(entries: list[SymptomSeedEntry], db: Session = Depends(
     JSON array straight into this endpoint's request body."""
     created = 0
     for entry in entries:
-        symptom = Symptom(title=entry.title, category=entry.category)
+        symptom = Symptom(
+            title=entry.title,
+            category=entry.category,
+            keywords=", ".join(entry.keywords) if entry.keywords else None,
+        )
         db.add(symptom)
         db.flush()
         db.add(DiagnosisRule(symptom_id=symptom.id, question_tree=entry.question_tree))
         created += 1
     db.commit()
     return {"created": created}
+
+
+@router.get("/symptoms")
+def list_symptoms(db: Session = Depends(get_db)) -> list[dict]:
+    symptoms = db.execute(select(Symptom)).scalars().all()
+    return [
+        {
+            "id": str(s.id),
+            "title": s.title,
+            "category": s.category,
+            "keywords": s.keywords or "",
+        }
+        for s in symptoms
+    ]
+
+
+@router.patch("/symptoms/{symptom_id}/keywords")
+def update_symptom_keywords(
+    symptom_id: uuid.UUID, payload: SymptomKeywordsUpdate, db: Session = Depends(get_db)
+) -> dict:
+    symptom = db.get(Symptom, symptom_id)
+    if symptom is None:
+        raise HTTPException(status_code=404, detail="Symptom not found.")
+    symptom.keywords = ", ".join(k.strip() for k in payload.keywords if k.strip()) or None
+    db.commit()
+    return {"id": str(symptom.id), "keywords": symptom.keywords or ""}
 
 
 @router.post("/categories", status_code=201)

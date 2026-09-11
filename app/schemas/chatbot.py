@@ -14,6 +14,11 @@ class ChatAnswerRequest(BaseModel):
     answer_path: list[str] = Field(default_factory=list)
 
 
+class ChatConfirmRequest(BaseModel):
+    symptom_id: uuid.UUID
+    confirmed: bool
+
+
 class ChatStepResponse(BaseModel):
     symptom_id: uuid.UUID | None = None
     kind: str  # "question" | "conclusion" | "escalate" | "clarify"

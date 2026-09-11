@@ -24,6 +24,10 @@ class Symptom(Base):
     product_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("product.id"), nullable=True)
     title: Mapped[str] = mapped_column(String(200), nullable=False)
     category: Mapped[str] = mapped_column(String(80), nullable=False)
+    # Comma-separated synonyms/phrasings so a query doesn't have to closely
+    # match the title wording to be matched (e.g. "ram isn't showing up"
+    # should still hit "RAM not detected / no display").
+    keywords: Mapped[str | None] = mapped_column(String(500), nullable=True)
 
     diagnosis_rules: Mapped[list["DiagnosisRule"]] = relationship(back_populates="symptom")
 
