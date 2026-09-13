@@ -19,6 +19,14 @@ class ChatConfirmRequest(BaseModel):
     confirmed: bool
 
 
+class BotSelectionRequest(BaseModel):
+    bot_choice: str = Field(..., min_length=1)
+
+
+class SymptomSelectionRequest(BaseModel):
+    title: str = Field(..., min_length=1)
+
+
 class ChatStepResponse(BaseModel):
     symptom_id: uuid.UUID | None = None
     kind: str  # "question" | "conclusion" | "escalate" | "clarify"

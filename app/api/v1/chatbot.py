@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import uuid
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -9,24 +11,43 @@ from app.models.rules import DiagnosisRule, Symptom
 from app.rule_engine import router as intent_router
 from app.rule_engine import tree_walker
 from app.rule_engine.formatter import format_result
-from app.schemas.chatbot import ChatAnswerRequest, ChatConfirmRequest, ChatStartRequest, ChatStepResponse
+from app.schemas.chatbot import (
+    BotSelectionRequest,
+    ChatAnswerRequest,
+    ChatConfirmRequest,
+    ChatStartRequest,
+    ChatStepResponse,
+    SymptomSelectionRequest,
+)
 
 router = APIRouter(prefix="/chat", tags=["chatbot"])
+
+BOT_OPTIONS = [
+    "Diagnostic Bot (Broken/misbehaving part)",
+    "Compatibility Bot (Part compatibility)",
+    "Budget/Build Bot (New PC builds)",
+    "Upgrade Bot (Performance upgrades)",
+    "Maintenance Bot (Care & cleaning)",
+]
 
 
 @router.post("/start", response_model=ChatStepResponse)
 def start_chat(payload: ChatStartRequest, db: Session = Depends(get_db)) -> ChatStepResponse:
     intent = intent_router.route(payload.query)
-    
-    # If intent router recognizes a non-diagnostic bot intent
+
+    # Recognized as a different bot's intent (compatibility/budget/etc.) —
+    # offer the bot picker rather than guessing further.
     if intent and intent != "diagnostic":
         return ChatStepResponse(
-            kind="clarify",
-            message=f"It looks like your query is about {intent.replace('_', ' ')}. Which bot can help you with this? Please choose a category or describe your issue specifically for the diagnostic guide.",
-            options=["Diagnostic Bot", "Compatibility Bot", "Budget/Build Bot", "Upgrade Bot", "Maintenance Bot"]
+            kind="clarify_bot_choice",
+            message=(
+                f"It looks like your question is about {intent.replace('_', ' ')}. "
+                "Pick the bot that fits, or Diagnostic Bot to search our issue guides directly."
+            ),
+            options=BOT_OPTIONS,
         )
 
-    # Check symptom matching for diagnostic intent/queries
+    # Diagnostic intent (or no clear intent) — try to match an existing symptom.
     symptom = _match_symptom(db, payload.query)
     if symptom is not None:
         return ChatStepResponse(
@@ -35,45 +56,56 @@ def start_chat(payload: ChatStartRequest, db: Session = Depends(get_db)) -> Chat
             message=f'Are you asking about: "{symptom.title}"?',
             options=["Yes, that's it", "No, that's not it"],
         )
-    
-    # Pattern not matched and no symptom found: use valid schema kind="clarify" to let user pick a bot category first
+
+    # No confident match at all — offer the bot picker.
     return ChatStepResponse(
-        kind="clarify",
-        message="I'm not quite sure which specialized bot can help with your issue. Which of these areas does your problem fall under?",
-        options=[
-            "Diagnostic Bot (Broken/misbehaving part)",
-            "Compatibility Bot (Part compatibility)",
-            "Budget/Build Bot (New PC builds)",
-            "Upgrade Bot (Performance upgrades)",
-            "Maintenance Bot (Care & cleaning)"
-        ],
+        kind="clarify_bot_choice",
+        message="I'm not quite sure which kind of help you need — pick one below.",
+        options=BOT_OPTIONS,
     )
 
 
 @router.post("/bot-selection", response_model=ChatStepResponse)
-def select_bot(payload: ChatConfirmRequest, db: Session = Depends(get_db)) -> ChatStepResponse:
-    selected_choice = getattr(payload, "selected_title", "")
-    
-    if "Diagnostic" in selected_choice or not selected_choice:
-        all_symptoms = db.execute(select(Symptom)).scalars().all()
-        if all_symptoms:
-            options = [s.title for s in all_symptoms] + ["None of the above"]
+def select_bot(payload: BotSelectionRequest, db: Session = Depends(get_db)) -> ChatStepResponse:
+    if "Diagnostic" in payload.bot_choice:
+        symptoms = db.execute(select(Symptom)).scalars().all()
+        if not symptoms:
             return ChatStepResponse(
-                kind="clarify_list",
-                message="Here are the diagnostic issues we currently have guides for. Select the one related to your problem:",
-                options=options,
+                kind="not_found",
+                message="We don't have any diagnostic guides loaded yet — check back soon.",
             )
+        return ChatStepResponse(
+            kind="clarify_list",
+            message="Here are the issues we currently have guides for — pick the closest match.",
+            options=[s.title for s in symptoms],
+        )
 
     return ChatStepResponse(
         kind="conclusion",
-        message=f"Routed to the selected bot — coming online this sprint.",
+        message=f"{payload.bot_choice.split(' (')[0]} is coming online this sprint.",
     )
+
+
+@router.post("/symptom-selection", response_model=ChatStepResponse)
+def select_symptom(payload: SymptomSelectionRequest, db: Session = Depends(get_db)) -> ChatStepResponse:
+    """Explicit pick from the full symptom list — skips the confirm step
+    since the user directly chose this exact title, no fuzzy matching involved."""
+    symptom = db.execute(
+        select(Symptom).where(Symptom.title == payload.title)
+    ).scalars().first()
+    if symptom is None:
+        return ChatStepResponse(
+            kind="not_found",
+            message="That issue isn't in our guides yet — check back soon.",
+        )
+    return _start_tree_for_symptom(db, symptom.id)
 
 
 @router.post("/confirm", response_model=ChatStepResponse)
 def confirm_match(payload: ChatConfirmRequest, db: Session = Depends(get_db)) -> ChatStepResponse:
     if not payload.confirmed:
         return ChatStepResponse(
+            symptom_id=payload.symptom_id,
             kind="not_found",
             message=(
                 "Got it — we don't have a guide for that exact issue yet. "
@@ -81,16 +113,7 @@ def confirm_match(payload: ChatConfirmRequest, db: Session = Depends(get_db)) ->
                 "describing it a different way."
             ),
         )
-
-    rule = db.execute(
-        select(DiagnosisRule).where(DiagnosisRule.symptom_id == payload.symptom_id)
-    ).scalars().first()
-    if rule is None:
-        raise HTTPException(status_code=404, detail="No diagnosis rule found for matched symptom.")
-
-    result = tree_walker.start(rule.question_tree)
-    formatted = format_result(result)
-    return ChatStepResponse(symptom_id=payload.symptom_id, **formatted)
+    return _start_tree_for_symptom(db, payload.symptom_id)
 
 
 @router.post("/answer", response_model=ChatStepResponse)
@@ -108,6 +131,17 @@ def answer_chat(payload: ChatAnswerRequest, db: Session = Depends(get_db)) -> Ch
 
     formatted = format_result(result)
     return ChatStepResponse(symptom_id=payload.symptom_id, **formatted)
+
+
+def _start_tree_for_symptom(db: Session, symptom_id: uuid.UUID) -> ChatStepResponse:
+    rule = db.execute(
+        select(DiagnosisRule).where(DiagnosisRule.symptom_id == symptom_id)
+    ).scalars().first()
+    if rule is None:
+        raise HTTPException(status_code=404, detail="No diagnosis rule found for matched symptom.")
+    result = tree_walker.start(rule.question_tree)
+    formatted = format_result(result)
+    return ChatStepResponse(symptom_id=symptom_id, **formatted)
 
 
 def _match_symptom(db: Session, query: str) -> Symptom | None:
