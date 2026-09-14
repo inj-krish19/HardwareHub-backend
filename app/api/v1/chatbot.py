@@ -7,12 +7,14 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
-from app.models.rules import DiagnosisRule, Symptom
+from app.models.rules import DiagnosisRule, RecommendationRule, Symptom, UseBudgetProfile
 from app.rule_engine import router as intent_router
 from app.rule_engine import tree_walker
-from app.rule_engine.formatter import format_result
+from app.rule_engine.formatter import format_recommendation, format_result
 from app.schemas.chatbot import (
     BotSelectionRequest,
+    BudgetAmountRequest,
+    BudgetTaskSelectionRequest,
     ChatAnswerRequest,
     ChatConfirmRequest,
     ChatStartRequest,
@@ -80,10 +82,74 @@ def select_bot(payload: BotSelectionRequest, db: Session = Depends(get_db)) -> C
             options=[s.title for s in symptoms],
         )
 
+    if "Budget/Build" in payload.bot_choice:
+        task_types = db.execute(select(UseBudgetProfile.task_type).distinct()).scalars().all()
+        if not task_types:
+            return ChatStepResponse(
+                kind="not_found",
+                message="We don't have any build profiles loaded yet — check back soon.",
+            )
+        return ChatStepResponse(
+            kind="clarify_list",
+            message="What will you mainly use this PC for?",
+            options=sorted(set(task_types)),
+        )
+
     return ChatStepResponse(
         kind="conclusion",
         message=f"{payload.bot_choice.split(' (')[0]} is coming online this sprint.",
     )
+
+
+@router.post("/budget-task-selection", response_model=ChatStepResponse)
+def select_budget_task(payload: BudgetTaskSelectionRequest, db: Session = Depends(get_db)) -> ChatStepResponse:
+    """Second step of the Budget/Build Advisor flow — task type is picked
+    first (from the distinct task_types actually in the DB), then we ask
+    for the budget amount. Stateless like the rest of the chatbot: task_type
+    is echoed back to the frontend so it can be sent on the next call."""
+    exists = db.execute(
+        select(UseBudgetProfile.id).where(UseBudgetProfile.task_type == payload.task_type)
+    ).first()
+    if exists is None:
+        return ChatStepResponse(
+            kind="not_found",
+            message="We don't have build profiles for that use case yet — check back soon.",
+        )
+    return ChatStepResponse(
+        task_type=payload.task_type,
+        kind="budget_amount_request",
+        message="What's your approximate budget (in ₹)?",
+    )
+
+
+@router.post("/budget-amount", response_model=ChatStepResponse)
+def get_budget_recommendation(payload: BudgetAmountRequest, db: Session = Depends(get_db)) -> ChatStepResponse:
+    """Final step — looks up the UseBudgetProfile whose range contains the
+    given amount for this task_type, then formats its RecommendationRule.
+    Simple range + task_type lookup, not a question_tree walk."""
+    profile = db.execute(
+        select(UseBudgetProfile).where(
+            UseBudgetProfile.task_type == payload.task_type,
+            UseBudgetProfile.budget_min <= payload.budget_amount,
+            UseBudgetProfile.budget_max >= payload.budget_amount,
+        )
+    ).scalars().first()
+    if profile is None:
+        return ChatStepResponse(
+            kind="not_found",
+            message=(
+                f"We don't have a build profile for {payload.task_type} at that budget yet — "
+                "try a nearby amount or check back soon."
+            ),
+        )
+    rule = db.execute(
+        select(RecommendationRule).where(RecommendationRule.profile_id == profile.id)
+    ).scalars().first()
+    if rule is None:
+        raise HTTPException(status_code=404, detail="No recommendation rule found for matched budget profile.")
+
+    formatted = format_recommendation(payload.task_type, payload.budget_amount, rule.component_set)
+    return ChatStepResponse(**formatted)
 
 
 @router.post("/symptom-selection", response_model=ChatStepResponse)
