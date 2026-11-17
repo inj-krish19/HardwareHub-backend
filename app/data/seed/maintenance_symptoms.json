@@ -1,0 +1,271 @@
+[
+  {
+    "title": "How often should I clean my PC?",
+    "category": "Maintenance",
+    "bot_type": "maintenance",
+    "keywords": [
+      "how often clean pc",
+      "pc cleaning schedule",
+      "when to clean computer",
+      "dust in my pc",
+      "how often remove dust from computer"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Where does your PC usually sit?",
+      "options": [
+        {
+          "answer": "On the floor or on a carpet",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Plan to open the case and clean the dust out about every 3 months, because floors and carpets throw up a lot of dust and fibres into the PC's fans.\n2. If you can, move the PC onto a desk or a small stand a few inches off the floor — this alone cuts the dust a lot.\n3. Between cleanings, wipe the outside dust filters (the mesh on the front and bottom) with a dry soft cloth once a month."
+          }
+        },
+        {
+          "answer": "On a desk in a fairly clean room",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Cleaning the inside about every 6 months is enough for most people.\n2. Once a month, wipe the dust filters and the outside vents with a dry soft cloth.\n3. If you notice the fans getting louder or the PC getting warmer than usual, clean it earlier instead of waiting."
+          }
+        },
+        {
+          "answer": "In a dusty area, or a home with pets or smokers",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Clean the inside every 2 to 3 months, because pet hair and smoke residue build up very quickly inside a PC.\n2. Check the dust filters every 2 weeks and wash or wipe them as soon as they look clogged.\n3. Consider a case with proper dust filters on every intake fan if yours doesn't have any, since most dust gets in through the intake fans.\n4. Never use a vacuum cleaner directly on the parts — it can create static electricity that damages them. Use compressed air or a soft brush instead."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do I safely clean the inside of my PC?",
+    "category": "Maintenance",
+    "bot_type": "maintenance",
+    "keywords": [
+      "how to clean pc inside",
+      "clean computer fans safely",
+      "compressed air computer",
+      "remove dust from pc",
+      "steps to clean computer"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Do you have a can of compressed air (or an air blower) and a soft brush?",
+      "options": [
+        {
+          "answer": "Yes, I have them",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Shut down the PC, switch off the power supply switch at the back, and unplug the power cable. Press the power button once to drain any leftover power.\n2. Take the side panel off and move the PC to a well-ventilated spot, ideally outside or near an open window, because the dust will fly everywhere.\n3. Hold each fan still with one finger so it doesn't spin too fast, then blow short bursts of air at the fan blades, the heatsink fins (the metal fin blocks), and the dust filters. Spinning a fan fast with air can damage it.\n4. Use the soft brush gently on stubborn dust. Don't touch the circuit boards with wet cloths or your bare fingers more than needed.\n5. Put the panel back, plug everything in, and turn the PC on. Check that all fans spin normally."
+          }
+        },
+        {
+          "answer": "No, I don't",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Buy a can of compressed air (sold at most electronics shops) or a small electric air blower, plus a soft paintbrush or a clean makeup brush. These are cheap and are the safest tools for this job.\n2. Do not use a vacuum cleaner on the parts and do not use water or wet cloths inside the PC — both can damage the parts.\n3. Once you have them, switch off and unplug the PC, hold each fan still, and blow short bursts of air to push the dust out of the fans, heatsinks and filters.\n4. Do the cleaning in a ventilated place, since the dust will be blown out into the air around you."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "When should I replace thermal paste?",
+    "category": "Maintenance",
+    "bot_type": "maintenance",
+    "keywords": [
+      "when to replace thermal paste",
+      "repaste cpu",
+      "change thermal paste",
+      "cpu paste dried out",
+      "thermal paste how often"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "How old is your PC (or the last time the processor cooler was removed), and how are your temperatures?",
+      "options": [
+        {
+          "answer": "Under 3 years old and temperatures are normal",
+          "next": {
+            "type": "conclusion",
+            "text": "1. You don't need to replace the thermal paste yet. Good quality paste usually lasts 3 to 5 years.\n2. Just keep the dust cleaned out of the cooler, since that matters far more at this stage.\n3. Check your temperature again in about a year using a free tool like HWiNFO."
+          }
+        },
+        {
+          "answer": "3 years or older, and temperatures are slowly creeping up",
+          "next": {
+            "id": "q2",
+            "question": "Have you already cleaned the dust out of the cooler and fans?",
+            "options": [
+              {
+                "answer": "No, not yet",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Clean the dust first, because dust is the most common reason temperatures rise over time.\n2. Switch off and unplug the PC, hold each fan still, and blow the dust out of the cooler fins and fans with compressed air.\n3. Check your temperature again after cleaning. If it comes back down to normal, you don't need new thermal paste yet."
+                }
+              },
+              {
+                "answer": "Yes, cleaned it and it is still hot",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Old paste has probably dried out, so replacing it is a good next step.\n2. Switch off and unplug the PC, then carefully remove the cooler following its instructions.\n3. Wipe the old paste off both the processor and the cooler with a lint-free cloth and a little isopropyl alcohol (90% or higher).\n4. Put a small pea-sized dot of fresh paste in the centre of the processor — you don't need a lot — then refit the cooler and tighten the screws evenly, a little at a time in a cross pattern.\n5. Turn the PC on and check your temperatures under load to see the improvement."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "answer": "Temperatures are very high even after cleaning dust",
+          "next": {
+            "type": "escalate",
+            "text": "1. Check that the cooler is mounted firmly and that its fan or pump is actually running.\n2. If you have never replaced the paste and the PC is more than 3 years old, re-pasting is worth doing, but if you're not comfortable removing the cooler, a repair shop can do it quickly and cheaply.\n3. If temperatures stay very high after a proper re-paste, the cooler itself may be too weak or faulty and may need replacing."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do I keep my files safe and back up my data?",
+    "category": "Maintenance",
+    "bot_type": "maintenance",
+    "keywords": [
+      "how to backup my files",
+      "backup pc data",
+      "protect my data",
+      "avoid losing files",
+      "best way to back up computer"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Where are your important files stored right now?",
+      "options": [
+        {
+          "answer": "Only on this PC",
+          "next": {
+            "type": "conclusion",
+            "text": "1. This is risky, because one drive failure can wipe everything. Make a second copy as soon as you can.\n2. Copy your important files (documents, photos, project folders) to an external hard drive or a pen drive. Even a manual copy once a week is better than nothing.\n3. Also turn on a free cloud backup like Google Drive, OneDrive or similar for your most important folders, so a copy exists outside your home.\n4. A simple rule: keep 3 copies of anything important — the original, one on an external drive, and one in the cloud."
+          }
+        },
+        {
+          "answer": "Some on an external drive or cloud already",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Good start. Check that the backup is actually up to date by opening a recent file from the backup and making sure it opens properly.\n2. Make it automatic if you can — most cloud tools and Windows' own File History can back up on a schedule so you don't have to remember.\n3. If your only backup is one external drive kept next to the PC, add a cloud copy too, since a fire, theft or power surge could damage both."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do I keep drivers and Windows updated safely?",
+    "category": "Maintenance",
+    "bot_type": "maintenance",
+    "keywords": [
+      "how to update drivers",
+      "update windows safely",
+      "outdated drivers",
+      "keep pc updated",
+      "driver update how"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What do you want to update?",
+      "options": [
+        {
+          "answer": "Windows itself",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Open Settings, then Windows Update, and click 'Check for updates'. Install everything it offers, and restart when asked.\n2. Leave your PC plugged in and don't switch it off during an update, since interrupting it can cause problems.\n3. Turn on automatic updates so important security fixes install without you having to remember."
+          }
+        },
+        {
+          "answer": "My graphics card driver",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Find out which graphics card you have: right-click the Start button, open Device Manager, and look under 'Display adapters'.\n2. Download the newest driver only from the maker's official website (NVIDIA, AMD or Intel) — avoid random driver download sites.\n3. Run the installer and choose the 'clean install' or 'perform a clean installation' option if you see one. Restart the PC afterward."
+          }
+        },
+        {
+          "answer": "Everything / I'm not sure",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Start with Windows Update — it also installs many hardware drivers automatically.\n2. Then update your graphics driver from the maker's website, since it affects games and display problems the most.\n3. For other parts like the motherboard, check your PC or motherboard maker's support page and download the chipset and audio drivers for your exact model.\n4. Only update the BIOS if you have a specific problem it fixes, since a failed BIOS update can stop the PC from starting."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do I keep my PC cool in hot weather?",
+    "category": "Maintenance",
+    "bot_type": "maintenance",
+    "keywords": [
+      "pc too hot in summer",
+      "keep computer cool",
+      "reduce pc temperature",
+      "prevent overheating",
+      "computer heating in hot weather"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Have you checked your PC's temperatures using a tool like HWiNFO?",
+      "options": [
+        {
+          "answer": "No, I haven't checked",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Download a free tool such as HWiNFO and open it in 'sensors only' mode.\n2. Watch the processor and graphics card temperatures first while idle, and then while gaming or doing heavy work.\n3. As a rough guide, under about 80°C while working hard is fine; consistently above 90°C needs action."
+          }
+        },
+        {
+          "answer": "Yes, and temperatures are high (above about 85°C under load)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Clean the dust from the fans, filters and heatsinks, since this is the biggest fix for most PCs.\n2. Make sure the PC has space around it and isn't pushed into a cupboard or against a wall. Leave at least a hand's width at the back and sides.\n3. Check that your case has fans bringing cool air in at the front and pushing hot air out at the back or top.\n4. In very hot rooms, keep the PC away from sunlight and consider using a fan or AC in the room during heavy use."
+          }
+        },
+        {
+          "answer": "Yes, and temperatures look fine",
+          "next": {
+            "type": "conclusion",
+            "text": "1. You're in good shape. In summer, room temperature rises and your PC temperatures will rise with it, so keep checking now and then.\n2. Keep dust filters clean and give the PC breathing space.\n3. If you plan to do something heavy like long gaming sessions, make sure the room is well ventilated."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "How do I protect my PC from power cuts and voltage fluctuations?",
+    "category": "Maintenance",
+    "bot_type": "maintenance",
+    "keywords": [
+      "power cut pc",
+      "voltage fluctuation computer",
+      "ups for pc",
+      "surge protector",
+      "pc turns off when light goes",
+      "protect computer from power surge"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "How often do you get power cuts or flickering lights where you live?",
+      "options": [
+        {
+          "answer": "Often — frequent cuts or voltage swings",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Get a UPS (uninterruptible power supply). It keeps the PC running for a few minutes when the power goes, so you can save your work and shut down properly.\n2. Pick a UPS with enough capacity for your PC — for a normal desktop, a 600VA to 1000VA unit is common, but add up your PC's wattage first and choose one comfortably above it.\n3. Plug the PC and monitor into the UPS, but don't plug a laser printer into it, since printers use a lot of power.\n4. Replace the UPS battery every 2 to 3 years, as they wear out."
+          }
+        },
+        {
+          "answer": "Rarely — mostly stable power",
+          "next": {
+            "type": "conclusion",
+            "text": "1. A good quality surge-protector power strip is usually enough. Look for one with proper surge protection and an overload switch, not just a plain extension board.\n2. Unplug the PC during thunderstorms if you can.\n3. Even with stable power, a UPS is a nice extra if you often work on long documents or projects you can't afford to lose."
+          }
+        }
+      ]
+    }
+  }
+]

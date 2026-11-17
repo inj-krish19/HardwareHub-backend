@@ -1,0 +1,225 @@
+[
+  {
+    "title": "CPU thermal throttling under load",
+    "category": "Cooling",
+    "keywords": [
+      "cpu overheating",
+      "computer slows down when hot",
+      "cpu getting too hot",
+      "performance drops during gaming",
+      "processor throttling"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Have you checked your processor's temperature using a free tool like HWiNFO while doing something demanding, like gaming or exporting a video?",
+      "options": [
+        {
+          "answer": "No / not sure",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Download a free monitoring tool such as HWiNFO and open it while running something demanding on your computer.\n2. Watch the processor's temperature — if it climbs close to 90-100°C and your computer noticeably slows down at the same time, that confirms overheating is the cause.\n3. Once confirmed, move on to checking your cooler and case airflow (see the next steps below)."
+          }
+        },
+        {
+          "answer": "Yes, confirmed it gets very hot and slows down",
+          "next": {
+            "id": "q2",
+            "question": "Has the cooler on top of your processor ever been removed and reinstalled, or has it been more than 2-3 years since it was first installed?",
+            "options": [
+              {
+                "answer": "Yes, either of those applies",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Turn off and unplug the computer, then carefully remove the cooler sitting on top of the processor, following your cooler's instructions for order and force.\n2. Clean off the old thermal paste from both the processor and the cooler using a soft cloth or paper towel, then apply a small pea-sized amount of fresh thermal paste to the processor.\n3. Reinstall the cooler evenly, following the correct tightening order from its instructions, then test the temperature again under load."
+                }
+              },
+              {
+                "answer": "No, the cooler has never been touched and is fairly new",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Check that your case has enough fans bringing air in and letting hot air out — ideally at least one intake and one exhaust fan.\n2. Turn off and unplug the computer, then gently clean any dust built up on the cooler's fins and fans using a can of compressed air.\n3. If temperatures are still very high after improving airflow and cleaning dust, your cooler may not be powerful enough for your processor and could need upgrading."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "AIO pump failure or no liquid cooling circulation",
+    "category": "Cooling",
+    "keywords": [
+      "liquid cooler not working",
+      "aio pump not running",
+      "water cooling not circulating",
+      "cpu cooler pump dead",
+      "liquid cooling overheating"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "If you have a liquid cooling unit (a small pump sitting on the processor connected by tubes to a radiator with fans), can you feel or hear the pump running when the computer is on?",
+      "options": [
+        {
+          "answer": "No, I can't feel or hear it running at all",
+          "next": {
+            "type": "escalate",
+            "text": "1. Turn off the computer for now rather than continuing to use it, since a stopped pump can cause your processor to overheat very quickly.\n2. This usually means the pump itself has failed, so the liquid cooling unit will likely need to be replaced — a technician can confirm this for you."
+          }
+        },
+        {
+          "answer": "Yes, I can feel or hear it running",
+          "next": {
+            "id": "q2",
+            "question": "Even though the pump seems to be running, are your processor's temperatures still unusually high?",
+            "options": [
+              {
+                "answer": "Yes, temperatures are still high",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Check that the cable connecting your pump is plugged into the header on your motherboard labeled for the pump (often called 'AIO_PUMP' or similar), and that it's set to run at full or near-full speed in your BIOS/UEFI settings.\n2. Gently check that the radiator (the part with fans, usually mounted at the top, front, or back of the case) isn't clogged with dust, and clean it with compressed air if needed.\n3. If temperatures are still high after these checks, there may be trapped air inside the cooling loop or the coolant may have degraded, which is best looked at by a technician or may mean the unit needs replacing."
+                }
+              },
+              {
+                "answer": "No, temperatures are actually fine",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. If your temperatures are normal, your liquid cooling unit is working correctly and there's nothing to worry about right now.\n2. It's still a good idea to check the radiator for dust buildup every few months to keep it working well."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Unusual noise from cooler (rattling, grinding, or buzzing)",
+    "category": "Cooling",
+    "keywords": [
+      "fan making noise",
+      "rattling sound from pc",
+      "grinding noise from computer",
+      "buzzing sound from cooler",
+      "weird noise from computer fan"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Does the noise sound more like a rattling or grinding fan, or more like a buzzing or whining pump (if you have liquid cooling)?",
+      "options": [
+        {
+          "answer": "Sounds like a fan (rattling or grinding)",
+          "next": {
+            "id": "q2",
+            "question": "With the computer off and unplugged for safety, can you find the specific fan making the noise by gently spinning each fan by hand and listening closely?",
+            "options": [
+              {
+                "answer": "Yes, I found the fan making the noise",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Check that fan's cable is fully plugged in and not loose, and make sure no other cables are touching or rubbing against its blades.\n2. Gently clean any dust off the fan blades using a can of compressed air, holding the blades still while you spray to avoid spinning them too fast.\n3. If the rattling or grinding continues after cleaning and checking cables, that specific fan likely has worn-out internal parts and should be replaced."
+                }
+              },
+              {
+                "answer": "No, I couldn't tell which one it is",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. With the computer off, check that no loose cables inside the case are touching or resting against any fan blades, and tuck away any that are.\n2. Turn the computer back on and listen carefully near each fan one at a time to help narrow down where the sound is coming from.\n3. Once you've identified the fan, clean it with compressed air, and replace it if the noise continues afterward."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "answer": "Sounds like a buzzing or whining pump",
+          "next": {
+            "type": "conclusion",
+            "text": "1. A small amount of pump noise is normal for many liquid cooling units, especially quiet buzzing.\n2. If the noise is loud, sudden, or getting worse over time, keep an eye on your processor's temperature, since this can sometimes be an early sign the pump is starting to fail.\n3. If temperatures start rising along with the noise, plan to have the unit checked or replaced soon."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Cooler not detected or fan/pump headers not reading",
+    "category": "Cooling",
+    "keywords": [
+      "fan speed shows zero",
+      "cooler not detected by motherboard",
+      "fan rpm shows n/a",
+      "pump speed not reading",
+      "bios doesn't see my fan"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is your cooler's fan or pump actually spinning normally, but your BIOS/UEFI or monitoring software shows its speed as 0 or 'N/A'?",
+      "options": [
+        {
+          "answer": "Yes, it's spinning fine but shows 0 or N/A",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Turn off and unplug the computer, then check that the fan or pump's cable is plugged into the correct header on the motherboard meant for it (often labeled 'CPU_FAN' or 'AIO_PUMP' — check your motherboard's manual for the exact labels and locations).\n2. Make sure the cable is fully pushed in and not just resting on the pins.\n3. If it still reads as 0 or N/A after moving it to the correct header, some fans simply aren't read accurately by certain headers — as long as your temperatures stay normal, this reading issue on its own usually isn't dangerous."
+          }
+        },
+        {
+          "answer": "No, it's actually not spinning at all",
+          "next": {
+            "type": "escalate",
+            "text": "1. Check your processor's temperature right away using a free tool like HWiNFO, since a cooler that isn't spinning can cause rapid overheating.\n2. If temperatures are climbing quickly, turn off the computer to be safe, and have the fan or pump replaced or checked by a technician before using the computer normally again."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Loud or constantly high fan speeds",
+    "category": "Cooling",
+    "keywords": [
+      "fans always loud",
+      "pc fans running at full speed",
+      "computer sounds like a jet",
+      "fans never slow down",
+      "loud fan noise all the time",
+      "fan very loud",
+      "loud fan",
+      "pc fan too loud",
+      "fans are really loud"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Are your fans running loudly even when the computer is just idle or doing very light tasks, not just during gaming or heavy use?",
+      "options": [
+        {
+          "answer": "Yes, loud even when idle",
+          "next": {
+            "id": "q2",
+            "question": "Have you checked your fan speed settings in the BIOS/UEFI, or in any fan control software installed on your computer?",
+            "options": [
+              {
+                "answer": "No / not sure",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Restart the computer and enter the BIOS/UEFI settings, then look for a section about fan speeds or fan curves.\n2. If the fans are set to run at 100% or a very high fixed speed all the time, change the setting to an automatic or quieter curve that only speeds up as temperatures rise.\n3. Save the changes, restart normally, and see if the fans are quieter while the computer is idle."
+                }
+              },
+              {
+                "answer": "Yes, checked — settings look normal already",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Check your processor and case temperatures using a free tool like HWiNFO while the computer is idle, since unusually high idle temperatures could explain why the fans are working hard even without a heavy task running.\n2. If temperatures look normal but the fans are still loud, a specific fan may have worn bearings and could need replacing."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "answer": "No, it's only loud during gaming or heavy use",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Fans getting louder during demanding tasks is normal behavior, since they speed up to keep temperatures under control.\n2. If the noise feels excessive for how demanding the task is, checking your temperatures with a tool like HWiNFO can help confirm whether it's simply doing its job or whether cooling could be improved."
+          }
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,271 @@
+[
+  {
+    "title": "Will this RAM work with my motherboard?",
+    "category": "Compatibility",
+    "bot_type": "compatibility",
+    "keywords": [
+      "is this ram compatible with my board",
+      "can i use ddr5 on a ddr4 board",
+      "ddr4 or ddr5 ram",
+      "ram type for my motherboard",
+      "will my ram work",
+      "memory compatible with motherboard"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Do you know which type of RAM your motherboard uses?",
+      "options": [
+        {
+          "answer": "Yes, DDR4",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Buy only DDR4 RAM. DDR5 sticks are shaped differently and will not fit into a DDR4 slot — never force one in, because that can damage the slot.\n2. Check your motherboard's maximum supported speed and total capacity on the maker's website, in the 'Memory' section of its specifications.\n3. If you are adding to existing RAM, try to match the speed and size of the sticks already installed, and use them in the slots the motherboard manual recommends."
+          }
+        },
+        {
+          "answer": "Yes, DDR5",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Buy only DDR5 RAM. DDR4 sticks are shaped differently and will not fit — never force them.\n2. Check the maximum speed and total capacity your board and processor support on the maker's website.\n3. Use two matching sticks (a 'kit') in the slots the manual recommends for best performance."
+          }
+        },
+        {
+          "answer": "I don't know",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Find your motherboard's model name: press the Windows key, type 'System Information', and look at 'BaseBoard Product'. Or look at the printed text on the motherboard itself.\n2. Search for that model name plus 'specifications' on the maker's website and look at the 'Memory' section — it will say DDR4 or DDR5 and show the maximum speed and capacity.\n3. You can also open Task Manager, go to the Performance tab, then Memory, to see the type and speed of the RAM currently installed."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Will this processor work with my motherboard?",
+    "category": "Compatibility",
+    "bot_type": "compatibility",
+    "keywords": [
+      "cpu compatible with motherboard",
+      "which cpu fits my motherboard",
+      "cpu socket type",
+      "am4 am5 lga1700",
+      "will this processor fit my board",
+      "cpu and motherboard match"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What are you planning to buy?",
+      "options": [
+        {
+          "answer": "A new processor for my existing motherboard",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Find your motherboard's exact model and look up its 'CPU Support List' on the maker's website. Your new processor must be listed there.\n2. Check the socket type matches — the motherboard and processor must use the same socket (for example AM4, AM5 or LGA1700). A mismatch will not physically fit.\n3. Even if the socket matches, an older board may need a BIOS update before it recognises a newer processor. The support list tells you which BIOS version you need.\n4. If you need a BIOS update, do it before swapping the processor, because some boards can't start with an unsupported processor to update afterwards."
+          }
+        },
+        {
+          "answer": "A new motherboard for my existing processor",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Find out your current processor's exact name and socket (the box, the sticker, or the 'System Information' app will tell you).\n2. Buy a motherboard with the same socket, and check that the board's support list includes your exact processor model.\n3. Check which RAM type the new board uses (DDR4 or DDR5). If it differs from your current RAM, you'll need new RAM too."
+          }
+        },
+        {
+          "answer": "Both new (building a new PC)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Pick the processor first, then choose a motherboard with the matching socket.\n2. Check the motherboard's CPU support list for your exact processor, and look for boards that mention 'ready for new processors' or have the right BIOS version out of the box.\n3. Also pick RAM that matches the motherboard's memory type (DDR4 or DDR5), since this is the most common mistake when mixing parts."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Will this graphics card fit and run in my PC?",
+    "category": "Compatibility",
+    "bot_type": "compatibility",
+    "keywords": [
+      "is my gpu compatible",
+      "will graphics card fit my case",
+      "does my psu support this gpu",
+      "gpu too big for case",
+      "can i install this graphics card",
+      "graphics card compatibility"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What are you unsure about?",
+      "options": [
+        {
+          "answer": "Whether it physically fits in my case",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Find the graphics card's length and thickness on the maker's product page (listed in millimetres).\n2. Find your case's maximum graphics card length on its specifications page, or measure the space inside from the back slot to the front fans or drive cages.\n3. Leave a little extra room, about 1 to 2 cm, so cables and airflow aren't squeezed.\n4. Also check the thickness — large cards take up 2 to 3 slot spaces and can block other slots next to them."
+          }
+        },
+        {
+          "answer": "Whether my power supply can run it",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Find the 'recommended power supply' wattage on the graphics card maker's page, and compare it with your power supply's wattage printed on its sticker.\n2. Check that your power supply has the right power cables for the card (6-pin, 8-pin, or a newer 12-pin style), because some cards need two of them.\n3. If your power supply is old or low quality, aim higher than the minimum for safety.\n4. If you're short on wattage or cables, you'll need a new power supply as well."
+          }
+        },
+        {
+          "answer": "Whether my motherboard slot supports it",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Nearly every modern graphics card uses a PCIe x16 slot, and your motherboard almost certainly has one — look for the long slot closest to the processor.\n2. Newer cards also work in older PCIe slots, just possibly with a small speed difference, so a slot version mismatch usually isn't a problem.\n3. The bigger concern with an older PC is the processor: a very old processor can hold a new card back."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Will this SSD work in my PC?",
+    "category": "Compatibility",
+    "bot_type": "compatibility",
+    "keywords": [
+      "is this ssd compatible",
+      "m.2 ssd for my motherboard",
+      "nvme or sata",
+      "which ssd should i buy",
+      "m.2 slot compatibility",
+      "can i add ssd to my pc"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What kind of SSD are you looking at?",
+      "options": [
+        {
+          "answer": "A small stick-shaped one (M.2)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check that your motherboard has an M.2 slot — it's a small slot on the board, often under a metal cover.\n2. Check what kind of M.2 your slot supports: some support NVMe (the fast type), some only support SATA M.2, and many support both. The motherboard manual lists this.\n3. Check the length — most drives are '2280' (80 mm long), which fits almost every board.\n4. If your motherboard has no M.2 slot, you can use a cheap PCIe adapter card to fit an NVMe drive, as long as you have a free slot."
+          }
+        },
+        {
+          "answer": "A 2.5-inch one with a cable (SATA)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Nearly every PC with a free SATA port can use a 2.5-inch SSD. Look at your motherboard for unused SATA ports.\n2. You'll need a SATA data cable and a SATA power cable from your power supply. Check that your power supply has a spare SATA power connector.\n3. Most desktop cases have mounting spots for 2.5-inch drives. If yours doesn't, a cheap mounting bracket solves it."
+          }
+        },
+        {
+          "answer": "I'm not sure which kind I need",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Open your PC and look at the motherboard for a small slot with a tiny screw next to it (M.2) and rows of small L-shaped ports (SATA).\n2. If you have an M.2 slot, an NVMe M.2 drive is usually the best choice. If not, a 2.5-inch SATA SSD works almost everywhere.\n3. Look up your motherboard's manual online and check the 'Storage' section to confirm."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Will this CPU cooler fit my PC and processor?",
+    "category": "Compatibility",
+    "bot_type": "compatibility",
+    "keywords": [
+      "is this cooler compatible",
+      "cpu cooler fit my case",
+      "air cooler too tall",
+      "aio radiator size for case",
+      "cooler socket support",
+      "which cooler for my cpu"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What type of cooler are you planning to buy?",
+      "options": [
+        {
+          "answer": "An air cooler (a big metal heatsink with a fan)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check that the cooler supports your processor's socket (for example AM4, AM5 or LGA1700). The cooler's product page lists supported sockets.\n2. Check the cooler's height against your case's maximum 'CPU cooler height' limit. A cooler that is too tall will stop your side panel from closing.\n3. Check that tall coolers won't block your RAM slots. Some coolers overhang the first RAM slot, so look at the 'RAM clearance' line on the cooler's page."
+          }
+        },
+        {
+          "answer": "A liquid cooler (a pump with a radiator and tubes)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check that the cooler supports your processor's socket on its product page.\n2. Check which radiator sizes your case supports (120 mm, 240 mm, 280 mm or 360 mm) and where it can be mounted — usually the top or front. The case's specifications page lists this.\n3. Make sure the radiator and tubes won't collide with your RAM or the top of the motherboard, and that the tubes are long enough to reach.\n4. Check that your motherboard has a header for the pump (often labelled AIO_PUMP or CPU_FAN)."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Is my power supply strong enough for my parts?",
+    "category": "Compatibility",
+    "bot_type": "compatibility",
+    "keywords": [
+      "how many watts do i need",
+      "psu wattage for my pc",
+      "is my power supply enough",
+      "which power supply should i buy",
+      "will my psu handle this",
+      "power supply calculator",
+      "will my power supply handle a new graphics card",
+      "can my psu run this gpu",
+      "power supply for new graphics card"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What graphics setup does your PC have (or will have)?",
+      "options": [
+        {
+          "answer": "No separate graphics card (built-in graphics only)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. A good quality power supply of around 300 to 400 watts is usually plenty for a PC without a separate graphics card.\n2. Quality matters more than raw wattage here, so choose a known brand with an '80 Plus' rating."
+          }
+        },
+        {
+          "answer": "An entry-level or mid-range graphics card",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check the graphics card maker's 'recommended power supply' number first — it is the safest guide.\n2. As a rough guide, many entry-level and mid-range setups run well on a good quality power supply of about 450 to 650 watts.\n3. Make sure the power supply has the right cables for your card (6-pin, 8-pin, or 12-pin style).\n4. Choose a known brand with an '80 Plus Bronze' rating or better — a cheap unrated unit is a real risk to your other parts."
+          }
+        },
+        {
+          "answer": "A high-end graphics card",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Follow the graphics card maker's recommended power supply, which is often 750 watts or more for high-end cards.\n2. Check that the power supply has enough separate cables for the card instead of splitting one cable into two.\n3. Pick a high-quality unit from a reputable brand with a good warranty, because high-end cards put heavy spikes of demand on the power supply."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Can my old PC run Windows 11?",
+    "category": "Compatibility",
+    "bot_type": "compatibility",
+    "keywords": [
+      "windows 11 compatible",
+      "can my pc run windows 11",
+      "windows 11 requirements",
+      "tpm 2.0 secure boot",
+      "pc health check",
+      "windows 11 upgrade not available"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Roughly how old is your PC?",
+      "options": [
+        {
+          "answer": "About 7 years old or newer",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Download and run Microsoft's 'PC Health Check' app, which tells you directly whether your PC can run Windows 11 and, if not, why.\n2. The two most common blockers are TPM 2.0 and Secure Boot being switched off. On many newer PCs they exist but are turned off in the BIOS settings.\n3. If PC Health Check says TPM or Secure Boot is the problem, restart the PC, enter the BIOS (usually by pressing Delete or F2), and look for options called 'TPM', 'PTT' or 'fTPM', and 'Secure Boot', then turn them on.\n4. Back up your files before upgrading, just in case."
+          }
+        },
+        {
+          "answer": "Older than about 7 years",
+          "next": {
+            "type": "escalate",
+            "text": "1. Run Microsoft's 'PC Health Check' app to get a definite answer for your exact PC.\n2. Many PCs of this age fail the processor or TPM requirement and can't officially run Windows 11.\n3. Microsoft has ended regular support for Windows 10, so staying on it long term is a security risk. Consider upgrading the processor and motherboard, or replacing the PC.\n4. A technician can tell you whether a cheap fix (like a BIOS update or TPM module) would make your PC eligible."
+          }
+        }
+      ]
+    }
+  }
+]

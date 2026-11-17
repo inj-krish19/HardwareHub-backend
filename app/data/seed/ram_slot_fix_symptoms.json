@@ -1,0 +1,114 @@
+[
+  {
+    "title": "RAM slot is damaged or does not hold the RAM",
+    "category": "RAM",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "ram slot broken",
+      "ram slot damaged",
+      "ram won't click in",
+      "memory slot broken",
+      "ram slot not working"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Does the RAM slot (the long connector on the motherboard where the RAM stick clicks in) look physically damaged or fail to hold the RAM securely?",
+      "options": [
+        {
+          "answer": "Yes",
+          "next": {
+            "id": "q2",
+            "question": "Can the RAM be installed securely in another recommended slot without forcing it?",
+            "options": [
+              {
+                "answer": "Yes",
+                "next": {
+                  "id": "q3",
+                  "question": "Does the computer detect and use the RAM normally in that other slot?",
+                  "options": [
+                    {
+                      "answer": "Yes",
+                      "next": {
+                        "type": "conclusion",
+                        "text": "1. Stop using the damaged slot because forcing RAM into it could cause further motherboard damage.\n2. Use the working slot configuration recommended by the motherboard manufacturer.\n3. Arrange motherboard repair or replacement if you need the damaged slot restored."
+                      }
+                    },
+                    {
+                      "answer": "No",
+                      "next": {
+                        "type": "escalate",
+                        "text": "1. Do not force the RAM into either slot if it does not seat normally, and avoid bending or pressing the motherboard.\n2. Because the problem involves a possible physical motherboard fault, have the board and RAM inspected by a qualified technician."
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "answer": "No",
+                "next": {
+                  "type": "escalate",
+                  "text": "1. Do not force the RAM into a damaged or obstructed slot, especially if a retention clip is broken or the connector looks cracked.\n2. A physically damaged motherboard slot requires inspection and possible repair or replacement by a qualified technician."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "answer": "No / not sure",
+          "next": {
+            "id": "q4",
+            "question": "Does the RAM click into place securely when you install it?",
+            "options": [
+              {
+                "answer": "Yes",
+                "next": {
+                  "id": "q5",
+                  "question": "Does the same RAM work correctly in another recommended slot?",
+                  "options": [
+                    {
+                      "answer": "Yes",
+                      "next": {
+                        "id": "q6",
+                        "question": "Does the original slot still fail when you test it with a known-working compatible RAM stick?",
+                        "options": [
+                          {
+                            "answer": "Yes",
+                            "next": {
+                              "type": "escalate",
+                              "text": "1. Stop using the problem slot and note whether other slots continue to work normally.\n2. If a known-working RAM stick also fails in that slot, the motherboard slot or its electrical connection may be faulty and should be professionally inspected."
+                            }
+                          },
+                          {
+                            "answer": "No",
+                            "next": {
+                              "type": "conclusion",
+                              "text": "1. The original issue may have been caused by poor seating or the RAM not being fully locked into place.\n2. Reinstall the RAM carefully and make sure both retention clips are fully engaged.\n3. Use the motherboard's recommended slots when installing multiple RAM sticks."
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "answer": "No",
+                      "next": {
+                        "type": "conclusion",
+                        "text": "1. Shut down the computer and remove the RAM carefully without forcing it.\n2. Inspect the RAM stick and slot for visible dust, foreign objects, or obvious physical damage.\n3. Reinstall the RAM carefully, and if it still cannot be detected, test the RAM in another known-good slot."
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "answer": "No",
+                "next": {
+                  "type": "escalate",
+                  "text": "1. Do not keep forcing the RAM into the connector if it does not align or lock normally.\n2. A RAM stick that cannot physically seat correctly may indicate a damaged module, connector, or retention mechanism and should be inspected by a technician."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

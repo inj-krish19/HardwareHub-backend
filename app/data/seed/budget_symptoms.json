@@ -1,0 +1,268 @@
+[
+  {
+    "title": "Build a PC for coding and college work",
+    "category": "Budget",
+    "bot_type": "budget",
+    "keywords": [
+      "best pc under 50000 for coding",
+      "budget build for dsa practice",
+      "pc for programming",
+      "computer for web development",
+      "pc build for students",
+      "coding pc budget"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What is your budget for the whole PC?",
+      "options": [
+        {
+          "answer": "Under ₹35,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Processor: a 6-core processor with built-in graphics (for example a Ryzen 5 5600G class or Intel Core i3-12100 class). You don't need a separate graphics card for coding.\n2. RAM: 16GB. Coding tools, a browser and a local server together use a lot of memory, and 8GB will feel slow.\n3. Storage: a 512GB SSD. A fast drive makes the PC feel quicker than almost anything else.\n4. Power supply: a reliable 400 to 450 watt unit from a known brand.\n5. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        },
+        {
+          "answer": "₹35,000 to ₹60,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Processor: a 6-core processor such as a Ryzen 5 5600 class or Intel Core i5-12400F class. It handles compilers, several editors and Docker comfortably.\n2. RAM: 16GB now, with a motherboard that has a spare slot so you can go to 32GB later.\n3. Storage: a 512GB to 1TB SSD (NVMe if the board supports it).\n4. Graphics: skip a separate card unless you also game. If you do, spend the extra on an entry-level graphics card.\n5. Power supply: a reliable 450 to 550 watt unit with an 80 Plus rating.\n6. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        },
+        {
+          "answer": "Above ₹60,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Processor: a strong 6 to 8 core processor. Extra cores speed up builds and virtual machines.\n2. RAM: 32GB if you use virtual machines, Android emulators or heavy tools; otherwise 16GB is still fine.\n3. Storage: a 1TB fast NVMe SSD, with space for several projects and tools.\n4. Graphics: only add a separate card if you also game or do GPU work. Otherwise put the money into RAM and storage.\n5. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Build a gaming PC on a budget",
+    "category": "Budget",
+    "bot_type": "budget",
+    "keywords": [
+      "gaming pc build",
+      "budget gaming pc",
+      "best gaming pc under budget",
+      "cheap gaming computer",
+      "first gaming pc",
+      "pc for playing games"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What is your budget for the whole PC?",
+      "options": [
+        {
+          "answer": "Under ₹45,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Graphics card: this is where most of your money should go. Look at the best entry-level card you can afford, aimed at 1080p gaming at medium settings.\n2. Processor: a 6-core processor such as a Ryzen 5 5600 class or Intel Core i5-12400F class. Don't overspend here at this budget.\n3. RAM: 16GB (two 8GB sticks, for better speed).\n4. Storage: a 512GB SSD to start; you can add more later.\n5. Power supply: a reliable 500 to 550 watt unit — never cheap out on this part.\n6. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        },
+        {
+          "answer": "₹45,000 to ₹80,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Graphics card: a mid-range card capable of 1080p at high settings, or 1440p at medium.\n2. Processor: a good 6-core processor; there's no need to spend more than the graphics card deserves.\n3. RAM: 16GB, two sticks. Choose a motherboard that lets you upgrade to 32GB later.\n4. Storage: a 1TB SSD, since modern games are very large.\n5. Power supply: a quality 550 to 650 watt unit, checked against your graphics card's recommended wattage.\n6. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        },
+        {
+          "answer": "Above ₹80,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Graphics card: aim for a higher-tier card for smooth 1440p gaming with high settings.\n2. Processor: a strong 6 to 8 core processor so it doesn't hold the graphics card back.\n3. RAM: 16GB at a fast speed, or 32GB if you also stream or edit.\n4. Storage: a 1TB fast SSD, with a second drive later if you need more space.\n5. Power supply and cooling: a quality 650 to 750 watt unit and a good case with good airflow.\n6. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Build a PC for video editing or design",
+    "category": "Budget",
+    "bot_type": "budget",
+    "keywords": [
+      "video editing pc",
+      "pc for photoshop",
+      "editing computer build",
+      "premiere pro pc",
+      "graphic design computer",
+      "computer for content creation"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What is your budget for the whole PC?",
+      "options": [
+        {
+          "answer": "Under ₹60,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Processor: a 6-core processor or better. Editing uses many cores, so it matters more than almost any other part.\n2. RAM: 16GB at minimum; 32GB is much better if you can afford it, especially for 4K or Photoshop with big files.\n3. Storage: a fast 1TB SSD for projects, and a separate bigger drive for archived footage if possible.\n4. Graphics: an entry-level card helps many editing apps. Check your editing software's page for which cards it supports.\n5. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        },
+        {
+          "answer": "₹60,000 to ₹1,00,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Processor: a strong 8-core processor or better.\n2. RAM: 32GB. This helps a lot with timelines and large files.\n3. Storage: a 1TB fast NVMe SSD for the working project, plus a second 1–2TB drive for storage.\n4. Graphics: a mid-range card with enough video memory (8GB or more) to speed up effects and exports.\n5. Display: if you can, put aside some money for a good monitor with accurate colours, since colour matters in editing.\n6. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        },
+        {
+          "answer": "Above ₹1,00,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Processor: a high-core-count processor; exports and rendering speed up with every extra core.\n2. RAM: 32GB to 64GB, depending on how heavy your projects are.\n3. Storage: a fast 2TB NVMe SSD for active work, plus a big drive for archives, and a backup drive.\n4. Graphics: a higher-tier card with plenty of video memory.\n5. Cooling and power: a quality power supply and a well-ventilated case, because editing keeps the PC under load for long periods.\n6. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Build a PC for AI and machine learning beginners",
+    "category": "Budget",
+    "bot_type": "budget",
+    "keywords": [
+      "pc for machine learning",
+      "ai pc build",
+      "deep learning computer",
+      "python data science pc",
+      "gpu for machine learning",
+      "computer for ai projects"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What do you plan to do?",
+      "options": [
+        {
+          "answer": "Learn and practise with small models and datasets",
+          "next": {
+            "type": "conclusion",
+            "text": "1. You may not need a separate graphics card at first. Free tools like Google Colab and Kaggle give you cloud graphics power for learning, so a normal coding PC is enough to start.\n2. Get 16GB of RAM and a 512GB to 1TB SSD, because datasets and Python libraries take space and memory.\n3. If you do want a graphics card, choose an NVIDIA one, since most machine learning tools work best with NVIDIA's CUDA.\n4. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        },
+        {
+          "answer": "Train models on my own PC",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Graphics card: this is the most important part. Choose an NVIDIA card with as much video memory (VRAM) as you can afford — 8GB at least, and 12GB or more is much better.\n2. Processor: a 6 to 8 core processor so it can feed data to the graphics card without slowing things down.\n3. RAM: 32GB, since datasets are loaded into memory.\n4. Storage: a 1TB fast SSD, and extra space for datasets.\n5. Power supply: a quality unit that matches the graphics card's recommended wattage, with good cooling since training runs for hours.\n6. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Build a PC for office and home use",
+    "category": "Budget",
+    "bot_type": "budget",
+    "keywords": [
+      "office pc build",
+      "computer for home use",
+      "basic computer for browsing",
+      "cheap pc for family",
+      "pc for online classes",
+      "simple desktop build"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What is your budget for the whole PC?",
+      "options": [
+        {
+          "answer": "Under ₹25,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Processor: a 4 to 6 core processor with built-in graphics. There's no need for a separate graphics card.\n2. RAM: 8GB at minimum; 16GB if you keep many browser tabs open.\n3. Storage: a 256GB or 512GB SSD. This is the single biggest upgrade for how fast the PC feels.\n4. Power supply: a basic reliable 350 to 400 watt unit.\n5. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        },
+        {
+          "answer": "₹25,000 to ₹40,000",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Processor: a 6-core processor with built-in graphics is plenty.\n2. RAM: 16GB, so the PC stays smooth for years.\n3. Storage: a 512GB SSD, with room to add a second drive later.\n4. Power supply: a reliable 400 to 450 watt unit from a known brand.\n5. If the family also does light photo editing, this budget handles that comfortably too.\n6. Prices change often, so treat the amounts as a rough guide and check current listings before buying."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "First-time PC builder: where should the money go?",
+    "category": "Budget",
+    "bot_type": "budget",
+    "keywords": [
+      "first pc build",
+      "where to spend money on pc",
+      "how to split pc budget",
+      "which parts matter most",
+      "pc build priorities",
+      "new to building pc what to buy first"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "What will you mainly use the PC for?",
+      "options": [
+        {
+          "answer": "Gaming",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Spend the biggest share (roughly 35 to 40 percent of your budget) on the graphics card, since it decides how smooth games look.\n2. Spend about 15 to 20 percent on the processor, and about 10 percent each on the motherboard, RAM and storage.\n3. Spend about 8 to 10 percent on a good power supply — it protects every other part, so don't pick the cheapest one.\n4. Leave a little room for a decent case with airflow."
+          }
+        },
+        {
+          "answer": "Work, study or coding",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Prioritise the processor, RAM (16GB or more) and a fast SSD. These three decide how fast the PC feels day to day.\n2. You usually don't need a separate graphics card unless your work needs one.\n3. Don't skip the power supply quality; pick a reliable brand even on a tight budget."
+          }
+        },
+        {
+          "answer": "I'm not sure yet",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Decide your main use first. It decides where the money should go, and every other choice follows from it.\n2. A safe default for any build: a good power supply, an SSD instead of a hard drive, and at least 16GB of RAM.\n3. Buy parts only from sellers who give a proper GST bill, since you need it for warranty claims later."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Should I buy a prebuilt PC or build my own?",
+    "category": "Budget",
+    "bot_type": "budget",
+    "keywords": [
+      "prebuilt vs custom pc",
+      "build or buy pc",
+      "should i build my own pc",
+      "branded pc or assembled pc",
+      "ready made pc vs assembled",
+      "local assembler pc"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "How comfortable are you with assembling a PC?",
+      "options": [
+        {
+          "answer": "Comfortable — I've done it or I'm happy to follow a guide",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Building yourself usually gives the best value, because you pay for parts and not for a brand's markup, and you pick every part.\n2. Make a parts list first and check that everything is compatible (socket, RAM type, case size, power).\n3. Buy from reliable sellers and keep all bills for warranty."
+          }
+        },
+        {
+          "answer": "No, but I'm willing to learn",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Watch a couple of full beginner build videos for your type of parts before buying anything.\n2. Alternatively, buy the parts yourself and ask a local shop to assemble them for a small fee — you still get the savings and an expert does the tricky part.\n3. Keep the bills for every part, as each part has its own warranty."
+          }
+        },
+        {
+          "answer": "No, I want something ready to use",
+          "next": {
+            "type": "conclusion",
+            "text": "1. A branded prebuilt PC or a local assembled PC are both fine options. Ask a local assembler for an itemised quote that lists every part, so you can see exactly what you're paying for.\n2. Check that the warranty is clearly written and covers each part, not just the whole PC.\n3. Be careful of deals that hide a weak power supply or very little RAM — those are the most common shortcuts."
+          }
+        }
+      ]
+    }
+  }
+]

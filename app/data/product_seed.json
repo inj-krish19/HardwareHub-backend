@@ -1,0 +1,316 @@
+[
+  {
+    "category": "CPU",
+    "name": "AMD Ryzen 5 5600",
+    "model_number": "100-100000927BOX",
+    "specs": {
+      "Cores / Threads": "6 / 12",
+      "Base clock": "3.5 GHz",
+      "Max boost clock": "4.4 GHz",
+      "Socket": "AM4",
+      "Power (TDP)": "65 W",
+      "Built-in graphics": "No",
+      "Memory support": "DDR4",
+      "Cooler included": "Yes (Wraith Stealth)",
+      "Generation": "Ryzen 5000 (Zen 3)"
+    },
+    "use_case_tags": "Coding, Gaming, Budget Build",
+    "blog": {
+      "content": "The Ryzen 5 5600 is one of the most popular choices for a value-focused PC. It has 6 cores and 12 threads, which is plenty for coding tools, a browser full of tabs, and modern games.\n\nIt fits AM4 motherboards and uses DDR4 memory, so a complete build around it stays affordable. It does not have built-in graphics, so you will need a separate graphics card to get a picture on screen.\n\nBefore buying, check that your motherboard supports it. Many older AM4 boards need a BIOS update first, and the update has to be done before you swap the processor.",
+      "do_you_know": "The 5600 comes with a basic cooler in the box, so you can build a working PC without buying a separate one.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "CPU",
+    "name": "AMD Ryzen 5 5600G",
+    "model_number": "100-100000252BOX",
+    "specs": {
+      "Cores / Threads": "6 / 12",
+      "Base clock": "3.9 GHz",
+      "Max boost clock": "4.4 GHz",
+      "Socket": "AM4",
+      "Power (TDP)": "65 W",
+      "Built-in graphics": "Yes (Radeon Graphics)",
+      "Memory support": "DDR4",
+      "Cooler included": "Yes (Wraith Stealth)",
+      "Generation": "Ryzen 5000 (Zen 3)"
+    },
+    "use_case_tags": "Coding, Office, Budget Build, Light Gaming",
+    "blog": {
+      "content": "The Ryzen 5 5600G is a 6-core processor with graphics built in. That means you can build a complete PC for study, coding or office work without buying a graphics card at all.\n\nThe built-in graphics are good enough for everyday use, video playback and light, older games. They are not meant for modern demanding games.\n\nIt uses the same AM4 socket and DDR4 memory as the 5600, so you can add a graphics card later when your budget allows.",
+      "do_you_know": "Built-in graphics share your RAM, so using faster memory in two matching sticks noticeably helps this processor.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "CPU",
+    "name": "Intel Core i5-12400F",
+    "model_number": "BX8071512400F",
+    "specs": {
+      "Cores / Threads": "6 / 12",
+      "Base clock": "2.5 GHz (P-core)",
+      "Max boost clock": "4.4 GHz",
+      "Socket": "LGA1700",
+      "Power (TDP)": "65 W base (117 W max turbo)",
+      "Built-in graphics": "No",
+      "Memory support": "DDR4 or DDR5 (depends on the motherboard)",
+      "Cooler included": "Yes (stock cooler)",
+      "Generation": "Intel 12th Gen"
+    },
+    "use_case_tags": "Gaming, Coding, Budget Build",
+    "blog": {
+      "content": "The Core i5-12400F is a 6-core, 12-thread processor that gives strong everyday and gaming performance for its price. It is a common pick for mid-range builds.\n\nThe letter F in the name means it has no built-in graphics, so you need a graphics card. It fits LGA1700 motherboards.\n\nOne helpful detail: whether you use DDR4 or DDR5 memory depends on the motherboard you pick, not on the processor. A DDR4 board is cheaper, a DDR5 board is more future-proof.",
+      "do_you_know": "The F at the end of an Intel processor name means there is no built-in graphics. Without the F, the processor can display a picture on its own.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "CPU",
+    "name": "Intel Core i3-12100F",
+    "model_number": "BX8071512100F",
+    "specs": {
+      "Cores / Threads": "4 / 8",
+      "Base clock": "3.3 GHz",
+      "Max boost clock": "4.3 GHz",
+      "Socket": "LGA1700",
+      "Power (TDP)": "58 W base (89 W max turbo)",
+      "Built-in graphics": "No",
+      "Memory support": "DDR4 or DDR5 (depends on the motherboard)",
+      "Cooler included": "Yes (stock cooler)",
+      "Generation": "Intel 12th Gen"
+    },
+    "use_case_tags": "Office, Budget Build, Light Gaming",
+    "blog": {
+      "content": "The Core i3-12100F is a 4-core, 8-thread processor aimed at tight budgets. It is fast enough for office work, browsing, online classes and light gaming when paired with a graphics card.\n\nIt uses the same LGA1700 socket as the 12400F, so you can start with this one and move to a stronger processor later without changing the motherboard, as long as the board supports it.\n\nIt has no built-in graphics, so budget for a graphics card, or choose a processor with built-in graphics if you do not need one.",
+      "do_you_know": "A processor with more cores is not always faster for everyday tasks. Four fast cores can feel just as quick for browsing and office work.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "CPU",
+    "name": "AMD Ryzen 5 7600",
+    "model_number": "100-100001015BOX",
+    "specs": {
+      "Cores / Threads": "6 / 12",
+      "Base clock": "3.8 GHz",
+      "Max boost clock": "5.1 GHz",
+      "Socket": "AM5",
+      "Power (TDP)": "65 W",
+      "Built-in graphics": "Yes (basic Radeon graphics)",
+      "Memory support": "DDR5 only",
+      "Cooler included": "Yes (Wraith Stealth)",
+      "Generation": "Ryzen 7000 (Zen 4)"
+    },
+    "use_case_tags": "Gaming, Coding, Future-proof Build",
+    "blog": {
+      "content": "The Ryzen 5 7600 is a newer 6-core processor on AMD's AM5 platform. It runs at higher speeds than the older 5600 and has basic built-in graphics, which is handy for troubleshooting or for a simple office PC.\n\nAM5 motherboards use DDR5 memory only, so a full build costs more than an AM4 build. In return, the platform is newer and is expected to support future processors.\n\nIf you want the cheapest possible build, the 5600 is easier on the wallet. If you want a platform that will last longer, the 7600 is a good starting point.",
+      "do_you_know": "AM5 boards only accept DDR5 memory. DDR4 sticks will not fit, so old RAM cannot be reused.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "RAM",
+    "name": "Corsair Vengeance LPX 16GB (2x8GB) DDR4-3200",
+    "model_number": "CMK16GX4M2B3200C16",
+    "specs": {
+      "Capacity": "16 GB",
+      "Kit": "2 x 8 GB",
+      "Type": "DDR4",
+      "Speed": "3200 MHz",
+      "CAS latency": "CL16",
+      "Voltage": "1.35 V",
+      "Heat spreader": "Yes (low profile)"
+    },
+    "use_case_tags": "Coding, Gaming, Budget Build",
+    "blog": {
+      "content": "This is a classic 16GB DDR4 kit made of two 8GB sticks. Two sticks working together give better speed than one, which is why kits are the usual choice.\n\nThe heat spreader is low, so it fits under large CPU air coolers that would block taller memory. That makes it an easy, safe choice for many builds.\n\nIt is a good match for the Ryzen 5 5600 or Core i5-12400F on a DDR4 motherboard.",
+      "do_you_know": "Low-profile memory exists because some big CPU coolers hang over the first RAM slot and would not fit a tall heat spreader.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "RAM",
+    "name": "Kingston FURY Beast 16GB (2x8GB) DDR4-3200",
+    "model_number": "KF432C16BBK2/16",
+    "specs": {
+      "Capacity": "16 GB",
+      "Kit": "2 x 8 GB",
+      "Type": "DDR4",
+      "Speed": "3200 MHz",
+      "CAS latency": "CL16",
+      "Voltage": "1.35 V",
+      "Heat spreader": "Yes"
+    },
+    "use_case_tags": "Coding, Gaming, Budget Build",
+    "blog": {
+      "content": "Kingston's FURY Beast is a 16GB DDR4 kit that runs at 3200 MHz. It is built to work with a wide range of Intel and AMD systems and is easy to set up.\n\nBy default, memory may start at a slower standard speed until you turn on its rated speed in the BIOS settings (often called XMP or DOCP). Turn it on to get the full 3200 MHz.\n\nIt is a straightforward upgrade for any desktop that uses DDR4.",
+      "do_you_know": "Memory often runs slower than its label until you enable its speed profile in the BIOS. Many people never turn it on.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "RAM",
+    "name": "G.Skill Ripjaws V 16GB (2x8GB) DDR4-3200",
+    "model_number": "F4-3200C16D-16GVKB",
+    "specs": {
+      "Capacity": "16 GB",
+      "Kit": "2 x 8 GB",
+      "Type": "DDR4",
+      "Speed": "3200 MHz",
+      "CAS latency": "CL16",
+      "Voltage": "1.35 V",
+      "Heat spreader": "Yes"
+    },
+    "use_case_tags": "Coding, Gaming, Budget Build",
+    "blog": {
+      "content": "The Ripjaws V is a widely used 16GB DDR4 kit with the same headline numbers as its rivals: two 8GB sticks, 3200 MHz, CL16.\n\nWhen the numbers are this similar, price, availability and warranty are usually the deciding factors. Compare current listings before choosing.\n\nCheck your motherboard's memory support list if you want the smoothest experience, especially on older boards.",
+      "do_you_know": "The 'D' in a G.Skill part number like F4-3200C16D means it is a two-stick kit.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "RAM",
+    "name": "Crucial 16GB (1x16GB) DDR4-3200",
+    "model_number": "CT16G4DFRA32A",
+    "specs": {
+      "Capacity": "16 GB",
+      "Kit": "1 x 16 GB",
+      "Type": "DDR4",
+      "Speed": "3200 MHz",
+      "CAS latency": "CL22",
+      "Voltage": "1.2 V",
+      "Heat spreader": "No"
+    },
+    "use_case_tags": "Office, Budget Build, Upgrade",
+    "blog": {
+      "content": "This is a single 16GB stick with no heat spreader. It is a simple, low-cost way to add memory, especially in office PCs or when you want to leave a slot free for another stick later.\n\nBecause it is one stick, it runs in single-channel mode. That can be slightly slower than two matching sticks in tasks that depend heavily on memory speed, like built-in graphics or some games.\n\nIt runs at standard voltage, which makes it very compatible with many older systems.",
+      "do_you_know": "Two 8GB sticks are often a little faster than one 16GB stick because they work together in dual-channel mode.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "RAM",
+    "name": "Corsair Vengeance DDR5 32GB (2x16GB) 5600",
+    "model_number": "CMK32GX5M2B5600C36",
+    "specs": {
+      "Capacity": "32 GB",
+      "Kit": "2 x 16 GB",
+      "Type": "DDR5",
+      "Speed": "5600 MHz",
+      "CAS latency": "CL36",
+      "Voltage": "1.25 V",
+      "Heat spreader": "Yes"
+    },
+    "use_case_tags": "Video Editing, Coding, Future-proof Build",
+    "blog": {
+      "content": "This 32GB DDR5 kit is aimed at newer platforms like AMD AM5 and some Intel LGA1700 DDR5 boards. 32GB gives you comfortable space for video editing, virtual machines and heavy multitasking.\n\nDDR5 sticks do not fit DDR4 slots, so only buy this if your motherboard uses DDR5. Check the board's specifications first.\n\nTwo 16GB sticks in a kit also give you dual-channel speed.",
+      "do_you_know": "DDR4 and DDR5 sticks have the notch in different positions, so they physically cannot be installed in the wrong slot without force.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "RAM",
+    "name": "Kingston FURY Beast DDR5 32GB (2x16GB) 5600",
+    "model_number": "KF556C40BBK2-32",
+    "specs": {
+      "Capacity": "32 GB",
+      "Kit": "2 x 16 GB",
+      "Type": "DDR5",
+      "Speed": "5600 MHz",
+      "CAS latency": "CL40",
+      "Voltage": "1.25 V",
+      "Heat spreader": "Yes"
+    },
+    "use_case_tags": "Video Editing, Coding, Future-proof Build",
+    "blog": {
+      "content": "Kingston's DDR5 kit offers the same capacity and speed as the Corsair above, with a higher CAS latency of CL40.\n\nThe CAS latency is the delay before memory responds, and a lower number is slightly better. In everyday use the difference between CL36 and CL40 at this speed is small, so price often decides.\n\nLike all DDR5, it only works on boards that support DDR5.",
+      "do_you_know": "A lower CAS latency number means a shorter delay, but speed and capacity usually matter more for everyday work.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "Storage",
+    "name": "Samsung 970 EVO Plus 500GB NVMe SSD",
+    "model_number": "MZ-V7S500BW",
+    "specs": {
+      "Capacity": "500 GB",
+      "Type": "NVMe SSD",
+      "Interface": "PCIe 3.0 x4",
+      "Form factor": "M.2 2280",
+      "Max read speed": "3,500 MB/s",
+      "Max write speed": "3,200 MB/s",
+      "Endurance (TBW)": "300 TB",
+      "Warranty": "5 years"
+    },
+    "use_case_tags": "Coding, Gaming, Video Editing",
+    "blog": {
+      "content": "The 970 EVO Plus is a well-known NVMe SSD with strong, consistent speeds and a high endurance rating for its size.\n\nIt plugs into an M.2 slot on the motherboard, so there are no cables. Check that your board has an M.2 slot that supports NVMe before buying.\n\nIt is a great main drive for Windows, programs and games.",
+      "do_you_know": "TBW means terabytes written. It is the total amount of data the maker says the drive can write during its life. 300 TB is a lot for home use.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "Storage",
+    "name": "WD Blue SN570 500GB NVMe SSD",
+    "model_number": "WDS500G3B0C",
+    "specs": {
+      "Capacity": "500 GB",
+      "Type": "NVMe SSD",
+      "Interface": "PCIe 3.0 x4",
+      "Form factor": "M.2 2280",
+      "Max read speed": "3,500 MB/s",
+      "Max write speed": "2,300 MB/s",
+      "Endurance (TBW)": "150 TB",
+      "Warranty": "5 years"
+    },
+    "use_case_tags": "Coding, Office, Budget Build",
+    "blog": {
+      "content": "The WD Blue SN570 is a popular value NVMe drive. Its read speed matches faster drives, so loading Windows and apps feels very quick.\n\nIts write speed and endurance are lower than premium drives, which hardly matters for everyday use like study, coding and office work.\n\nIt uses an M.2 slot, so no cables are needed.",
+      "do_you_know": "For most people the difference between a 'fast' and a 'very fast' NVMe drive is hard to notice in daily use.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "Storage",
+    "name": "Kingston NV2 500GB NVMe SSD",
+    "model_number": "SNV2S/500G",
+    "specs": {
+      "Capacity": "500 GB",
+      "Type": "NVMe SSD",
+      "Interface": "PCIe 4.0 x4",
+      "Form factor": "M.2 2280",
+      "Max read speed": "3,500 MB/s",
+      "Max write speed": "2,100 MB/s",
+      "Endurance (TBW)": "160 TB",
+      "Warranty": "3 years"
+    },
+    "use_case_tags": "Office, Budget Build, Coding",
+    "blog": {
+      "content": "The Kingston NV2 is a budget-friendly NVMe SSD that uses the newer PCIe 4.0 connection. On a PCIe 4.0 slot it can run at its full rated speed.\n\nIt works in older PCIe 3.0 slots too, just at the speed that slot allows. That makes it flexible if you plan to upgrade your motherboard later.\n\nIt has a shorter warranty than some rivals, so compare the whole package, not just the speed.",
+      "do_you_know": "Newer PCIe versions are backward compatible, so a PCIe 4.0 drive still works in a PCIe 3.0 slot.",
+      "buy_links": ""
+    }
+  },
+  {
+    "category": "Storage",
+    "name": "Crucial MX500 500GB SATA SSD",
+    "model_number": "CT500MX500SSD1",
+    "specs": {
+      "Capacity": "500 GB",
+      "Type": "SATA SSD",
+      "Interface": "SATA III 6 Gb/s",
+      "Form factor": "2.5-inch",
+      "Max read speed": "560 MB/s",
+      "Max write speed": "510 MB/s",
+      "Endurance (TBW)": "180 TB",
+      "Warranty": "5 years"
+    },
+    "use_case_tags": "Upgrade, Office, Older PCs",
+    "blog": {
+      "content": "The Crucial MX500 is a 2.5-inch SATA SSD. It is slower than NVMe drives on paper, but still dramatically faster than an old hard drive.\n\nIt is the safe upgrade for older desktops and laptops that have no M.2 slot. You only need a free SATA port and a power connector.\n\nIf your PC feels slow and still has a hard drive, this kind of drive is often the best first upgrade.",
+      "do_you_know": "A SATA SSD cannot go faster than about 560 MB/s because that is the limit of the SATA connection itself.",
+      "buy_links": ""
+    }
+  }
+]

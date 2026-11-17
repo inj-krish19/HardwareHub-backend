@@ -1,0 +1,132 @@
+[
+  {
+    "title": "No internet on my PC",
+    "category": "Networking",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "no internet",
+      "wifi connected but no internet",
+      "internet not working on computer",
+      "ethernet not working",
+      "pc can't connect to internet",
+      "limited connection"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Do your other devices (like your phone) have working internet on the same WiFi or router?",
+      "options": [
+        {
+          "answer": "No, nothing has internet",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Restart the router and modem: switch them off, wait 30 seconds, and switch them on again. Wait a couple of minutes for the lights to settle.\n2. Check that the cables from the wall to the modem and router are firmly connected.\n3. If lights on the router show a red or off internet light, call your internet provider, since the problem is outside your home."
+          }
+        },
+        {
+          "answer": "Yes, other devices work fine",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Restart your PC first, as this clears many network glitches.\n2. Right-click the network icon at the bottom right and choose 'Network & internet settings'. Run the 'Network troubleshooter'.\n3. If you use a cable, try a different cable and port on the router. If you use WiFi, forget the network in settings and connect again.\n4. Try disabling and re-enabling the network adapter: Settings > Network & internet > Advanced network settings > More network adapter options."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "WiFi option missing or WiFi adapter not detected",
+    "category": "Networking",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "wifi not showing",
+      "no wifi option on pc",
+      "wifi adapter missing",
+      "wireless card not detected",
+      "wifi icon gone",
+      "desktop has no wifi"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is this a desktop PC or a laptop?",
+      "options": [
+        {
+          "answer": "Desktop",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Many desktop motherboards don't have WiFi built in. Check your motherboard's specifications for 'WiFi' — if it isn't listed, you need an adapter.\n2. A cheap USB WiFi adapter or a PCIe WiFi card is an easy fix. Plug it in and install the driver from the packaging or the maker's website.\n3. If your board does have WiFi, check that the small antenna is connected to the back of the PC."
+          }
+        },
+        {
+          "answer": "Laptop",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check for a physical WiFi switch or a function key (like Fn + a key with an antenna symbol) and make sure Airplane Mode is turned off.\n2. Open Device Manager, look under 'Network adapters', and check whether the WiFi adapter is listed. If there's a warning triangle, right-click it and choose 'Update driver'.\n3. If the adapter is missing entirely, restart the laptop and, if it is still missing, it may need a repair."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Internet is slow on my PC only",
+    "category": "Networking",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "internet slow on pc",
+      "wifi slow on computer",
+      "slow download speed on pc",
+      "laptop wifi slow",
+      "slow internet only on one device"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is the internet also slow on your other devices?",
+      "options": [
+        {
+          "answer": "Yes, everything is slow",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Restart the router. Check the speed with a speed test website, then compare with the plan you pay for.\n2. If you're far from the router or there are thick walls in between, move closer or consider a WiFi extender or a mesh system.\n3. If speeds stay far below your plan, contact your internet provider."
+          }
+        },
+        {
+          "answer": "No, only my PC is slow",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Open Task Manager and check the Network column for programs using lots of bandwidth in the background, like updates or cloud sync, and pause them.\n2. If you use WiFi, move closer to the router, or switch to a LAN cable for a faster and steadier connection.\n3. Update your network driver from the maker's website and run a virus scan with Windows Security."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "WiFi keeps disconnecting",
+    "category": "Networking",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "wifi keeps dropping",
+      "wifi disconnects randomly",
+      "internet drops every few minutes",
+      "wifi keeps turning off",
+      "connection keeps dropping"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Does the WiFi drop on your other devices too?",
+      "options": [
+        {
+          "answer": "Yes, other devices drop too",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Restart the router and check for loose cables. If it's very old, it might be failing.\n2. Move the router to an open, central spot away from walls, microwaves and cordless phones.\n3. Log in to the router and try switching to a less crowded WiFi channel, or use the 5GHz band if you're close to it."
+          }
+        },
+        {
+          "answer": "No, only my PC drops",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Open Device Manager, double-click your WiFi adapter, go to the 'Power Management' tab, and untick 'Allow the computer to turn off this device to save power'.\n2. Update your WiFi driver from your PC or laptop maker's website.\n3. Forget the WiFi network in settings and connect to it again."
+          }
+        }
+      ]
+    }
+  }
+]

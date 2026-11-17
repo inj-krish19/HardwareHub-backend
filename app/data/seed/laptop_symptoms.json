@@ -1,0 +1,163 @@
+[
+  {
+    "title": "Laptop battery not charging",
+    "category": "Laptop",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "laptop not charging",
+      "plugged in not charging",
+      "battery stuck at same percentage",
+      "laptop charger not working",
+      "laptop battery not charging windows"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "When you plug in the charger, does the charging light on the laptop turn on?",
+      "options": [
+        {
+          "answer": "No, no light",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check the charger's cable and plug firmly at both ends, and try a different wall socket.\n2. If you have a spare charger of the same type, try it. Chargers fail more often than laptops do.\n3. Look inside the charging port for dust or bent pins, and gently clean it with a dry toothpick or air blower. Don't use metal tools.\n4. If a known-good charger still doesn't light it up, the charging port may need repair."
+          }
+        },
+        {
+          "answer": "Yes, the light is on but the battery isn't charging",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Restart the laptop. Then open Device Manager, expand 'Batteries', right-click 'Microsoft ACPI-Compliant Control Method Battery', uninstall it, and restart the laptop.\n2. Check the laptop maker's website for a battery or BIOS update.\n3. If the battery is more than 3 years old and has been heavily used, it may be worn out and need replacing."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Laptop won't turn on",
+    "category": "Laptop",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "laptop dead",
+      "laptop won't power on",
+      "laptop no response",
+      "laptop not starting no lights",
+      "laptop completely dead"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "When you press the power button, do any lights come on or does the fan spin?",
+      "options": [
+        {
+          "answer": "Nothing at all",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Plug in the charger and leave it for 30 minutes, since a fully drained battery can take a while to show signs of life.\n2. Unplug the charger, hold the power button for 30 seconds to drain leftover power, then plug the charger in and try again.\n3. Try a different wall socket and, if you have one, a different compatible charger.\n4. If it's still dead, a technician should check the charging circuit or battery."
+          }
+        },
+        {
+          "answer": "Lights or fans come on but the screen stays black",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Shine a torch at the screen and look closely. If you can faintly see the picture, the screen's backlight has failed.\n2. Plug in an external monitor. If it works there, the laptop is fine and the screen or its cable needs repair.\n3. Restart after holding the power button for 30 seconds, and try with the charger unplugged and plugged in.\n4. If neither screen shows a picture, see the 'No display / black screen on boot' guide."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Laptop overheating or fan too loud",
+    "category": "Laptop",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "laptop too hot",
+      "laptop fan loud",
+      "laptop heating up",
+      "laptop shuts down from heat",
+      "laptop fan noise",
+      "laptop burning hot"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is your laptop sitting on a soft surface like a bed, sofa or your lap?",
+      "options": [
+        {
+          "answer": "Yes",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Soft surfaces block the air vents underneath and quickly cause overheating. Use a hard flat surface like a desk.\n2. A laptop cooling stand that lifts the laptop and adds fans can help a lot.\n3. Check the vents on the sides and back and make sure nothing is blocking them."
+          }
+        },
+        {
+          "answer": "No, it's on a hard surface and it's still hot and loud",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Dust inside the laptop is the most common cause. Blow compressed air into the side and back vents in short bursts.\n2. Check the programs using the processor in Task Manager and close the ones you don't need.\n3. If your laptop is more than 2 to 3 years old, the cooling fan or thermal paste may need cleaning or replacing — a repair shop can do this.\n4. In Windows power settings, choose 'Balanced' mode rather than 'Best performance' when you don't need the extra speed."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Laptop screen is black but the laptop is on",
+    "category": "Laptop",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "laptop screen black",
+      "laptop display not working",
+      "laptop on but no display",
+      "laptop screen not turning on",
+      "laptop black screen fan running"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "If you connect the laptop to an external monitor or TV, does the picture show up there?",
+      "options": [
+        {
+          "answer": "Yes, the external screen works",
+          "next": {
+            "type": "escalate",
+            "text": "1. Your laptop itself is working, so the problem is the laptop's screen, or the cable that connects the screen to the laptop.\n2. Check whether the laptop is still under warranty, because screen repairs can be expensive.\n3. A repair shop can test the screen cable and the backlight to find out which part has failed."
+          }
+        },
+        {
+          "answer": "No, the external screen shows nothing either",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Hold the power button for 30 seconds with the charger and battery (if removable) disconnected, then reconnect and try again.\n2. If your laptop has removable RAM, switch off, take out the RAM, and press it firmly back in.\n3. If it still shows nothing anywhere, see the 'No display / black screen on boot' guide, or take it to a technician."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Some laptop keyboard keys not working",
+    "category": "Laptop",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "laptop keyboard not working",
+      "some keys not working",
+      "laptop keyboard typing wrong letters",
+      "laptop keys stuck",
+      "laptop keyboard dead"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Are only a few keys not working, or is the whole keyboard not responding?",
+      "options": [
+        {
+          "answer": "Only a few keys",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Turn the laptop off, tilt it upside down and gently tap the back to loosen dust or crumbs under the keys.\n2. Blow compressed air around and under the keys in short bursts. Never pour liquid on a keyboard.\n3. Use a plug-in USB keyboard for now. If a few keys are completely dead after cleaning, the keyboard can be replaced inexpensively on many laptops."
+          }
+        },
+        {
+          "answer": "The whole keyboard",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Restart the laptop. Then open Device Manager, find 'Keyboards', right-click 'Standard PS/2 Keyboard', and choose 'Uninstall device', then restart.\n2. Check that no keys are physically stuck, and that Filter Keys or Sticky Keys isn't switched on in Accessibility settings.\n3. If a plug-in USB keyboard works but the laptop keyboard doesn't, the laptop's keyboard or its internal cable needs repair."
+          }
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,199 @@
+[
+  {
+    "title": "Keyboard or mouse not responding",
+    "category": "Peripherals",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "keyboard not working",
+      "mouse not working",
+      "keyboard dead",
+      "mouse frozen",
+      "input devices not responding",
+      "mouse pointer not moving"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is it a wired keyboard or mouse, or a wireless one?",
+      "options": [
+        {
+          "answer": "Wired (plugged in with a cable)",
+          "next": {
+            "id": "q2",
+            "question": "Does a light on the keyboard or mouse turn on when it's plugged in?",
+            "options": [
+              {
+                "answer": "No light at all",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Unplug it and plug it into a different USB port, preferably one at the back of the PC.\n2. Try it on another computer if you can. If it works there, the first computer's USB port is the problem.\n3. If it doesn't light up on any computer, the keyboard or mouse has failed and needs replacing."
+                }
+              },
+              {
+                "answer": "Yes, it lights up",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Restart the PC. This clears most temporary connection glitches.\n2. Open Device Manager (search for it in the Start menu) and look for a yellow warning triangle under 'Keyboards' or 'Mice'. If you see one, right-click it and choose 'Update driver'.\n3. Try a different USB port again, since some ports can stop working on their own."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "answer": "Wireless (batteries, dongle or Bluetooth)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Replace the batteries with fresh ones — weak batteries cause most wireless problems.\n2. Switch the device off and on again using its power switch, usually on the bottom.\n3. If it uses a USB dongle, unplug it and plug it into a different USB port, then wait about 10 seconds. If it uses Bluetooth, remove the device in Settings > Bluetooth and pair it again.\n4. Keep the dongle close to the device, since walls and other electronics weaken the signal."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "USB device not recognised",
+    "category": "Peripherals",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "usb not recognized",
+      "usb device malfunctioned",
+      "pen drive not showing",
+      "usb not detected",
+      "external drive not showing up",
+      "usb port not working"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Does the same USB device work when you plug it into a different USB port on the PC?",
+      "options": [
+        {
+          "answer": "Yes, it works in another port",
+          "next": {
+            "type": "conclusion",
+            "text": "1. The first port is faulty or loose, so just use the working port.\n2. If it was a front-panel port, check that the front-panel cable is connected firmly inside the PC."
+          }
+        },
+        {
+          "answer": "No, it doesn't work in any port",
+          "next": {
+            "id": "q2",
+            "question": "Does the device work on another computer?",
+            "options": [
+              {
+                "answer": "No, not there either",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. The device itself has probably failed. If it's a pen drive or external drive with important files, stop using it and ask a data recovery shop to try to save the files.\n2. If it's a drive that clicks or beeps, don't keep plugging it in."
+                }
+              },
+              {
+                "answer": "Yes, it works on another computer",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Restart your PC and try again.\n2. Open Device Manager, find the device (or 'Unknown device') under 'Universal Serial Bus controllers', right-click it and choose 'Uninstall device', then unplug and re-plug it.\n3. In Disk Management (search for it in the Start menu), check whether a drive appears with no drive letter — if so, right-click it and assign a letter."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "No sound from speakers or headphones",
+    "category": "Peripherals",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "no sound from computer",
+      "audio not working",
+      "speakers not working",
+      "headphones no sound",
+      "sound stopped working",
+      "pc has no audio"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Do you see a red 'X' on the speaker icon at the bottom right of the screen, or is the volume muted?",
+      "options": [
+        {
+          "answer": "Yes, it's muted or shows an X",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Click the speaker icon and make sure the volume is turned up and not muted.\n2. Check that your speakers or headphones are switched on and their own volume knob is turned up.\n3. Right-click the speaker icon and open 'Sound settings', then check the correct device is selected under 'Output'."
+          }
+        },
+        {
+          "answer": "No, volume looks normal but still no sound",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check the cable: the speaker cable should go into the correct jack (usually green for speakers or headphones) at the back of the PC or in the headphone jack.\n2. Open Sound settings and select your speakers or headphones as the output device. Sometimes Windows switches to the monitor's audio by mistake.\n3. Right-click the speaker icon, choose 'Troubleshoot sound problems', and follow the steps.\n4. If nothing works, try the speakers or headphones on another device to see whether they're the problem."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Printer is offline or not printing",
+    "category": "Peripherals",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "printer offline",
+      "printer not printing",
+      "printer not detected",
+      "print job stuck",
+      "printer shows offline",
+      "wifi printer not connecting"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is the printer connected by a USB cable, or over WiFi?",
+      "options": [
+        {
+          "answer": "USB cable",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Turn the printer off and on again, and check that the USB cable is firmly connected at both ends. Try a different USB port.\n2. Open Settings > Bluetooth & devices > Printers & scanners, select your printer, and clear any stuck print jobs under 'Open print queue'.\n3. If it still doesn't work, remove the printer in settings, then add it again, and install the latest driver from the printer maker's website."
+          }
+        },
+        {
+          "answer": "WiFi",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check that the printer is connected to the same WiFi network as your PC. Restart the printer and the WiFi router.\n2. Open Settings > Printers & scanners, clear the print queue, and remove and re-add the printer.\n3. If the printer's address has changed, reinstall it using the maker's setup software, which finds it on the network.\n4. Make sure 'Use printer offline' is not ticked in the print queue's Printer menu."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Webcam or microphone not working",
+    "category": "Peripherals",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "webcam not working",
+      "mic not working",
+      "camera not detected",
+      "microphone not picking up voice",
+      "camera not working in zoom",
+      "laptop camera black"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is the camera or microphone allowed in Windows privacy settings?",
+      "options": [
+        {
+          "answer": "No / not sure",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Open Settings > Privacy & security, then click 'Camera' and 'Microphone', and make sure access is turned on for apps.\n2. In the same screen, make sure the specific app you're using (like Zoom, Meet or Teams) is allowed.\n3. Close the app, reopen it, and try again."
+          }
+        },
+        {
+          "answer": "Yes, it's allowed",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check for a physical camera cover or a mute switch on the device or keyboard.\n2. Make sure the right camera or microphone is selected inside the app's own settings.\n3. Open Device Manager and look under 'Cameras' and 'Audio inputs and outputs' for warning triangles. Right-click and choose 'Update driver' if you see one.\n4. If it's a USB camera or microphone, try a different USB port and a different cable."
+          }
+        }
+      ]
+    }
+  }
+]

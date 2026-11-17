@@ -1,0 +1,209 @@
+[
+  {
+    "title": "No power / PC will not turn on",
+    "category": "PSU",
+    "keywords": [
+      "pc won't turn on",
+      "computer doesn't start",
+      "nothing happens when i press power button",
+      "pc completely dead",
+      "no lights no fans on startup"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "When you press the power button, does absolutely nothing happen — no fans, no lights, no sound at all?",
+      "options": [
+        {
+          "answer": "Yes, completely nothing",
+          "next": {
+            "id": "q2",
+            "question": "Have you checked that the power cable is firmly plugged in at both the wall and the back of the computer, and that the small switch on the back of the power supply is set to on?",
+            "options": [
+              {
+                "answer": "No / not sure",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Check that the power cable is fully plugged in at both the wall outlet and the back of the computer.\n2. Look for a small switch near where the cable plugs into the computer, and make sure it's flipped to the 'on' or '1' position.\n3. Try plugging the cable into a different wall outlet as well, in case the original outlet isn't providing power.\n4. Press the power button again after checking all of these."
+                }
+              },
+              {
+                "answer": "Yes, all of that looks correct",
+                "next": {
+                  "type": "escalate",
+                  "text": "1. Note that the outlet, cable, and power switch have all been checked and the computer still shows zero signs of life.\n2. This usually means the power supply itself has failed, so it's worth having a technician test or replace it."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "answer": "No, something happens (a light flashes or fans twitch briefly)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Unplug the computer completely and open the case to check that all the power cables from the power supply are firmly connected to the motherboard, especially the large 24-pin cable.\n2. If you've recently added or changed any parts like a graphics card or extra drives, try unplugging them temporarily to rule out something drawing too much power.\n3. Plug the computer back in and try turning it on again after these checks."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "System powers on but will not POST (PSU related)",
+    "category": "PSU",
+    "keywords": [
+      "fans spin but no display",
+      "pc turns on but nothing happens",
+      "computer starts but won't boot up",
+      "fans running but black screen",
+      "no post no display"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Do the fans spin and lights turn on when you press the power button, but the screen stays completely black with no startup logo at all?",
+      "options": [
+        {
+          "answer": "Yes, exactly that",
+          "next": {
+            "id": "q2",
+            "question": "Have you checked that both the large 24-pin cable and the smaller CPU power cable are firmly plugged into the motherboard?",
+            "options": [
+              {
+                "answer": "No / not sure",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Turn off and unplug the computer, then open the case.\n2. Firmly press in the large 24-pin power cable and the smaller 4-pin or 8-pin cable near the processor until you hear or feel them click into place.\n3. Turn the computer back on and see if it now reaches the startup screen."
+                }
+              },
+              {
+                "answer": "Yes, both are firmly connected",
+                "next": {
+                  "type": "escalate",
+                  "text": "1. Note that the power cables are confirmed connected but the computer still doesn't reach the startup screen.\n2. This can point to a weak or failing power supply not providing enough steady power, so it's worth having a technician test it or try a known-working power supply."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "answer": "No, this doesn't match what's happening",
+          "next": {
+            "type": "conclusion",
+            "text": "1. This may be a different kind of startup problem rather than a power supply issue specifically.\n2. Take note of exactly what you do see (any lights, beeps, or screen messages) so it's easier to narrow down."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "PSU overheating or fan not spinning",
+    "category": "PSU",
+    "keywords": [
+      "power supply fan not spinning",
+      "psu getting hot",
+      "power supply overheating",
+      "psu fan not working",
+      "power brick feels very hot"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Have you checked whether the power supply's fan (usually visible on the outside back or bottom of the case) is spinning at all while the computer is running?",
+      "options": [
+        {
+          "answer": "No / not sure",
+          "next": {
+            "type": "conclusion",
+            "text": "1. With the computer running, look or listen closely at the power supply's fan to check whether it's spinning.\n2. If it's not spinning at all, turn off and unplug the computer, then gently clean any visible dust from the power supply's vents using a can of compressed air.\n3. Turn the computer back on and check again whether the fan starts spinning, especially once the computer has been running under some load."
+          }
+        },
+        {
+          "answer": "Yes, checked — it's not spinning even though the computer feels hot",
+          "next": {
+            "type": "escalate",
+            "text": "1. Turn off the computer for now rather than continuing to use it, since running a power supply without a working fan can cause it to overheat.\n2. This points to a failed fan inside the power supply, so it's best to have it replaced or checked by a technician rather than continuing to run it."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Random shutdowns under load",
+    "category": "PSU",
+    "keywords": [
+      "pc randomly shuts off",
+      "computer turns off by itself while gaming",
+      "pc shuts down under load",
+      "computer powers off randomly",
+      "pc dies during games",
+      "computer keeps shutting down",
+      "pc keeps shutting down",
+      "pc turns off suddenly",
+      "computer shuts off while working"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Do the random shutdowns happen mainly during demanding tasks like gaming or video editing, rather than while doing simple things like browsing?",
+      "options": [
+        {
+          "answer": "Yes, mainly during demanding tasks",
+          "next": {
+            "id": "q2",
+            "question": "Do you know roughly how powerful your power supply is (its wattage, usually printed on a sticker on the unit itself) and whether it's enough for your graphics card and other parts?",
+            "options": [
+              {
+                "answer": "No / not sure",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Find the wattage sticker on your power supply (often 450W, 550W, 650W, or higher) and note it down.\n2. Look up your graphics card's recommended power supply wattage on the manufacturer's website or box.\n3. If your power supply's wattage is close to or below what's recommended for your graphics card, it may be undersized and worth upgrading to a higher-wattage unit."
+                }
+              },
+              {
+                "answer": "Yes, wattage should be enough",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Open the computer and check that the power cables going to your graphics card are each plugged into a separate cable from the power supply, not doubled up on one.\n2. Firmly reseat the graphics card's power connectors and the main motherboard power cables.\n3. Test the demanding task again afterward and see if the shutdowns continue."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "answer": "No, it happens randomly, even when the computer is just idle",
+          "next": {
+            "type": "escalate",
+            "text": "1. Note down roughly what you were doing each time it shut down, even if it seems unrelated to heavy use.\n2. Shutdowns that happen randomly rather than only under heavy load can involve other parts beyond the power supply, so a broader check by a technician is a good next step."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Loud coil whine from PSU area",
+    "category": "PSU",
+    "keywords": [
+      "high pitched noise from computer",
+      "buzzing sound from pc",
+      "power supply making noise",
+      "whining sound from computer",
+      "electrical noise from pc"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Does the high-pitched whining or buzzing sound change or get louder when the computer is working harder, like during a game, compared to when it's just idle?",
+      "options": [
+        {
+          "answer": "Yes, it changes with how hard the computer is working",
+          "next": {
+            "type": "conclusion",
+            "text": "1. This kind of noise, called coil whine, is usually harmless and fairly common in many computers, especially under heavy load.\n2. If the volume bothers you, try limiting your game's frame rate in its settings, since a lower frame rate often reduces the noise.\n3. If the noise is extremely loud rather than just noticeable, it's still worth mentioning to a technician, but a quiet-to-moderate whine on its own usually isn't a sign of danger."
+          }
+        },
+        {
+          "answer": "No, it's constant, even when the computer is just idle",
+          "next": {
+            "type": "escalate",
+            "text": "1. Note whether the constant noise is coming specifically from the power supply area rather than a fan or the graphics card.\n2. A constant whine even at idle can sometimes point to a part inside the power supply starting to wear out, so it's worth having it checked by a technician, especially if the noise gets louder over time."
+          }
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "title": "Monitor says no signal",
+    "category": "Display",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "monitor no signal",
+      "no signal on screen",
+      "monitor not detecting pc",
+      "screen says check cable",
+      "monitor shows no input",
+      "display no signal message"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is the PC itself on? (Do the fans spin and lights turn on?)",
+      "options": [
+        {
+          "answer": "No, nothing happens",
+          "next": {
+            "type": "conclusion",
+            "text": "1. This is a power problem, not a monitor problem. Check the power cable at the wall and the back of the PC, and the switch on the power supply.\n2. Try a different wall socket.\n3. If the PC still shows no signs of life, the power supply may have failed and should be checked."
+          }
+        },
+        {
+          "answer": "Yes, the PC is on",
+          "next": {
+            "id": "q2",
+            "question": "Is the monitor cable plugged into the graphics card (if you have one), not the motherboard?",
+            "options": [
+              {
+                "answer": "No / not sure",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. If you have a separate graphics card, plug the monitor cable into the card's port, not the motherboard's.\n2. Check that both ends of the cable are firmly pushed in, and try a different cable if you have one.\n3. Use the monitor's menu button to check it is set to the correct input (HDMI, DisplayPort, etc.)."
+                }
+              },
+              {
+                "answer": "Yes, it's in the right place",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Try a different cable and a different port on the graphics card or monitor to rule them out.\n2. Check the monitor works with another device (like a laptop). If it does, the monitor is fine.\n3. Reseat the graphics card and RAM firmly, then try again. If there's still no picture, see the 'No display / black screen on boot' guide."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Screen flickering or blinking",
+    "category": "Display",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "monitor flickering",
+      "screen flicker",
+      "display blinking",
+      "screen flashing",
+      "monitor flashes on and off",
+      "flickering screen windows"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Does the flickering also happen when you try a different cable or a different port?",
+      "options": [
+        {
+          "answer": "Yes, it flickers no matter what cable or port",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Update your graphics driver by downloading the newest one from the graphics card maker's website, then restart.\n2. Right-click the desktop, open Display settings, and set the refresh rate to the monitor's recommended value (often 60Hz or higher).\n3. Check the monitor on another device. If it still flickers there, the monitor itself may be faulty."
+          }
+        },
+        {
+          "answer": "No, a different cable or port fixed it",
+          "next": {
+            "type": "conclusion",
+            "text": "1. The old cable or port was the problem. Keep using the new one.\n2. If you want to keep using the old cable, check both ends for bent pins or a loose connection — otherwise replace it, as cables are cheap."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Blurry, stretched or wrong-sized display",
+    "category": "Display",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "blurry screen",
+      "wrong resolution",
+      "display stretched",
+      "text looks blurry",
+      "screen not full size",
+      "monitor resolution wrong"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is the picture blurry or stretched even though the monitor is working?",
+      "options": [
+        {
+          "answer": "Yes",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Right-click the desktop and open Display settings. Under 'Display resolution', choose the one marked 'Recommended', which is the monitor's native resolution.\n2. Check that your graphics driver is installed and up to date. A missing driver often leaves the display stuck at a wrong resolution.\n3. If text is too small after changing resolution, adjust the 'Scale' setting rather than lowering the resolution.\n4. Also make sure you're using a good cable (HDMI or DisplayPort) and not an old VGA cable, which is lower quality."
+          }
+        },
+        {
+          "answer": "No, the problem is something else",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Describe what you see more precisely (for example lines, flickering, no signal), then use one of the other display guides for that.\n2. Check the cable and try a different input on the monitor."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Second monitor not detected",
+    "category": "Display",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "second monitor not working",
+      "dual monitor not detected",
+      "extended display not showing",
+      "hdmi second screen not detected",
+      "monitor not detected by windows"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Does the second monitor show up if you press the Windows key + P and choose 'Extend'?",
+      "options": [
+        {
+          "answer": "No, the choice doesn't help",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check that the second monitor is powered on and set to the correct input, and that the cable is pushed in firmly at both ends.\n2. Try a different cable, and plug it into a different port on the graphics card.\n3. Go to Settings, then System, then Display, and click 'Detect' to make Windows look for the monitor.\n4. Make sure both monitors are connected to the graphics card, not one on the card and one on the motherboard."
+          }
+        },
+        {
+          "answer": "Yes, it shows up after I choose Extend",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Windows just needed to be told to extend the display. You can set this permanently in Settings > System > Display.\n2. If the monitor goes blank again after a restart, update your graphics driver."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Lines or dead spots on the screen",
+    "category": "Display",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "vertical lines on screen",
+      "dead pixels",
+      "lines on monitor",
+      "bright spot on screen",
+      "colored lines on display",
+      "screen has stripes"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Do the lines or spots show up on the screen when you connect the monitor to a different computer or device?",
+      "options": [
+        {
+          "answer": "Yes, they show on another device too",
+          "next": {
+            "type": "escalate",
+            "text": "1. The problem is in the monitor itself (a damaged panel or internal part), not your PC.\n2. A few dead pixels are sometimes covered by the manufacturer's warranty depending on their policy — check your warranty terms.\n3. Lines across the whole screen usually mean the monitor needs repair or replacement."
+          }
+        },
+        {
+          "answer": "No, the other device looks perfect",
+          "next": {
+            "type": "conclusion",
+            "text": "1. The problem is in your PC, probably the graphics card or the cable.\n2. Try a different cable and port first, then update or reinstall your graphics driver.\n3. If the lines continue, the graphics card may be failing and should be checked."
+          }
+        }
+      ]
+    }
+  }
+]

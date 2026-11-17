@@ -1,0 +1,317 @@
+[
+  {
+    "title": "My PC feels slow — what should I upgrade first?",
+    "category": "Upgrade",
+    "bot_type": "upgrade",
+    "keywords": [
+      "pc is slow what to upgrade",
+      "speed up my computer",
+      "slow computer upgrade",
+      "what should i upgrade first",
+      "old pc running slow",
+      "is my ram holding back my build",
+      "pc is slow",
+      "computer is slow",
+      "my pc is very slow"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is Windows installed on an old-style hard drive (HDD), or on an SSD?",
+      "options": [
+        {
+          "answer": "An old-style hard drive (HDD), or I'm not sure",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Upgrading to an SSD is the single biggest speed boost for an older PC. Boot times and app loading often drop from minutes to seconds.\n2. A 256GB to 512GB SATA SSD is enough for Windows and your main programs, and is inexpensive.\n3. You can clone your existing drive to the new SSD with a free tool so you don't have to reinstall everything.\n4. To check your drive type, open Task Manager, go to the Performance tab and click 'Disk' — it says HDD or SSD at the top right."
+          }
+        },
+        {
+          "answer": "An SSD already",
+          "next": {
+            "id": "q2",
+            "question": "How much RAM does your PC have?",
+            "options": [
+              {
+                "answer": "8GB or less",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Adding more RAM is your best next step. Move to 16GB, which makes multitasking much smoother.\n2. Check the RAM type your motherboard uses (DDR3, DDR4 or DDR5) and buy matching sticks.\n3. Adding a second matching stick often also improves speed, because the two work together in 'dual channel'."
+                }
+              },
+              {
+                "answer": "16GB or more",
+                "next": {
+                  "id": "q3",
+                  "question": "Is it slow in everything, or mainly in games and graphics apps?",
+                  "options": [
+                    {
+                      "answer": "Mainly in games and graphics apps",
+                      "next": {
+                        "type": "conclusion",
+                        "text": "1. A graphics card upgrade is the most likely fix. Open Task Manager while playing and check the GPU usage — if it's near 100 percent, the graphics card is the limit.\n2. Check that your power supply can handle a stronger card before you buy one."
+                      }
+                    },
+                    {
+                      "answer": "Everything feels slow",
+                      "next": {
+                        "type": "conclusion",
+                        "text": "1. Open Task Manager and look at the Processes tab to see if one program is using lots of CPU, memory or disk in the background.\n2. Check that the PC isn't overheating, which can make it slow itself down. Clean the dust out and check temperatures.\n3. If it's still slow, your processor may simply be too old; upgrading the processor and motherboard (and RAM) together would be the next step."
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Should I upgrade my CPU or GPU first for gaming?",
+    "category": "Upgrade",
+    "bot_type": "upgrade",
+    "keywords": [
+      "should i upgrade my cpu or gpu first",
+      "cpu or gpu upgrade for gaming",
+      "game lag what to upgrade",
+      "low fps upgrade",
+      "gpu bottleneck",
+      "cpu bottleneck"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "While a game is running, is your graphics card usage close to 100 percent? (Check it in Task Manager > Performance > GPU, or in a tool like MSI Afterburner.)",
+      "options": [
+        {
+          "answer": "Yes, the graphics card is near 100%",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Your graphics card is the limit, so upgrading it is the best way to get more frames per second.\n2. You can also lower the graphics settings (like shadows and resolution) for an instant improvement without spending money.\n3. Before buying, check that your power supply and case suit the new card."
+          }
+        },
+        {
+          "answer": "No, the graphics card is below about 70% but the processor is very busy",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Your processor is holding your graphics card back (this is called a bottleneck).\n2. Upgrading the processor will give the biggest gain. Check what your motherboard supports before buying one.\n3. If your motherboard is old, you may need to upgrade the processor, motherboard and RAM together."
+          }
+        },
+        {
+          "answer": "I'm not sure how to check",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Open the game, press Alt+Tab to switch to Task Manager, and click the Performance tab. Look at the GPU and CPU usage numbers.\n2. For a cleaner view while playing, install a free overlay tool like MSI Afterburner to show GPU and CPU usage on top of the game.\n3. Whichever one is close to 100 percent is the part holding you back."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Should I add more RAM?",
+    "category": "Upgrade",
+    "bot_type": "upgrade",
+    "keywords": [
+      "add more ram",
+      "is 8gb ram enough",
+      "ram upgrade worth it",
+      "upgrade to 16gb ram",
+      "computer hangs when multitasking",
+      "how much ram do i need"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "When your PC feels slow, how much memory is being used? (Task Manager > Performance > Memory.)",
+      "options": [
+        {
+          "answer": "More than about 80 to 90 percent",
+          "next": {
+            "type": "conclusion",
+            "text": "1. You'll benefit from more RAM. The PC is running out of memory and having to use the slower drive as extra memory.\n2. Find your RAM type (DDR3, DDR4 or DDR5) in the same Memory screen, and buy matching sticks.\n3. For most people 16GB is the sweet spot; 32GB is useful for editing, virtual machines or heavy multitasking.\n4. Fit sticks in pairs in the slots recommended by your motherboard manual for best speed."
+          }
+        },
+        {
+          "answer": "Below about 70 percent",
+          "next": {
+            "type": "conclusion",
+            "text": "1. More RAM won't help much. Your PC isn't running out of memory.\n2. The slowness is more likely from an old hard drive, a slow processor, or too many background programs.\n3. Check what's using your processor and disk in Task Manager before spending any money."
+          }
+        },
+        {
+          "answer": "I'm not sure how to check",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Press Ctrl+Shift+Esc to open Task Manager, click the Performance tab, then click 'Memory'.\n2. Watch the 'In use' number while doing what normally slows your PC down, and compare it to the total.\n3. If it stays above 80 to 90 percent, more RAM would help."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Is switching from a hard drive to an SSD worth it?",
+    "category": "Upgrade",
+    "bot_type": "upgrade",
+    "keywords": [
+      "hdd to ssd worth it",
+      "upgrade to ssd",
+      "ssd vs hard drive",
+      "replace hard disk with ssd",
+      "make windows boot faster",
+      "should i get an ssd"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Is your Windows currently installed on an old spinning hard drive?",
+      "options": [
+        {
+          "answer": "Yes",
+          "next": {
+            "id": "q2",
+            "question": "Is it a desktop or a laptop?",
+            "options": [
+              {
+                "answer": "Desktop",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Yes, it is absolutely worth it. It's usually the biggest speed improvement you can make for the money.\n2. A 256GB to 512GB 2.5-inch SATA SSD works in almost any desktop with a free SATA port.\n3. You can clone your old drive to the SSD with a free tool, so you keep Windows and your programs as they are.\n4. Keep the old hard drive as extra storage for photos, videos and downloads."
+                }
+              },
+              {
+                "answer": "Laptop",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Yes, it is worth it, and often makes an old laptop feel new.\n2. First check what kind of drive your laptop uses: a 2.5-inch SATA drive (most older laptops) or a small M.2 stick. Your laptop's service manual online shows which.\n3. Back up your data, clone the old drive to the new SSD, and swap them. Many laptops have a small panel on the bottom that makes this easy.\n4. If the laptop is under warranty, check that opening it won't void it."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "answer": "No, it's already an SSD",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Then you've already got the biggest benefit. A faster SSD will make little noticeable difference for everyday use.\n2. If your PC is still slow, look at RAM, the processor, or background programs instead."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Will a new graphics card work well with my old PC?",
+    "category": "Upgrade",
+    "bot_type": "upgrade",
+    "keywords": [
+      "upgrade gpu on old pc",
+      "new graphics card old processor",
+      "will old cpu bottleneck new gpu",
+      "old pc new graphics card",
+      "gpu upgrade old computer"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Roughly how old is your processor?",
+      "options": [
+        {
+          "answer": "About 6 years old or newer (mid-range or better)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. A new graphics card should work well. You may get a small bottleneck with the newest, most powerful cards, but a mid-range card will be a great match.\n2. Check your power supply's wattage and cables for the card you want, and measure that the card fits in your case."
+          }
+        },
+        {
+          "answer": "Roughly 6 to 10 years old",
+          "next": {
+            "type": "conclusion",
+            "text": "1. A new card will still help a lot, but your processor will hold it back in some games.\n2. Choose a mid-range card rather than a top-end one, because a powerful card would be wasted behind an old processor.\n3. Plan to upgrade the processor, motherboard and RAM later for the full benefit."
+          }
+        },
+        {
+          "answer": "More than 10 years old, or only 2 to 4 weak cores",
+          "next": {
+            "type": "escalate",
+            "text": "1. A new graphics card will be badly held back by such an old processor, so you'd waste money.\n2. A better plan is to upgrade the processor, motherboard and RAM together, then add a graphics card.\n3. Ask a technician or a local shop to quote the full platform upgrade, since the parts have to match each other."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Is my old PC worth upgrading or should I buy a new one?",
+    "category": "Upgrade",
+    "bot_type": "upgrade",
+    "keywords": [
+      "upgrade or buy new pc",
+      "should i replace my pc",
+      "old computer worth upgrading",
+      "8 year old pc upgrade",
+      "replace or upgrade computer"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "How old is your PC?",
+      "options": [
+        {
+          "answer": "Under 5 years old",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Upgrading is almost always better value. A new SSD, more RAM, or a new graphics card is usually all it needs.\n2. Find the slowest part using Task Manager before buying anything, so you spend money in the right place."
+          }
+        },
+        {
+          "answer": "5 to 8 years old",
+          "next": {
+            "type": "conclusion",
+            "text": "1. It depends on what you need. If it only needs an SSD and some more RAM, upgrade it — it's cheap and effective.\n2. If you'd also need a new processor, motherboard and RAM together, compare that total cost with a brand new PC. They often come out close, and a new PC gives you a new warranty and modern features.\n3. Check if your PC can run Windows 11 — if it can't, that points towards replacing it."
+          }
+        },
+        {
+          "answer": "More than 8 years old",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Replacing it is usually the better choice. Old parts are hard to match, may not run Windows 11, and are less power-efficient.\n2. You can still reuse some parts in the new build, like the case, drives, and sometimes the power supply, to save money.\n3. Keep the old PC as a backup or for light tasks if it still works."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Can I upgrade my laptop?",
+    "category": "Upgrade",
+    "bot_type": "upgrade",
+    "keywords": [
+      "laptop upgrade",
+      "can i add ram to my laptop",
+      "laptop slow upgrade ssd",
+      "upgrade laptop storage",
+      "laptop ram upgrade",
+      "what can i upgrade in a laptop"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Which part of your laptop do you want to upgrade?",
+      "options": [
+        {
+          "answer": "RAM (memory)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Look up your exact laptop model's service manual or specifications online to see if the RAM is removable or soldered onto the board.\n2. If it has a slot, check the type (DDR4 or DDR5) and the maximum amount it supports, and buy 'SO-DIMM' laptop sticks, which are smaller than desktop RAM.\n3. If it's soldered, it can't be upgraded and you'd need a new laptop for more RAM."
+          }
+        },
+        {
+          "answer": "Storage (SSD or hard drive)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Check whether your laptop uses a 2.5-inch SATA drive or a small M.2 stick. The service manual or the bottom panel usually shows which.\n2. Replacing an old hard drive with an SSD is the best speed upgrade you can make for most laptops.\n3. Back up your data first, and check that opening the laptop won't affect your warranty."
+          }
+        },
+        {
+          "answer": "Processor or graphics card",
+          "next": {
+            "type": "escalate",
+            "text": "1. In almost all laptops these are soldered onto the motherboard and cannot be upgraded.\n2. If the laptop is too slow after upgrading RAM and storage, replacing it is usually the only option.\n3. A technician can confirm whether your specific model has any upgradeable parts."
+          }
+        }
+      ]
+    }
+  }
+]

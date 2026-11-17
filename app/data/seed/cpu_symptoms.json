@@ -1,0 +1,149 @@
+[
+  {
+    "title": "Computer shuts down by itself because of heat",
+    "category": "CPU",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "pc shuts down from overheating",
+      "cpu too hot shutdown",
+      "computer turns off when hot",
+      "processor overheating shutdown",
+      "pc switches off after some time",
+      "pc keeps shutting down when hot",
+      "computer shuts off when hot"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Does the shutdown happen soon after turning the PC on, or only after using it for a while?",
+      "options": [
+        {
+          "answer": "Soon after turning it on (within a few minutes)",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Turn the PC off and open the case. Check that the fan on top of the processor cooler is spinning when you switch on. If it isn't, that's your problem.\n2. Check that the cooler is firmly mounted on the processor and hasn't come loose, especially if you recently moved the PC or changed the cooler.\n3. If you recently removed the cooler, check that the protective plastic film on the bottom of the cooler was removed and that fresh thermal paste was used.\n4. If everything looks right, the cooler may have failed or the paste has dried out, so a repair shop can check it quickly."
+          }
+        },
+        {
+          "answer": "Only after using it for a while or during heavy work",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Clean the dust out of the cooler, fans and case filters, since blocked airflow is the usual cause.\n2. Make sure the PC isn't in a closed cabinet or pushed against a wall, and that case fans are working.\n3. Install a free tool like HWiNFO and watch the processor temperature. If it climbs above about 90°C, the cooling isn't enough and you may need a better cooler or fresh thermal paste."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "PC won't start after installing a new processor",
+    "category": "CPU",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "pc not booting after cpu upgrade",
+      "new cpu no display",
+      "computer won't start after changing processor",
+      "cpu upgrade no post",
+      "new processor not working"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Did you check that your motherboard supports the new processor, including its BIOS version?",
+      "options": [
+        {
+          "answer": "No / not sure",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Look up your exact motherboard model on the maker's website and open its 'CPU Support List'. Find your new processor in the list and note the minimum BIOS version it needs.\n2. If your motherboard's current BIOS is older than the version needed, it may not start with the new processor. You may need to put the old processor back, update the BIOS, then install the new one.\n3. Some motherboards have a 'BIOS Flashback' button that lets you update the BIOS without a processor — check your manual."
+          }
+        },
+        {
+          "answer": "Yes, it's supported with the right BIOS",
+          "next": {
+            "id": "q2",
+            "question": "Did you check that the processor is seated correctly and the cooler is mounted firmly?",
+            "options": [
+              {
+                "answer": "Not sure",
+                "next": {
+                  "type": "conclusion",
+                  "text": "1. Turn off and unplug the PC. Remove the cooler and take the processor out carefully.\n2. Check there are no bent pins (on the processor or the socket, depending on your type) and place the processor back gently, lining up the small triangle marker with the one on the socket.\n3. Refit the cooler with fresh thermal paste, tighten evenly, and try starting the PC again."
+                }
+              },
+              {
+                "answer": "Yes, it's all seated correctly",
+                "next": {
+                  "type": "escalate",
+                  "text": "1. Try starting the PC with only one RAM stick and the graphics card (if separate) installed, and clear the BIOS settings by removing the small round battery for 5 minutes.\n2. If it still won't start, note whether any debug light on the motherboard stays on and show it to a technician.\n3. The new processor or the socket could be faulty, and a technician can test with a known-working processor."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "Bent pins or a damaged processor socket",
+    "category": "CPU",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "bent cpu pins",
+      "cpu socket damaged",
+      "bent pins on motherboard",
+      "processor pins bent",
+      "cpu socket pins broken"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Can you see bent or crooked pins when you look closely at the socket or processor?",
+      "options": [
+        {
+          "answer": "Yes, I can see bent pins",
+          "next": {
+            "type": "escalate",
+            "text": "1. Do not turn the PC on and do not try to force the processor in, because that can damage more pins.\n2. Bent pins can sometimes be gently straightened by a technician with the right tools and a magnifier, but it takes skill and a lot of patience.\n3. Take it to a repair shop that does motherboard repair, and tell them exactly what happened."
+          }
+        },
+        {
+          "answer": "No, I can't see any bent pins",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Turn off and unplug the PC, remove the cooler, and look at the socket in good light with a torch and a magnifying glass if you have one.\n2. Check there is nothing stuck in the socket (like a loose fibre or piece of thermal paste).\n3. If you still don't see any damage, reseat the processor gently and make sure the lever is locked, then test again."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "title": "CPU usage is always at 100 percent",
+    "category": "CPU",
+    "bot_type": "diagnostic",
+    "keywords": [
+      "cpu usage 100 percent",
+      "high cpu usage",
+      "pc slow cpu always busy",
+      "task manager cpu high",
+      "processor always at 100",
+      "cpu running at full all the time"
+    ],
+    "question_tree": {
+      "id": "q1",
+      "question": "Open Task Manager (Ctrl+Shift+Esc) and click the Processes tab. Is one program using most of the processor?",
+      "options": [
+        {
+          "answer": "Yes, one program is using most of it",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Click on that program to see its name. If it's something you don't need, right-click it and choose 'End task'.\n2. If it's a program you do need, check whether it is still updating or scanning in the background. Waiting a little often fixes it.\n3. If the same program keeps using too much processor power, update it or reinstall it."
+          }
+        },
+        {
+          "answer": "No, nothing stands out but usage is still high",
+          "next": {
+            "type": "conclusion",
+            "text": "1. Restart the PC. This clears many background tasks that get stuck.\n2. Run a full scan with Windows Security (search for it in the Start menu) to check for viruses or unwanted programs.\n3. Check Windows Update, since a pending update sometimes keeps the processor busy for a long time.\n4. If it's still at 100 percent when idle, a technician should check for failing hardware or deeper software problems."
+          }
+        }
+      ]
+    }
+  }
+]
