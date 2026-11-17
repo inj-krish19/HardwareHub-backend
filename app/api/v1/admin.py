@@ -14,6 +14,7 @@ from app.schemas.admin import (
     BlogPostCreate,
     CategoryCreate,
     ProductCreate,
+    ProductSeedEntry,
     SymptomKeywordsUpdate,
     SymptomSeedEntry,
 )
@@ -39,6 +40,7 @@ def bulk_upload_symptoms(entries: list[SymptomSeedEntry], db: Session = Depends(
             title=entry.title,
             category=entry.category,
             keywords=", ".join(entry.keywords) if entry.keywords else None,
+            bot_type=entry.bot_type,
         )
         db.add(symptom)
         db.flush()
@@ -46,6 +48,54 @@ def bulk_upload_symptoms(entries: list[SymptomSeedEntry], db: Session = Depends(
         created += 1
     db.commit()
     return {"created": created}
+
+
+@router.post("/seed/products", status_code=201)
+def bulk_upload_products(entries: list[ProductSeedEntry], db: Session = Depends(get_db)) -> dict:
+    """Products + optional blog post in one paste. Categories are found by name
+    (created if missing). A product with the same name and model number is
+    skipped, so re-pasting the same file is safe."""
+    created, skipped = 0, 0
+    categories: dict[str, Category] = {c.name.lower(): c for c in db.execute(select(Category)).scalars()}
+    for entry in entries:
+        key = entry.category.strip().lower()
+        category = categories.get(key)
+        if category is None:
+            category = Category(name=entry.category.strip())
+            db.add(category)
+            db.flush()
+            categories[key] = category
+
+        exists = db.execute(
+            select(Product).where(
+                Product.name == entry.name, Product.model_number == entry.model_number
+            )
+        ).scalars().first()
+        if exists:
+            skipped += 1
+            continue
+
+        product = Product(
+            category_id=category.id,
+            name=entry.name,
+            model_number=entry.model_number,
+            specs=entry.specs,
+            use_case_tags=entry.use_case_tags,
+        )
+        db.add(product)
+        db.flush()
+        if entry.blog:
+            db.add(
+                BlogPost(
+                    product_id=product.id,
+                    content=entry.blog.content,
+                    do_you_know=entry.blog.do_you_know,
+                    buy_links=entry.blog.buy_links or None,
+                )
+            )
+        created += 1
+    db.commit()
+    return {"created": created, "skipped": skipped}
 
 
 @router.get("/symptoms")
@@ -56,6 +106,7 @@ def list_symptoms(db: Session = Depends(get_db)) -> list[dict]:
             "id": str(s.id),
             "title": s.title,
             "category": s.category,
+            "bot_type": s.bot_type,
             "keywords": s.keywords or "",
         }
         for s in symptoms
