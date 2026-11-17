@@ -10,6 +10,22 @@ class SymptomSeedEntry(BaseModel):
     category: str
     question_tree: dict
     keywords: list[str] = []  # optional synonyms, joined to a comma-string on save
+    bot_type: str = "diagnostic"  # diagnostic | compatibility | budget | upgrade | maintenance
+
+
+class BlogSeedEntry(BaseModel):
+    content: str
+    do_you_know: str | None = None
+    buy_links: str | None = None
+
+
+class ProductSeedEntry(BaseModel):
+    category: str  # matched by name (case-insensitive); created if missing
+    name: str
+    model_number: str
+    specs: dict = {}
+    use_case_tags: str | None = None
+    blog: BlogSeedEntry | None = None
 
 
 class SymptomKeywordsUpdate(BaseModel):

@@ -28,6 +28,11 @@ class Symptom(Base):
     # match the title wording to be matched (e.g. "ram isn't showing up"
     # should still hit "RAM not detected / no display").
     keywords: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    # Which bot owns this tree: diagnostic | compatibility | budget | upgrade | maintenance.
+    # All bots share the same tree walker; only the content and this tag differ.
+    bot_type: Mapped[str] = mapped_column(
+        String(30), nullable=False, default="diagnostic", server_default="diagnostic"
+    )
 
     diagnosis_rules: Mapped[list["DiagnosisRule"]] = relationship(back_populates="symptom")
 
