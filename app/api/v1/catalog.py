@@ -21,6 +21,8 @@ def _product_dict(p: Product, category_name: str) -> dict:
         "model_number": p.model_number,
         "specs": p.specs,
         "use_case_tags": p.use_case_tags,
+        "image_url": p.image_url,
+        "video_url": p.video_url,
     }
 
 

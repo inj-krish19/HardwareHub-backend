@@ -13,6 +13,7 @@ from app.models.rules import DiagnosisRule, Symptom
 from app.schemas.admin import (
     BlogPostCreate,
     CategoryCreate,
+    MediaSeedEntry,
     ProductCreate,
     ProductSeedEntry,
     SymptomKeywordsUpdate,
@@ -81,6 +82,8 @@ def bulk_upload_products(entries: list[ProductSeedEntry], db: Session = Depends(
             model_number=entry.model_number,
             specs=entry.specs,
             use_case_tags=entry.use_case_tags,
+            image_url=entry.image_url or None,
+            video_url=entry.video_url or None,
         )
         db.add(product)
         db.flush()
@@ -96,6 +99,43 @@ def bulk_upload_products(entries: list[ProductSeedEntry], db: Session = Depends(
         created += 1
     db.commit()
     return {"created": created, "skipped": skipped}
+
+
+@router.post("/seed/media")
+def bulk_update_media(entries: list[MediaSeedEntry], db: Session = Depends(get_db)) -> dict:
+    """Attach image / video / buy links to products already in the catalog.
+    Buy links live on the product's blog post, so a product without a post
+    cannot take links (reported back in `no_blog_post`)."""
+    updated: list[str] = []
+    not_found: list[str] = []
+    no_blog_post: list[str] = []
+    for entry in entries:
+        product = db.execute(
+            select(Product).where(Product.model_number == entry.model_number)
+        ).scalars().first()
+        if product is None:
+            not_found.append(entry.model_number)
+            continue
+        changed = False
+        if entry.image_url and entry.image_url.strip():
+            product.image_url = entry.image_url.strip()
+            changed = True
+        if entry.video_url and entry.video_url.strip():
+            product.video_url = entry.video_url.strip()
+            changed = True
+        if entry.buy_links and entry.buy_links.strip():
+            post = db.execute(
+                select(BlogPost).where(BlogPost.product_id == product.id)
+            ).scalars().first()
+            if post is None:
+                no_blog_post.append(entry.model_number)
+            else:
+                post.buy_links = entry.buy_links.strip()
+                changed = True
+        if changed:
+            updated.append(entry.model_number)
+    db.commit()
+    return {"updated": len(updated), "not_found": not_found, "no_blog_post": no_blog_post}
 
 
 @router.get("/symptoms")
