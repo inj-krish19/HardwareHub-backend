@@ -25,7 +25,18 @@ class ProductSeedEntry(BaseModel):
     model_number: str
     specs: dict = {}
     use_case_tags: str | None = None
+    image_url: str | None = None
+    video_url: str | None = None
     blog: BlogSeedEntry | None = None
+
+
+class MediaSeedEntry(BaseModel):
+    """Update media/links on an existing product, matched by model number.
+    Empty or missing fields leave the current value untouched."""
+    model_number: str
+    image_url: str | None = None
+    video_url: str | None = None
+    buy_links: str | None = None  # comma-separated URLs
 
 
 class SymptomKeywordsUpdate(BaseModel):

@@ -26,6 +26,9 @@ class Product(Base):
     model_number: Mapped[str] = mapped_column(String(80), nullable=False)
     specs: Mapped[dict] = mapped_column(JSONB, default=dict)
     use_case_tags: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # Media is linked, not stored: paste an image URL and a YouTube URL.
+    image_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    video_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
 
     category: Mapped["Category"] = relationship(back_populates="products")
     blog_posts: Mapped[list["BlogPost"]] = relationship(back_populates="product")
