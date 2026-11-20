@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import ForeignKey, String, Text
+from sqlalchemy import CheckConstraint, ForeignKey, SmallInteger, String, Text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -32,6 +32,9 @@ class Product(Base):
 
     category: Mapped["Category"] = relationship(back_populates="products")
     blog_posts: Mapped[list["BlogPost"]] = relationship(back_populates="product")
+    links: Mapped[list["ProductLink"]] = relationship(
+        back_populates="product", order_by="ProductLink.position", cascade="all, delete-orphan"
+    )
 
 
 class BlogPost(Base):
@@ -41,6 +44,30 @@ class BlogPost(Base):
     product_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("product.id"), nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
     do_you_know: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # LEGACY: comma-separated URLs. Superseded by ProductLink; the catalog API
+    # only falls back to this when a product has no ProductLink rows.
     buy_links: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     product: Mapped["Product"] = relationship(back_populates="blog_posts")
+
+
+class ProductLink(Base):
+    """A store link for a product. Position 0 is the primary link (the
+    "Check price" button); positions 0-2 are all listed under "Where to buy".
+    The unique + check constraints cap a product at three links."""
+
+    __tablename__ = "product_link"
+    __table_args__ = (
+        UniqueConstraint("product_id", "position", name="uq_product_link_position"),
+        CheckConstraint("position BETWEEN 0 AND 2", name="ck_product_link_position"),
+    )
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    product_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("product.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    position: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    store: Mapped[str] = mapped_column(String(60), nullable=False)
+    url: Mapped[str] = mapped_column(String(1000), nullable=False)
+
+    product: Mapped["Product"] = relationship(back_populates="links")

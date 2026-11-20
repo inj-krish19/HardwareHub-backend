@@ -1,4 +1,4 @@
-from app.models.catalog import BlogPost, Category, Product
+from app.models.catalog import BlogPost, Category, Product, ProductLink
 from app.models.rules import (
     CompatibilityRule,
     DiagnosisRule,
@@ -9,15 +9,6 @@ from app.models.rules import (
 from app.models.social import Comparison, ComparisonItem, User
 
 __all__ = [
-    "Category",
-    "Product",
-    "BlogPost",
-    "CompatibilityRule",
-    "Symptom",
-    "DiagnosisRule",
-    "UseBudgetProfile",
-    "RecommendationRule",
-    "Comparison",
-    "ComparisonItem",
-    "User",
+    "Category", "Product", "ProductLink", "BlogPost", "CompatibilityRule", "Symptom", "DiagnosisRule",
+    "UseBudgetProfile", "RecommendationRule", "Comparison", "ComparisonItem", "User",
 ]

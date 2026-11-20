@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import uuid
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -27,6 +28,9 @@ class ProductSeedEntry(BaseModel):
     use_case_tags: str | None = None
     image_url: str | None = None
     video_url: str | None = None
+    # 1 to 3 store links; [0] is the primary "Check price" link. Each item is a
+    # URL string or {"store": "...", "url": "..."}. A comma-separated string works too.
+    buy_links: Any = None
     blog: BlogSeedEntry | None = None
 
 
@@ -36,7 +40,7 @@ class MediaSeedEntry(BaseModel):
     model_number: str
     image_url: str | None = None
     video_url: str | None = None
-    buy_links: str | None = None  # comma-separated URLs
+    buy_links: Any = None  # same accepted shapes as ProductSeedEntry.buy_links; replaces existing links
 
 
 class SymptomKeywordsUpdate(BaseModel):
