@@ -1,14 +1,15 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 import uuid
 
 from app.core.admin_auth import require_admin
 from app.db.session import get_db
-from app.models.catalog import BlogPost, Category, Product
+from app.core.links import normalize_links
+from app.models.catalog import BlogPost, Category, Product, ProductLink
 from app.models.rules import DiagnosisRule, Symptom
 from app.schemas.admin import (
     BlogPostCreate,
@@ -51,14 +52,33 @@ def bulk_upload_symptoms(entries: list[SymptomSeedEntry], db: Session = Depends(
     return {"created": created}
 
 
+def _set_links(db: Session, product_id: uuid.UUID, links: list[dict[str, str]]) -> None:
+    """Replace a product's links. Deleting first (and flushing) keeps the
+    unique (product_id, position) constraint happy when re-inserting."""
+    db.execute(delete(ProductLink).where(ProductLink.product_id == product_id))
+    db.flush()
+    for position, link in enumerate(links):
+        db.add(ProductLink(product_id=product_id, position=position, store=link["store"], url=link["url"]))
+
+
 @router.post("/seed/products", status_code=201)
 def bulk_upload_products(entries: list[ProductSeedEntry], db: Session = Depends(get_db)) -> dict:
-    """Products + optional blog post in one paste. Categories are found by name
-    (created if missing). A product with the same name and model number is
-    skipped, so re-pasting the same file is safe."""
+    """Products + optional blog post + 1-3 store links in one paste. Categories
+    are found by name (created if missing). A product with the same name and
+    model number is skipped, so re-pasting the same file is safe. An entry with
+    invalid links is skipped and reported in `invalid`."""
     created, skipped = 0, 0
+    invalid: list[dict] = []
     categories: dict[str, Category] = {c.name.lower(): c for c in db.execute(select(Category)).scalars()}
     for entry in entries:
+        try:
+            links = normalize_links(entry.buy_links)
+            if not links and entry.blog and entry.blog.buy_links:
+                links = normalize_links(entry.blog.buy_links)  # old location, still accepted
+        except ValueError as exc:
+            invalid.append({"name": entry.name, "reason": str(exc)})
+            continue
+
         key = entry.category.strip().lower()
         category = categories.get(key)
         if category is None:
@@ -87,28 +107,28 @@ def bulk_upload_products(entries: list[ProductSeedEntry], db: Session = Depends(
         )
         db.add(product)
         db.flush()
+        _set_links(db, product.id, links)
         if entry.blog:
             db.add(
                 BlogPost(
                     product_id=product.id,
                     content=entry.blog.content,
                     do_you_know=entry.blog.do_you_know,
-                    buy_links=entry.blog.buy_links or None,
                 )
             )
         created += 1
     db.commit()
-    return {"created": created, "skipped": skipped}
+    return {"created": created, "skipped": skipped, "invalid": invalid}
 
 
 @router.post("/seed/media")
 def bulk_update_media(entries: list[MediaSeedEntry], db: Session = Depends(get_db)) -> dict:
-    """Attach image / video / buy links to products already in the catalog.
-    Buy links live on the product's blog post, so a product without a post
-    cannot take links (reported back in `no_blog_post`)."""
+    """Attach image / video / store links to products already in the catalog,
+    matched by model number. Empty fields leave the current value untouched.
+    If buy_links is given it REPLACES the product's links (1 to 3 allowed)."""
     updated: list[str] = []
     not_found: list[str] = []
-    no_blog_post: list[str] = []
+    invalid: list[dict] = []
     for entry in entries:
         product = db.execute(
             select(Product).where(Product.model_number == entry.model_number)
@@ -116,6 +136,12 @@ def bulk_update_media(entries: list[MediaSeedEntry], db: Session = Depends(get_d
         if product is None:
             not_found.append(entry.model_number)
             continue
+        try:
+            links = normalize_links(entry.buy_links)
+        except ValueError as exc:
+            invalid.append({"model_number": entry.model_number, "reason": str(exc)})
+            continue
+
         changed = False
         if entry.image_url and entry.image_url.strip():
             product.image_url = entry.image_url.strip()
@@ -123,19 +149,13 @@ def bulk_update_media(entries: list[MediaSeedEntry], db: Session = Depends(get_d
         if entry.video_url and entry.video_url.strip():
             product.video_url = entry.video_url.strip()
             changed = True
-        if entry.buy_links and entry.buy_links.strip():
-            post = db.execute(
-                select(BlogPost).where(BlogPost.product_id == product.id)
-            ).scalars().first()
-            if post is None:
-                no_blog_post.append(entry.model_number)
-            else:
-                post.buy_links = entry.buy_links.strip()
-                changed = True
+        if links:
+            _set_links(db, product.id, links)
+            changed = True
         if changed:
             updated.append(entry.model_number)
     db.commit()
-    return {"updated": len(updated), "not_found": not_found, "no_blog_post": no_blog_post}
+    return {"updated": len(updated), "not_found": not_found, "invalid": invalid}
 
 
 @router.get("/symptoms")

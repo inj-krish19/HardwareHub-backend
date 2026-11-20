@@ -7,7 +7,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
-from app.models.catalog import BlogPost, Category, Product
+from app.core.links import normalize_links
+from app.models.catalog import BlogPost, Category, Product, ProductLink
 
 router = APIRouter(tags=["catalog"])
 
@@ -50,8 +51,23 @@ def get_product(product_id: uuid.UUID, db: Session = Depends(get_db)) -> dict:
     blog_posts = db.execute(
         select(BlogPost).where(BlogPost.product_id == product_id)
     ).scalars().all()
+    links = db.execute(
+        select(ProductLink).where(ProductLink.product_id == product_id).order_by(ProductLink.position)
+    ).scalars().all()
+    buy_links = [{"position": l.position, "store": l.store, "url": l.url} for l in links]
+    if not buy_links:
+        # Legacy fallback: links that were saved on the blog post before ProductLink existed.
+        for post in blog_posts:
+            try:
+                legacy = normalize_links(post.buy_links)[:3]
+            except ValueError:
+                legacy = []
+            if legacy:
+                buy_links = [{"position": i, **l} for i, l in enumerate(legacy)]
+                break
     return {
         **_product_dict(product, category.name if category else ""),
+        "buy_links": buy_links,
         "blog_posts": [
             {
                 "id": str(bp.id),
