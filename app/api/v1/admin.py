@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import delete, select
+from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 
 import uuid
@@ -9,6 +9,7 @@ import uuid
 from app.core.admin_auth import require_admin
 from app.db.session import get_db
 from app.core.links import normalize_links
+from app.models.feedback import GuideFeedback
 from app.models.catalog import BlogPost, Category, Product, ProductLink
 from app.models.rules import DiagnosisRule, Symptom
 from app.schemas.admin import (
@@ -156,6 +157,51 @@ def bulk_update_media(entries: list[MediaSeedEntry], db: Session = Depends(get_d
             updated.append(entry.model_number)
     db.commit()
     return {"updated": len(updated), "not_found": not_found, "invalid": invalid}
+
+
+@router.get("/feedback/summary")
+def feedback_summary(db: Session = Depends(get_db)) -> dict:
+    """Numbers for the admin Feedback page: the headline helpful rate, how each
+    guide is doing, and the individual final answers people say did not help."""
+    total, helpful = db.execute(
+        select(func.count(), func.count().filter(GuideFeedback.helpful))
+    ).one()
+
+    guide_rows = db.execute(
+        select(
+            Symptom.id, Symptom.title, Symptom.category, Symptom.bot_type,
+            func.count(GuideFeedback.id), func.count().filter(GuideFeedback.helpful),
+        )
+        .join(GuideFeedback, GuideFeedback.symptom_id == Symptom.id)
+        .group_by(Symptom.id)
+    ).all()
+    guides = sorted(
+        (
+            {"symptom_id": str(i), "title": t, "category": c, "bot_type": b, "total": n, "helpful": h}
+            for i, t, c, b, n, h in guide_rows
+        ),
+        key=lambda g: (g["helpful"] / g["total"], -g["total"]),
+    )
+
+    outcome_rows = db.execute(
+        select(
+            Symptom.title, GuideFeedback.outcome_key, GuideFeedback.outcome_kind,
+            func.count(), func.count().filter(GuideFeedback.helpful),
+        )
+        .join(Symptom, Symptom.id == GuideFeedback.symptom_id)
+        .group_by(Symptom.title, GuideFeedback.outcome_key, GuideFeedback.outcome_kind)
+        .having(func.count() >= 3)
+    ).all()
+    weak = sorted(
+        (
+            {"title": t, "outcome_key": k or "(first question)", "kind": kind, "total": n, "helpful": h}
+            for t, k, kind, n, h in outcome_rows
+            if h / n < 0.6
+        ),
+        key=lambda o: (o["helpful"] / o["total"], -o["total"]),
+    )[:15]
+
+    return {"total": total, "helpful": helpful, "guides": guides, "weak_outcomes": weak}
 
 
 @router.get("/symptoms")

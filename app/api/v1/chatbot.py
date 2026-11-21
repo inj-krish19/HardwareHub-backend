@@ -3,10 +3,11 @@ from __future__ import annotations
 import uuid
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
+from app.models.feedback import GuideFeedback
 from app.models.rules import DiagnosisRule, Symptom
 from app.rule_engine import router as intent_router
 from app.rule_engine import tree_walker
@@ -18,6 +19,8 @@ from app.schemas.chatbot import (
     ChatConfirmRequest,
     ChatStartRequest,
     ChatStepResponse,
+    FeedbackRequest,
+    OutcomeStats,
     SymptomSelectionRequest,
 )
 
@@ -32,6 +35,25 @@ BOTS = [
     ("Maintenance Bot (Care & cleaning)", "maintenance"),
 ]
 BOT_OPTIONS = [label for label, _ in BOTS]
+
+# Show "X of Y said this fixed it" only once this many people have voted,
+# so two early votes can't read as "100% of people".
+MIN_VOTES_TO_SHOW = 5
+TERMINAL_KINDS = ("conclusion", "escalate")
+
+
+def _outcome_key(answer_path: list[str]) -> str:
+    return " > ".join(answer_path)
+
+
+def _stats_for(db: Session, symptom_id: uuid.UUID, answer_path: list[str]) -> OutcomeStats | None:
+    total, helpful = db.execute(
+        select(func.count(), func.count().filter(GuideFeedback.helpful)).where(
+            GuideFeedback.symptom_id == symptom_id,
+            GuideFeedback.outcome_key == _outcome_key(answer_path),
+        )
+    ).one()
+    return OutcomeStats(helpful=helpful, total=total) if total >= MIN_VOTES_TO_SHOW else None
 BOT_NAMES = {
     "diagnostic": "diagnostic",
     "compatibility": "compatibility",
@@ -150,7 +172,40 @@ def answer_chat(payload: ChatAnswerRequest, db: Session = Depends(get_db)) -> Ch
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     formatted = format_result(result)
-    return ChatStepResponse(symptom_id=payload.symptom_id, **formatted)
+    stats = (
+        _stats_for(db, payload.symptom_id, payload.answer_path)
+        if formatted["kind"] in TERMINAL_KINDS
+        else None
+    )
+    return ChatStepResponse(symptom_id=payload.symptom_id, stats=stats, **formatted)
+
+
+@router.post("/feedback", status_code=201)
+def submit_feedback(payload: FeedbackRequest, db: Session = Depends(get_db)) -> dict:
+    """Anonymous vote on a final answer. The path is replayed through the real
+    tree, so only genuine final answers of real guides can be rated."""
+    rule = db.execute(
+        select(DiagnosisRule).where(DiagnosisRule.symptom_id == payload.symptom_id)
+    ).scalars().first()
+    if rule is None:
+        raise HTTPException(status_code=404, detail="Guide not found.")
+    try:
+        result = tree_walker.answer(rule.question_tree, payload.answer_path)
+    except tree_walker.TreeWalkerError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if result.node_type not in TERMINAL_KINDS:
+        raise HTTPException(status_code=400, detail="That is not a final answer yet.")
+
+    db.add(
+        GuideFeedback(
+            symptom_id=payload.symptom_id,
+            outcome_key=_outcome_key(payload.answer_path),
+            outcome_kind=result.node_type,
+            helpful=payload.helpful,
+        )
+    )
+    db.commit()
+    return {"status": "recorded"}
 
 
 def _start_tree_for_symptom(db: Session, symptom_id: uuid.UUID) -> ChatStepResponse:
