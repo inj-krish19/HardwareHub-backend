@@ -6,9 +6,10 @@ from app.models.rules import (
     Symptom,
     UseBudgetProfile,
 )
+from app.models.feedback import GuideFeedback
 from app.models.social import Comparison, ComparisonItem, User
 
 __all__ = [
     "Category", "Product", "ProductLink", "BlogPost", "CompatibilityRule", "Symptom", "DiagnosisRule",
-    "UseBudgetProfile", "RecommendationRule", "Comparison", "ComparisonItem", "User",
+    "UseBudgetProfile", "RecommendationRule", "Comparison", "ComparisonItem", "User", "GuideFeedback",
 ]
