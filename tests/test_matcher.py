@@ -39,3 +39,32 @@ def test_unrelated_query_has_no_match():
 
 def test_single_generic_word_does_not_match():
     assert _match("pc") is None
+
+
+# ---- top-N ranking -------------------------------------------------------
+
+from app.rule_engine.matcher import rank_matches  # noqa: E402
+
+MORE = SYMPTOMS + [
+    NS(title="Storage drive not detected", keywords="ssd not showing up, drive missing", bot_type="diagnostic"),
+    NS(title="GPU not detected or missing in Device Manager", keywords="graphics card not showing", bot_type="diagnostic"),
+]
+
+
+def test_rank_returns_best_first():
+    ranked = rank_matches("ram not detected", MORE)
+    assert ranked[0].title == "RAM is not detected"
+
+
+def test_rank_respects_limit():
+    assert len(rank_matches("not detected", MORE, limit=2)) <= 2
+
+
+def test_rank_drops_weak_runners_up():
+    # only one guide is really about cleaning; the others must not be padded in
+    titles = [s.title for s in rank_matches("how often should i clean my pc", MORE)]
+    assert titles == ["How often should I clean my PC?"]
+
+
+def test_rank_empty_when_nothing_matches():
+    assert rank_matches("what is the capital of france", MORE) == []

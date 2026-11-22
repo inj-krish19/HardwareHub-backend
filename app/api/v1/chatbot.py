@@ -12,7 +12,7 @@ from app.models.rules import DiagnosisRule, Symptom
 from app.rule_engine import router as intent_router
 from app.rule_engine import tree_walker
 from app.rule_engine.formatter import format_result
-from app.rule_engine.matcher import best_match
+from app.rule_engine.matcher import rank_matches
 from app.schemas.chatbot import (
     BotSelectionRequest,
     ChatAnswerRequest,
@@ -84,13 +84,20 @@ def start_chat(payload: ChatStartRequest, db: Session = Depends(get_db)) -> Chat
 
     # Match across every bot's content; the intent only nudges the score.
     symptoms = db.execute(select(Symptom)).scalars().all()
-    symptom = best_match(payload.query, symptoms, bot)
-    if symptom is not None:
+    matches = rank_matches(payload.query, symptoms, bot, limit=3)
+    if matches:
+        # Up to three candidates. The widget adds its own "None of these" button;
+        # picking one goes through /symptom-selection, and "none" through /confirm
+        # with confirmed=false (symptom_id is the top match, which that endpoint ignores).
         return ChatStepResponse(
-            symptom_id=symptom.id,
-            kind="confirm",
-            message=f'Are you asking about: "{symptom.title}"?',
-            options=["Yes, that's it", "No, that's not it"],
+            symptom_id=matches[0].id,
+            kind="suggest",
+            message=(
+                "Is this what you mean?"
+                if len(matches) == 1
+                else "I found a few guides that might match. Which one is closest?"
+            ),
+            options=[m.title for m in matches],
         )
 
     # No confident match. If the intent told us which bot, jump straight to that

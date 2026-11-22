@@ -66,13 +66,30 @@ def score(query_tokens: set[str], symptom: SymptomLike, bot: str | None) -> tupl
     return total, title_overlap
 
 
-def best_match(query: str, symptoms: Iterable[SymptomLike], bot: str | None = None):
+# A runner-up must score at least this fraction of the best match to be suggested,
+# so the 2nd and 3rd suggestions are genuine alternatives and not filler.
+RELATIVE_CUTOFF = 0.4
+
+
+def rank_matches(
+    query: str,
+    symptoms: Iterable[SymptomLike],
+    bot: str | None = None,
+    limit: int = 3,
+) -> list:
+    """Up to `limit` best-matching guides, best first. Empty if nothing matches."""
     q = tokens(query)
     if not q:
-        return None
-    best, best_key = None, (0, 0)
-    for s in symptoms:
-        key = score(q, s, bot)
-        if key > best_key:
-            best, best_key = s, key
-    return best if best_key[0] >= MIN_SCORE else None
+        return []
+    scored = [(score(q, s, bot), s) for s in symptoms]
+    scored = [(key, s) for key, s in scored if key[0] >= MIN_SCORE]
+    scored.sort(key=lambda pair: pair[0], reverse=True)
+    if not scored:
+        return []
+    top = scored[0][0][0]
+    return [s for key, s in scored if key[0] >= RELATIVE_CUTOFF * top][:limit]
+
+
+def best_match(query: str, symptoms: Iterable[SymptomLike], bot: str | None = None):
+    ranked = rank_matches(query, symptoms, bot, limit=1)
+    return ranked[0] if ranked else None
