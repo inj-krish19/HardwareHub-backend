@@ -36,11 +36,23 @@ def ping() -> dict:
 @router.post("/seed/symptoms", status_code=201)
 def bulk_upload_symptoms(entries: list[SymptomSeedEntry], db: Session = Depends(get_db)) -> dict:
     """Same shape as the seed generation prompt output — paste the generated
-    JSON array straight into this endpoint's request body."""
+    JSON array straight into this endpoint's request body.
+
+    Guide titles must be unique (ignoring case and surrounding spaces), because
+    the chat looks a guide up by the title the person tapped. An entry whose
+    title already exists in the database, or appears earlier in the same paste,
+    is skipped and listed in `skipped`, so re-pasting a file is safe."""
+    taken = {t.strip().lower() for t in db.execute(select(Symptom.title)).scalars()}
     created = 0
+    skipped: list[str] = []
     for entry in entries:
+        key = entry.title.strip().lower()
+        if key in taken:
+            skipped.append(entry.title)
+            continue
+        taken.add(key)
         symptom = Symptom(
-            title=entry.title,
+            title=entry.title.strip(),
             category=entry.category,
             keywords=", ".join(entry.keywords) if entry.keywords else None,
             bot_type=entry.bot_type,
@@ -50,7 +62,7 @@ def bulk_upload_symptoms(entries: list[SymptomSeedEntry], db: Session = Depends(
         db.add(DiagnosisRule(symptom_id=symptom.id, question_tree=entry.question_tree))
         created += 1
     db.commit()
-    return {"created": created}
+    return {"created": created, "skipped": skipped}
 
 
 def _set_links(db: Session, product_id: uuid.UUID, links: list[dict[str, str]]) -> None:
