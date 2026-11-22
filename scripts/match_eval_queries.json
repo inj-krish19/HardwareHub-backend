@@ -1,0 +1,190 @@
+[
+  {
+    "query": "my pc doesnt turn on at all",
+    "expected": "No power / PC will not turn on"
+  },
+  {
+    "query": "ram not showing in windows",
+    "expected": "RAM is not detected"
+  },
+  {
+    "query": "got blue screen after adding new ram",
+    "expected": "Blue screen or crashes after a RAM upgrade"
+  },
+  {
+    "query": "computer wont start after i changed memory",
+    "expected": "Computer will not boot after changing the RAM"
+  },
+  {
+    "query": "monitor shows no signal but pc is running",
+    "expected": "Monitor says no signal"
+  },
+  {
+    "query": "screen goes black when i wake pc from sleep",
+    "expected": "Black screen after sleep / wake"
+  },
+  {
+    "query": "game crashes and screen flickers black",
+    "expected": "Driver crash / TDR / black screen while gaming"
+  },
+  {
+    "query": "weird colored lines in games",
+    "expected": "Visual artifacts / screen corruption"
+  },
+  {
+    "query": "graphics card not detected in device manager",
+    "expected": "GPU not detected or missing in Device Manager"
+  },
+  {
+    "query": "ssd not showing up in my computer",
+    "expected": "Storage drive not detected"
+  },
+  {
+    "query": "hard drive making clicking sound",
+    "expected": "Drive makes clicking / grinding noises or disconnects randomly"
+  },
+  {
+    "query": "my laptop is not charging even when plugged in",
+    "expected": "Laptop battery not charging"
+  },
+  {
+    "query": "wifi is connected but no internet",
+    "expected": "No internet on my PC"
+  },
+  {
+    "query": "pc shuts down by itself while gaming",
+    "expected": "Random shutdowns under load"
+  },
+  {
+    "query": "fans are very loud all the time",
+    "expected": "Loud or constantly high fan speeds"
+  },
+  {
+    "query": "cpu temperature is too high",
+    "expected": "CPU thermal throttling under load"
+  },
+  {
+    "query": "usb ports stopped working",
+    "expected": "USB ports or audio dead"
+  },
+  {
+    "query": "no sound from my speakers",
+    "expected": "No sound from speakers or headphones"
+  },
+  {
+    "query": "keyboard not responding",
+    "expected": "Keyboard or mouse not responding"
+  },
+  {
+    "query": "printer shows offline",
+    "expected": "Printer is offline or not printing"
+  },
+  {
+    "query": "bios settings reset every time",
+    "expected": "BIOS settings reset on every reboot"
+  },
+  {
+    "query": "pc turns on but nothing on screen",
+    "expected": "No POST / no display on power-on"
+  },
+  {
+    "query": "laptop screen black but fan running",
+    "expected": "Laptop screen is black but the laptop is on"
+  },
+  {
+    "query": "second monitor not working",
+    "expected": "Second monitor not detected"
+  },
+  {
+    "query": "screen flickering",
+    "expected": "Screen flickering or blinking"
+  },
+  {
+    "query": "internet very slow on my computer",
+    "expected": "Internet is slow on my PC only"
+  },
+  {
+    "query": "how often should i clean my computer",
+    "expected": "How often should I clean my PC?"
+  },
+  {
+    "query": "when to change thermal paste",
+    "expected": "When should I replace thermal paste?"
+  },
+  {
+    "query": "how to back up my files",
+    "expected": "How do I keep my files safe and back up my data?"
+  },
+  {
+    "query": "update graphics drivers",
+    "expected": "How do I keep drivers and Windows updated safely?"
+  },
+  {
+    "query": "ups for power cuts",
+    "expected": "How do I protect my PC from power cuts and voltage fluctuations?"
+  },
+  {
+    "query": "can i use ddr5 ram on my ddr4 motherboard",
+    "expected": "Will this RAM work with my motherboard?"
+  },
+  {
+    "query": "which cpu fits am4 board",
+    "expected": "Will this processor work with my motherboard?"
+  },
+  {
+    "query": "will this gpu fit in my case",
+    "expected": "Will this graphics card fit and run in my PC?"
+  },
+  {
+    "query": "how many watts psu do i need",
+    "expected": "Is my power supply strong enough for my parts?"
+  },
+  {
+    "query": "can my pc run windows 11",
+    "expected": "Can my old PC run Windows 11?"
+  },
+  {
+    "query": "nvme or sata which ssd",
+    "expected": "Will this SSD work in my PC?"
+  },
+  {
+    "query": "pc build for programming under 40000",
+    "expected": "Build a PC for coding and college work"
+  },
+  {
+    "query": "gaming pc under 60000",
+    "expected": "Build a gaming PC on a budget"
+  },
+  {
+    "query": "pc for video editing",
+    "expected": "Build a PC for video editing or design"
+  },
+  {
+    "query": "should i buy prebuilt or assemble",
+    "expected": "Should I buy a prebuilt PC or build my own?"
+  },
+  {
+    "query": "what to upgrade first for gaming cpu or gpu",
+    "expected": "Should I upgrade my CPU or GPU first for gaming?"
+  },
+  {
+    "query": "is 8gb ram enough",
+    "expected": "Should I add more RAM?"
+  },
+  {
+    "query": "is ssd worth it over hard disk",
+    "expected": "Is switching from a hard drive to an SSD worth it?"
+  },
+  {
+    "query": "can i upgrade ram in my laptop",
+    "expected": "Can I upgrade my laptop?"
+  },
+  {
+    "query": "what is the capital of france",
+    "expected": null
+  },
+  {
+    "query": "tell me a joke",
+    "expected": null
+  }
+]
