@@ -10,12 +10,14 @@ class Settings(BaseSettings):
 
     # Required — no defaults. App fails fast at startup if .env is missing these.
     DATABASE_URL: str
+    # One or more allowed frontend origins, comma-separated,
+    # e.g. "http://localhost:3000,https://hardwarehub.vercel.app"
     CORS_ORIGIN: str
 
     # Admin panel — single shared credential pair, no user accounts/JWT needed
     # at this scale. Both teammates use the same ADMIN_ID/ADMIN_SECRET.
     ADMIN_ID: str
-    ADMIN_SECRET: str  # comma-separated, e.g. "http://localhost:3000,https://hardwarehub.vercel.app"
+    ADMIN_SECRET: str
 
     @property
     def cors_origins_list(self) -> list[str]:

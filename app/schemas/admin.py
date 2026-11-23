@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import uuid
 from typing import Any
+from urllib.parse import urlparse
 
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 
 class SymptomSeedEntry(BaseModel):
@@ -53,6 +54,23 @@ class ProductCreate(BaseModel):
     model_number: str
     specs: dict = {}
     use_case_tags: str | None = None
+    image_url: str | None = None
+    video_url: str | None = None
+
+    @field_validator("image_url", "video_url")
+    @classmethod
+    def _clean_media_url(cls, value: str | None) -> str | None:
+        """Blank means "no media". Anything else must be an http(s) link that
+        fits the 500-character database column."""
+        if value is None or not value.strip():
+            return None
+        value = value.strip()
+        parsed = urlparse(value)
+        if parsed.scheme not in ("http", "https") or not parsed.netloc:
+            raise ValueError("must be a full http(s) link")
+        if len(value) > 500:
+            raise ValueError("must be 500 characters or fewer")
+        return value
 
 
 class CategoryCreate(BaseModel):

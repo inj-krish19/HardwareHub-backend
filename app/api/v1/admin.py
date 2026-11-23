@@ -260,6 +260,8 @@ def create_product(payload: ProductCreate, db: Session = Depends(get_db)) -> dic
         model_number=payload.model_number,
         specs=payload.specs,
         use_case_tags=payload.use_case_tags,
+        image_url=payload.image_url,
+        video_url=payload.video_url,
     )
     db.add(product)
     db.commit()
