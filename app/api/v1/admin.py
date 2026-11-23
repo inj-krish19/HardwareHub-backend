@@ -7,6 +7,8 @@ from sqlalchemy.orm import Session
 import uuid
 
 from app.core.admin_auth import require_admin
+from app.core.slugs import slugify, unique_slug
+from app.db.backfill_slugs import taken_slugs
 from app.db.session import get_db
 from app.core.links import normalize_links
 from app.models.feedback import GuideFeedback
@@ -43,6 +45,7 @@ def bulk_upload_symptoms(entries: list[SymptomSeedEntry], db: Session = Depends(
     title already exists in the database, or appears earlier in the same paste,
     is skipped and listed in `skipped`, so re-pasting a file is safe."""
     taken = {t.strip().lower() for t in db.execute(select(Symptom.title)).scalars()}
+    slugs = taken_slugs(db)
     created = 0
     skipped: list[str] = []
     for entry in entries:
@@ -53,6 +56,7 @@ def bulk_upload_symptoms(entries: list[SymptomSeedEntry], db: Session = Depends(
         taken.add(key)
         symptom = Symptom(
             title=entry.title.strip(),
+            slug=unique_slug(slugify(entry.title), slugs),
             category=entry.category,
             keywords=", ".join(entry.keywords) if entry.keywords else None,
             bot_type=entry.bot_type,
@@ -223,6 +227,7 @@ def list_symptoms(db: Session = Depends(get_db)) -> list[dict]:
         {
             "id": str(s.id),
             "title": s.title,
+            "slug": s.slug,
             "category": s.category,
             "bot_type": s.bot_type,
             "keywords": s.keywords or "",

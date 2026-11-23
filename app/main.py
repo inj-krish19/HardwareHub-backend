@@ -5,6 +5,7 @@ from app.api.v1.chatbot import router as chatbot_router
 from app.api.v1.admin import router as admin_router
 from app.api.v1.compare import router as compare_router
 from app.api.v1.catalog import router as catalog_router
+from app.api.v1.guides import router as guides_router
 from app.core.config import get_settings
 
 settings = get_settings()
@@ -23,6 +24,7 @@ app.include_router(chatbot_router, prefix=settings.API_V1_PREFIX)
 app.include_router(admin_router, prefix=settings.API_V1_PREFIX)
 app.include_router(compare_router, prefix=settings.API_V1_PREFIX)
 app.include_router(catalog_router, prefix=settings.API_V1_PREFIX)
+app.include_router(guides_router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/health")

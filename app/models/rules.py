@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import ForeignKey, Integer, String, Text
+from sqlalchemy import ForeignKey, Index, Integer, String, Text, text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -19,10 +19,21 @@ class CompatibilityRule(Base):
 
 class Symptom(Base):
     __tablename__ = "symptom"
+    __table_args__ = (
+        # Guide titles are unique ignoring case and surrounding spaces: the chat
+        # opens a guide by the title the person tapped.
+        Index("uq_symptom_title_ci", text("lower(btrim(title))"), unique=True),
+        # Public URL of the guide page. NULLs are allowed (and not compared) so
+        # the column can be added first and filled in afterwards.
+        Index("uq_symptom_slug", "slug", unique=True),
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     product_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("product.id"), nullable=True)
     title: Mapped[str] = mapped_column(String(200), nullable=False)
+    # Stable, URL-safe name for /guides/<slug>. Generated once from the title
+    # (see app/core/slugs.py) and never changed when the title is edited.
+    slug: Mapped[str | None] = mapped_column(String(160), nullable=True)
     category: Mapped[str] = mapped_column(String(80), nullable=False)
     # Comma-separated synonyms/phrasings so a query doesn't have to closely
     # match the title wording to be matched (e.g. "ram isn't showing up"
