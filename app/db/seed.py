@@ -13,6 +13,8 @@ from pathlib import Path
 
 from sqlalchemy import select
 
+from app.core.slugs import slugify, unique_slug
+from app.db.backfill_slugs import taken_slugs
 from app.db.session import SessionLocal
 from app.models.rules import DiagnosisRule, Symptom
 
@@ -28,6 +30,7 @@ def seed_symptoms() -> None:
         # by title. Anything already in the database, or repeated across the
         # files, is skipped, so running this twice no longer duplicates guides.
         taken = {t.strip().lower() for t in db.execute(select(Symptom.title)).scalars()}
+        slugs = taken_slugs(db)
         for path in sorted(SEED_DIR.glob("*_symptoms.json")):
             data = json.loads(path.read_text(encoding="utf-8"))
             added = 0
@@ -41,6 +44,7 @@ def seed_symptoms() -> None:
                 keywords = entry.get("keywords")
                 symptom = Symptom(
                     title=entry["title"].strip(),
+                    slug=unique_slug(slugify(entry["title"]), slugs),
                     category=entry["category"],
                     keywords=", ".join(keywords) if keywords else None,
                     bot_type=entry.get("bot_type", "diagnostic"),
