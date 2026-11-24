@@ -7,9 +7,10 @@ from app.models.rules import (
     UseBudgetProfile,
 )
 from app.models.feedback import GuideFeedback
+from app.models.query_log import UnmatchedQuery
 from app.models.social import Comparison, ComparisonItem, User
 
 __all__ = [
     "Category", "Product", "ProductLink", "BlogPost", "CompatibilityRule", "Symptom", "DiagnosisRule",
-    "UseBudgetProfile", "RecommendationRule", "Comparison", "ComparisonItem", "User", "GuideFeedback",
+    "UseBudgetProfile", "RecommendationRule", "Comparison", "ComparisonItem", "User", "GuideFeedback", "UnmatchedQuery",
 ]
