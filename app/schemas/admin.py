@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import uuid
-from typing import Any
+from typing import Any, Literal
 from urllib.parse import urlparse
 
 from pydantic import BaseModel, field_validator
@@ -46,6 +46,25 @@ class MediaSeedEntry(BaseModel):
 
 class SymptomKeywordsUpdate(BaseModel):
     keywords: list[str]
+
+
+class UnmatchedKeywordRequest(BaseModel):
+    symptom_id: uuid.UUID
+    keyword: str
+
+    @field_validator("keyword")
+    @classmethod
+    def _clean_keyword(cls, value: str) -> str:
+        """One phrase of 2 to 80 characters with at least one letter. Commas would
+        split it into several keywords in the stored list, so they become spaces."""
+        value = " ".join(value.replace(",", " ").split())
+        if not (2 <= len(value) <= 80) or not any(ch.isalpha() for ch in value):
+            raise ValueError("a keyword must be 2 to 80 characters and contain a letter")
+        return value
+
+
+class UnmatchedStatusRequest(BaseModel):
+    status: Literal["open", "dismissed"]
 
 
 class ProductCreate(BaseModel):

@@ -13,7 +13,9 @@ from app.db.session import get_db
 from app.core.links import normalize_links
 from app.models.feedback import GuideFeedback
 from app.models.catalog import BlogPost, Category, Product, ProductLink
+from app.models.query_log import UnmatchedQuery
 from app.models.rules import DiagnosisRule, Symptom
+from app.rule_engine.matcher import rank_matches
 from app.schemas.admin import (
     BlogPostCreate,
     CategoryCreate,
@@ -22,6 +24,8 @@ from app.schemas.admin import (
     ProductSeedEntry,
     SymptomKeywordsUpdate,
     SymptomSeedEntry,
+    UnmatchedKeywordRequest,
+    UnmatchedStatusRequest,
 )
 
 router = APIRouter(prefix="/admin", tags=["admin"], dependencies=[Depends(require_admin)])
@@ -286,3 +290,97 @@ def create_blog_post(payload: BlogPostCreate, db: Session = Depends(get_db)) -> 
     db.commit()
     db.refresh(post)
     return {"id": str(post.id)}
+
+
+# ---------------------------------------------------------------------------
+# Unmatched queries: chat messages that matched no guide (text only, no identity)
+# ---------------------------------------------------------------------------
+
+UNMATCHED_LIST_LIMIT = 200
+
+
+def _unmatched_row(q: UnmatchedQuery, guide_title: str | None) -> dict:
+    return {
+        "id": str(q.id),
+        "text": q.text,
+        "times_seen": q.times_seen,
+        "first_seen": q.first_seen.isoformat() if q.first_seen else None,
+        "last_seen": q.last_seen.isoformat() if q.last_seen else None,
+        "status": q.status,
+        "resolved_guide": guide_title,
+    }
+
+
+@router.get("/unmatched")
+def list_unmatched(status: str = "open", db: Session = Depends(get_db)) -> list[dict]:
+    """Most-repeated misses first. status: open | fixed | dismissed | all."""
+    if status not in ("open", "fixed", "dismissed", "all"):
+        raise HTTPException(status_code=422, detail="status must be open, fixed, dismissed or all.")
+    stmt = (
+        select(UnmatchedQuery, Symptom.title)
+        .join(Symptom, Symptom.id == UnmatchedQuery.resolved_symptom_id, isouter=True)
+        .order_by(UnmatchedQuery.times_seen.desc(), UnmatchedQuery.last_seen.desc())
+        .limit(UNMATCHED_LIST_LIMIT)
+    )
+    if status != "all":
+        stmt = stmt.where(UnmatchedQuery.status == status)
+    return [_unmatched_row(q, title) for q, title in db.execute(stmt).all()]
+
+
+@router.get("/unmatched/export")
+def export_unmatched(db: Session = Depends(get_db)) -> list[dict]:
+    """Real messages in the format of scripts/match_eval_queries.json, for building the
+    evaluation set. Dismissed (junk) rows are left out. `expected` is the guide an admin
+    attached the message to, or "TODO" (match_eval.py skips those) until someone labels it."""
+    rows = db.execute(
+        select(UnmatchedQuery, Symptom.title)
+        .join(Symptom, Symptom.id == UnmatchedQuery.resolved_symptom_id, isouter=True)
+        .where(UnmatchedQuery.status != "dismissed")
+        .order_by(UnmatchedQuery.times_seen.desc(), UnmatchedQuery.text)
+    ).all()
+    return [{"query": q.text, "expected": title or "TODO"} for q, title in rows]
+
+
+@router.post("/unmatched/{query_id}/keyword")
+def add_keyword_for_unmatched(
+    query_id: uuid.UUID, payload: UnmatchedKeywordRequest, db: Session = Depends(get_db)
+) -> dict:
+    """Add a phrase to a guide's keywords and mark the miss as fixed. The reply says
+    whether the message now finds that guide, so a phrase that is too narrow shows up at once."""
+    query = db.get(UnmatchedQuery, query_id)
+    if query is None:
+        raise HTTPException(status_code=404, detail="Unmatched query not found.")
+    symptom = db.get(Symptom, payload.symptom_id)
+    if symptom is None:
+        raise HTTPException(status_code=404, detail="Guide not found.")
+
+    existing = [k.strip() for k in (symptom.keywords or "").split(",") if k.strip()]
+    if payload.keyword.lower() not in {k.lower() for k in existing}:
+        existing.append(payload.keyword)
+        symptom.keywords = ", ".join(existing)
+    query.status = "fixed"
+    query.resolved_symptom_id = symptom.id
+    db.commit()
+
+    all_symptoms = db.execute(select(Symptom)).scalars().all()
+    top = rank_matches(query.text, all_symptoms, None, limit=3)
+    return {
+        "guide": symptom.title,
+        "keywords": symptom.keywords or "",
+        "now_matches": any(m.id == symptom.id for m in top),
+    }
+
+
+@router.post("/unmatched/{query_id}/status")
+def set_unmatched_status(
+    query_id: uuid.UUID, payload: UnmatchedStatusRequest, db: Session = Depends(get_db)
+) -> dict:
+    """Dismiss a miss that is junk or off-topic, or reopen it."""
+    query = db.get(UnmatchedQuery, query_id)
+    if query is None:
+        raise HTTPException(status_code=404, detail="Unmatched query not found.")
+    query.status = payload.status
+    if payload.status == "open":
+        query.resolved_symptom_id = None
+    db.commit()
+    return {"id": str(query.id), "status": query.status}

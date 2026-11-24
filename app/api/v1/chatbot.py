@@ -12,6 +12,7 @@ from app.models.rules import DiagnosisRule, Symptom
 from app.rule_engine import router as intent_router
 from app.rule_engine import tree_walker
 from app.rule_engine.formatter import format_result
+from app.db.query_log import log_unmatched
 from app.rule_engine.matcher import rank_matches
 from app.schemas.chatbot import (
     BotSelectionRequest,
@@ -99,6 +100,10 @@ def start_chat(payload: ChatStartRequest, db: Session = Depends(get_db)) -> Chat
             ),
             options=[m.title for m in matches],
         )
+
+    # Nothing matched: remember the wording (text only) so an admin can turn it
+    # into a keyword or a new guide.
+    log_unmatched(db, payload.query)
 
     # No confident match. If the intent told us which bot, jump straight to that
     # bot's guide list instead of making the user pick a bot again.
