@@ -11,7 +11,7 @@ from app.models.feedback import GuideFeedback
 from app.models.rules import DiagnosisRule, Symptom
 from app.rule_engine import router as intent_router
 from app.rule_engine import tree_walker
-from app.rule_engine.formatter import format_result
+from app.rule_engine.formatter import format_report, format_result
 from app.db.query_log import log_unmatched
 from app.rule_engine.matcher import rank_matches
 from app.schemas.chatbot import (
@@ -22,6 +22,9 @@ from app.schemas.chatbot import (
     ChatStepResponse,
     FeedbackRequest,
     OutcomeStats,
+    ReportRequest,
+    ReportResponse,
+    ReportStep,
     SymptomSelectionRequest,
 )
 
@@ -218,6 +221,36 @@ def submit_feedback(payload: FeedbackRequest, db: Session = Depends(get_db)) -> 
     )
     db.commit()
     return {"status": "recorded"}
+
+
+@router.post("/report", response_model=ReportResponse)
+def technician_report(payload: ReportRequest, db: Session = Depends(get_db)) -> ReportResponse:
+    """A plain-text summary to hand to a technician, for a guide that ended in "needs a
+    professional". Stateless like /feedback: the path is replayed through the real tree,
+    so the report can only contain what the guide itself asked and said. Nothing is stored."""
+    symptom = db.get(Symptom, payload.symptom_id)
+    rule = db.execute(
+        select(DiagnosisRule).where(DiagnosisRule.symptom_id == payload.symptom_id)
+    ).scalars().first()
+    if symptom is None or rule is None:
+        raise HTTPException(status_code=404, detail="Guide not found.")
+    try:
+        steps, result = tree_walker.trace(rule.question_tree, payload.answer_path)
+    except tree_walker.TreeWalkerError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if result.node_type != "escalate":
+        raise HTTPException(
+            status_code=400,
+            detail="A technician summary is only available when the guide recommends professional help.",
+        )
+
+    report = format_report(symptom.title, symptom.category, steps, result)
+    return ReportResponse(
+        title=symptom.title.strip(),
+        category=symptom.category.strip(),
+        steps=[ReportStep(question=s.question, answer=s.answer) for s in steps],
+        **report,
+    )
 
 
 def _start_tree_for_symptom(db: Session, symptom_id: uuid.UUID) -> ChatStepResponse:

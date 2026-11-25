@@ -28,7 +28,8 @@ they are real writes while the test runs). On a read-only database or a replica
 the API tests are skipped with a message. Run from backend/:  python -m pytest
 """
 import os
-import uuid
+import random
+import string
 from pathlib import Path
 
 import pytest
@@ -176,16 +177,22 @@ def db(client):
         assert was_open, "the test's transaction ended early, so its data may not have been rolled back"
 
 
+def _random_letters(n: int = 10) -> str:
+    # Letters only, on purpose: the chat refuses messages with 7 or more digits in a row
+    # (they could be phone numbers), so a random tag with digits would sometimes be refused.
+    return "".join(random.choices(string.ascii_lowercase, k=n))
+
+
 @pytest.fixture()
 def tag() -> str:
     """Random name for the guides a test creates; unique per test and lower case."""
-    return f"{GUIDE_PREFIX}{uuid.uuid4().hex[:8]}"
+    return f"{GUIDE_PREFIX}{_random_letters()}"
 
 
 @pytest.fixture()
 def qtag() -> str:
     """Random word for the chat messages a test sends, so they match no real guide."""
-    return f"{MESSAGE_PREFIX}{uuid.uuid4().hex[:8]}"
+    return f"{MESSAGE_PREFIX}{_random_letters()}"
 
 
 @pytest.fixture()
