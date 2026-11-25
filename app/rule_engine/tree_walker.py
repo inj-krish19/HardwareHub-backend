@@ -35,8 +35,19 @@ def start(tree: dict[str, Any]) -> WalkResult:
     return _to_result(tree)
 
 
-def answer(tree: dict[str, Any], answer_path: list[str]) -> WalkResult:
+@dataclass
+class TraceStep:
+    """One question that was asked and the answer given to it."""
+
+    question: str
+    answer: str
+
+
+def trace(tree: dict[str, Any], answer_path: list[str]) -> tuple[list[TraceStep], WalkResult]:
+    """Replay an answer path from the root. Returns every question asked with the
+    answer given to it, plus the node the path ends on."""
     node = tree
+    steps: list[TraceStep] = []
     for chosen_answer in answer_path:
         node_type = _classify(node)
         if node_type != "question":
@@ -46,8 +57,13 @@ def answer(tree: dict[str, Any], answer_path: list[str]) -> WalkResult:
         if match is None:
             valid = [o.get("answer") for o in options]
             raise TreeWalkerError(f"'{chosen_answer}' is not a valid answer here. Valid options: {valid}")
+        steps.append(TraceStep(question=node["question"], answer=chosen_answer))
         node = match["next"]
-    return _to_result(node)
+    return steps, _to_result(node)
+
+
+def answer(tree: dict[str, Any], answer_path: list[str]) -> WalkResult:
+    return trace(tree, answer_path)[1]
 
 
 def _to_result(node: dict[str, Any]) -> WalkResult:

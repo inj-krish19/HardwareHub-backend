@@ -33,6 +33,26 @@ class FeedbackRequest(BaseModel):
     helpful: bool
 
 
+class ReportRequest(BaseModel):
+    symptom_id: uuid.UUID
+    answer_path: list[str] = Field(default_factory=list, max_length=15)
+
+
+class ReportStep(BaseModel):
+    question: str
+    answer: str
+
+
+class ReportResponse(BaseModel):
+    title: str
+    category: str
+    steps: list[ReportStep]
+    finding: str
+    header: str
+    body: str
+    text: str
+
+
 class OutcomeStats(BaseModel):
     helpful: int
     total: int
