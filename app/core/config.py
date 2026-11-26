@@ -1,5 +1,8 @@
 from functools import lru_cache
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+MIN_ADMIN_SECRET_LENGTH = 16
 
 
 class Settings(BaseSettings):
@@ -18,6 +21,24 @@ class Settings(BaseSettings):
     # at this scale. Both teammates use the same ADMIN_ID/ADMIN_SECRET.
     ADMIN_ID: str
     ADMIN_SECRET: str
+
+    @field_validator("ADMIN_SECRET")
+    @classmethod
+    def _secret_is_long_enough(cls, value: str) -> str:
+        # There is no limit on wrong guesses, so the secret itself has to be hard to guess.
+        if len(value) < MIN_ADMIN_SECRET_LENGTH:
+            raise ValueError(
+                f"ADMIN_SECRET must be at least {MIN_ADMIN_SECRET_LENGTH} characters. "
+                "Use a long random value, for example: python -c \"import secrets; print(secrets.token_urlsafe(32))\""
+            )
+        return value
+
+    @field_validator("ADMIN_ID")
+    @classmethod
+    def _id_is_not_blank(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("ADMIN_ID must not be empty.")
+        return value
 
     @property
     def cors_origins_list(self) -> list[str]:
