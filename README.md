@@ -204,9 +204,9 @@ backend/
     api/v1/            chatbot, guides, catalog, compare, admin
     rule_engine/       router, matcher, tree_walker, formatter (see "How an answer is produced")
     data/              seed guides and the product seed
-  scripts/             match_eval.py and its query file; heldout/ is the tester kit
+  scripts/             match_eval.py and its query file; smoke_check.py; heldout/ is the tester kit
   tests/               pytest
-  docs/                ERD, held-out evaluation protocol
+  docs/                ERD, held-out evaluation protocol, deploy runbook
   requirements.txt     what the app needs
   requirements-dev.txt adds pytest and httpx
   sync_schema.sql      the schema changes as plain SQL
@@ -214,10 +214,13 @@ backend/
 
 ## Deploying
 
+The full runbook is [docs/DEPLOY.md](docs/DEPLOY.md). In short:
+
 1. Set `DATABASE_URL`, `CORS_ORIGIN` (must include the deployed frontend's address), `ADMIN_ID` and a long random `ADMIN_SECRET`.
-2. Run `python -m app.db.sync_schema` against the production database (or paste `sync_schema.sql` into the Neon SQL editor).
+2. Run `python -m app.db.sync_schema` against the production database (or paste `sync_schema.sql` into the Neon SQL editor). It only adds, never deletes.
 3. Load the guides with `python -m app.db.seed`, or from the admin panel.
 4. Deploy the backend first, then the frontend: the guide pages call `/api/v1/guides`.
+5. Check it: `python scripts/smoke_check.py --api https://your-backend --site https://your-site` (read-only; every line must say PASS).
 
 ## Known limits
 
