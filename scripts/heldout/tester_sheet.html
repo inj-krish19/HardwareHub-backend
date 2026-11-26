@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hardware Hub: help us test</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f8fafc;
+        --card: #fff;
+        --line: #e2e8f0;
+        --ink: #0f172a;
+        --mute: #64748b;
+        --brand: #0284c7;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0b1220;
+          --card: #111a2e;
+          --line: #223049;
+          --ink: #e5edf9;
+          --mute: #93a4bf;
+          --brand: #38bdf8;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font:
+          16px/1.5 -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Inter,
+          sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      main {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 20px 16px 120px;
+      }
+      h1 {
+        font-size: 1.4rem;
+        margin: 0 0 4px;
+      }
+      p {
+        margin: 8px 0;
+      }
+      .mute {
+        color: var(--mute);
+        font-size: 0.9rem;
+      }
+      .box {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px 16px;
+        margin: 14px 0;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px 16px;
+        margin: 12px 0;
+      }
+      .card .n {
+        font-size: 0.75rem;
+        color: var(--mute);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      input,
+      textarea {
+        width: 100%;
+        font: inherit;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: transparent;
+        color: inherit;
+      }
+      label {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--mute);
+        margin: 10px 0 4px;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .row > div {
+        flex: 1 1 120px;
+      }
+      .row > div.wide {
+        flex-basis: 100%;
+      }
+      button {
+        font: inherit;
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--brand);
+        background: var(--brand);
+        color: #fff;
+        cursor: pointer;
+      }
+      button.ghost {
+        background: transparent;
+        color: var(--brand);
+      }
+      .bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--card);
+        border-top: 1px solid var(--line);
+        padding: 10px 16px;
+      }
+      .bar .in {
+        max-width: 680px;
+        margin: 0 auto;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .bar .count {
+        flex: 1;
+        font-size: 0.9rem;
+        color: var(--mute);
+      }
+      #msg {
+        color: var(--brand);
+        font-size: 0.9rem;
+        min-height: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Help us test a PC troubleshooting chatbot</h1>
+      <p class="mute">
+        Takes about 10 minutes. Nothing you type here is uploaded: it stays on
+        your device until you send the file yourself. Please do not type your
+        name, phone number or email.
+      </p>
+
+      <div class="box">
+        <p><b>What to do</b></p>
+        <p>
+          You will see short situations. For each one,
+          <b>type what you would write to a chatbot to get help</b>, the way you
+          would normally type it, short or long.
+        </p>
+        <p>
+          <b>Please do not copy the situation text.</b> Put it in your own
+          words, as if it were your own problem. There are no right or wrong
+          answers, and we are testing the chatbot, not you.
+        </p>
+        <p class="mute">
+          If a situation is not about computers, just type a question the way
+          you would ask it.
+        </p>
+      </div>
+
+      <div class="box">
+        <div class="row">
+          <div class="wide">
+            <label for="who"
+              >Your tester nickname or number (not your real name)</label
+            ><input id="who" placeholder="for example T1" maxlength="20" />
+          </div>
+          <div>
+            <label for="t">I am tester number</label
+            ><input id="t" type="number" min="1" value="1" />
+          </div>
+          <div>
+            <label for="of">out of</label
+            ><input id="of" type="number" min="1" value="1" />
+          </div>
+        </div>
+        <p class="mute">
+          If you were told "tester 2 of 4", enter 2 and 4. If you were not told
+          anything, leave 1 and 1 and answer them all.
+        </p>
+      </div>
+
+      <div id="list"></div>
+      <div id="msg" role="status"></div>
+    </main>
+    <div class="bar">
+      <div class="in">
+        <span class="count" id="count"></span>
+        <button class="ghost" id="copy">Copy answers</button>
+        <button id="dl">Download file</button>
+      </div>
+    </div>
+    <script>
+      const SCENARIOS = [
+        {
+          id: "S01",
+          text: "A friend's desktop is lifeless. She presses the button on the front and there is no reaction of any kind: nothing lights up, nothing spins, no sound.",
+        },
+        {
+          id: "S02",
+          text: "There is a thin, high-pitched electrical buzz coming from the rear of the case. It gets worse when a game is running.",
+        },
+        {
+          id: "S03",
+          text: "The metal box at the back where the power cable enters feels scorching hot, and you cannot see its fan moving.",
+        },
+        {
+          id: "S04",
+          text: "One of the memory sticks refuses to stay put in its slot: the little clips will not lock and it looks loose.",
+        },
+        {
+          id: "S05",
+          text: "You fitted 16 GB of memory but Windows reports that only about half of it is available.",
+        },
+        {
+          id: "S06",
+          text: "Several times a day Windows suddenly shows a blue screen with a sad face, and the error text is different each time.",
+        },
+        {
+          id: "S07",
+          text: "You have just added extra memory. The machine powers up and the fans spin, but the monitor stays completely black.",
+        },
+        {
+          id: "S08",
+          text: "Your computer begins to start, then reboots itself, again and again, and never reaches the desktop.",
+        },
+        {
+          id: "S09",
+          text: "When you switch the computer on it plays a pattern of short beeps and a small orange light stays lit on the board.",
+        },
+        {
+          id: "S10",
+          text: "After a few minutes of gaming the frame rate collapses. A monitoring tool shows the processor at an extremely high temperature and a lower clock speed.",
+        },
+        {
+          id: "S11",
+          text: "You have a sealed liquid cooler with a radiator. The pipes feel stone cold and silent while the processor temperature shoots up.",
+        },
+        {
+          id: "S12",
+          text: "A scraping, clattering sound comes from the heatsink sitting on top of the processor.",
+        },
+        {
+          id: "S13",
+          text: "In the BIOS the cooler shows zero RPM, yet when you look inside you can see the fan turning.",
+        },
+        {
+          id: "S14",
+          text: "Every fan in the machine roars at maximum all the time, even when you are only looking at the desktop.",
+        },
+        {
+          id: "S15",
+          text: "You swapped the old processor for a newer one and now the machine will not boot at all.",
+        },
+        {
+          id: "S16",
+          text: "While fitting the chip you notice a few of the tiny gold-coloured pins in the socket have gone crooked.",
+        },
+        {
+          id: "S17",
+          text: "Task Manager shows the processor maxed out all the time even though you have nothing open, and everything feels sluggish.",
+        },
+        {
+          id: "S18",
+          text: "The screen displays a floating message saying it cannot detect an input and then goes dark.",
+        },
+        {
+          id: "S19",
+          text: "The picture keeps flashing and blinking on and off every few seconds.",
+        },
+        {
+          id: "S20",
+          text: "Everything looks fuzzy and squashed, the icons are enormous and the picture does not fill the monitor.",
+        },
+        {
+          id: "S21",
+          text: "You connected an extra screen next to the first one, but it stays black and Windows acts as if it does not exist.",
+        },
+        {
+          id: "S22",
+          text: "Coloured vertical stripes run down the display and a small patch of pixels never lights up.",
+        },
+        {
+          id: "S23",
+          text: "The charger is plugged into the laptop but the battery level will not rise and a note says it is plugged in.",
+        },
+        {
+          id: "S24",
+          text: "You press the power key on a notebook and it shows absolutely no sign of life.",
+        },
+        {
+          id: "S25",
+          text: "The underside of the notebook is burning and its fan sounds like a jet engine.",
+        },
+        {
+          id: "S26",
+          text: "You can hear a notebook running and its keyboard lights are on, but the display is dark.",
+        },
+        {
+          id: "S27",
+          text: "Several letters on a notebook's keyboard do nothing at all when pressed.",
+        },
+        {
+          id: "S28",
+          text: "Phones in the house browse the web happily, but your desktop says it has no connection.",
+        },
+        {
+          id: "S29",
+          text: "The wireless networks list has vanished from Windows and the option to join one is no longer there.",
+        },
+        {
+          id: "S30",
+          text: "Other devices stream and download quickly, but this one crawls along on the same network.",
+        },
+        {
+          id: "S31",
+          text: "The wireless link keeps dropping out every few minutes and then reconnecting.",
+        },
+        {
+          id: "S32",
+          text: "Typing and moving the pointer both do nothing; the machine seems to ignore you.",
+        },
+        {
+          id: "S33",
+          text: "You insert a pen drive and Windows pops up saying it does not understand what was connected.",
+        },
+        {
+          id: "S34",
+          text: "A video plays on screen but you can hear nothing from the speakers or the earphones.",
+        },
+        {
+          id: "S35",
+          text: "Your printer is listed as unavailable and documents just pile up waiting.",
+        },
+        {
+          id: "S36",
+          text: "During a video call the other people can neither see nor hear you.",
+        },
+        {
+          id: "S37",
+          text: "You have about 60,000 rupees and want to assemble a machine mainly to play games.",
+        },
+        {
+          id: "S38",
+          text: "A student wants a computer for programming and assignments and does not have much money.",
+        },
+        {
+          id: "S39",
+          text: "You want to cut videos and design posters. Where should the money go?",
+        },
+        {
+          id: "S40",
+          text: "Is it smarter to purchase a ready-made computer from a shop or put one together yourself?",
+        },
+        {
+          id: "S41",
+          text: "You have never assembled a computer. Which component deserves the biggest slice of your budget?",
+        },
+        {
+          id: "S42",
+          text: "You bought new memory sticks online and want to be sure they suit the board you already have.",
+        },
+        {
+          id: "S43",
+          text: "Can the new chip you found fit and run on the board that is already in your case?",
+        },
+        {
+          id: "S44",
+          text: "You want a particular video card. Will it physically fit in your case and function with your machine?",
+        },
+        {
+          id: "S45",
+          text: "You want to add a slim modern storage stick to an older computer. Will it be accepted?",
+        },
+        {
+          id: "S46",
+          text: "You are eyeing a huge tower-shaped heatsink. Will it clear the side panel and suit your chip?",
+        },
+        {
+          id: "S47",
+          text: "You own a 450 watt unit and plan to add hungrier components. Will it cope?",
+        },
+        {
+          id: "S48",
+          text: "Your six-year-old computer: is it able to run the newest version of Windows?",
+        },
+        {
+          id: "S49",
+          text: "Your computer has become sluggish. What is the single most worthwhile part to replace first?",
+        },
+        {
+          id: "S50",
+          text: "You only have money for one improvement for gaming: the processor or the video card?",
+        },
+        {
+          id: "S51",
+          text: "You have 8 GB of memory. Is that enough, or would extra help?",
+        },
+        {
+          id: "S52",
+          text: "Your computer still boots from an old spinning disk. Is replacing it with a flash drive worth the cost?",
+        },
+        {
+          id: "S53",
+          text: "Would a recent video card perform properly inside a ten-year-old machine?",
+        },
+        {
+          id: "S54",
+          text: "Should you pour money into an ageing computer or just replace the whole thing?",
+        },
+        {
+          id: "S55",
+          text: "Can you improve a notebook by swapping some of its parts?",
+        },
+        {
+          id: "S56",
+          text: "How frequently does the dust have to be removed from a computer?",
+        },
+        {
+          id: "S57",
+          text: "You want to get the dirt out of the case without breaking anything.",
+        },
+        {
+          id: "S58",
+          text: "After how long does the grey compound between the chip and heatsink need renewing?",
+        },
+        {
+          id: "S59",
+          text: "How can you make sure your photos and documents survive if the drive dies?",
+        },
+        {
+          id: "S60",
+          text: "What is the careful way to keep the operating system and hardware software current?",
+        },
+        {
+          id: "S61",
+          text: "It is peak summer and the room is boiling. How do you stop the machine from suffering?",
+        },
+        {
+          id: "S62",
+          text: "Where you live the electricity often cuts out or surges. How do you shield the computer?",
+        },
+        {
+          id: "S63",
+          text: "Ask the assistant something that has nothing to do with computers, such as today's weather or a recipe.",
+        },
+        {
+          id: "S64",
+          text: "Ask the assistant for a joke or a bit of general trivia.",
+        },
+        {
+          id: "S65",
+          text: "Ask about a problem with a mobile phone, for example a cracked screen.",
+        },
+        {
+          id: "S66",
+          text: "Ask about a games console that will not start up.",
+        },
+        { id: "S67", text: "Ask something about cooking or sport results." },
+        { id: "S68", text: "Ask for advice on choosing a mobile phone plan." },
+      ];
+      const $ = (id) => document.getElementById(id);
+      const answers = {}; // scenario id -> typed text (kept in memory only)
+
+      function mine() {
+        const of = Math.max(1, parseInt($("of").value || "1", 10));
+        const t = Math.min(of, Math.max(1, parseInt($("t").value || "1", 10)));
+        return SCENARIOS.filter((s, i) => i % of === t - 1);
+      }
+      function seeded(n) {
+        let s = n * 9301 + 49297;
+        return () => (s = (s * 9301 + 49297) % 233280) / 233280;
+      }
+      function render() {
+        const t = parseInt($("t").value || "1", 10),
+          rand = seeded(t),
+          list = mine().slice();
+        for (let i = list.length - 1; i > 0; i--) {
+          const j = Math.floor(rand() * (i + 1));
+          [list[i], list[j]] = [list[j], list[i]];
+        }
+        $("list").innerHTML = "";
+        list.forEach((s, k) => {
+          const d = document.createElement("div");
+          d.className = "card";
+          d.innerHTML =
+            '<div class="n">Situation ' +
+            (k + 1) +
+            " of " +
+            list.length +
+            '</div><p></p><label>What would you type to the chatbot?</label><textarea rows="2"></textarea>';
+          d.querySelector("p").textContent = s.text;
+          const ta = d.querySelector("textarea");
+          ta.value = answers[s.id] || "";
+          ta.addEventListener("input", () => {
+            answers[s.id] = ta.value;
+            count();
+          });
+          $("list").appendChild(d);
+        });
+        count();
+      }
+      function count() {
+        const m = mine();
+        const done = m.filter((s) => (answers[s.id] || "").trim()).length;
+        $("count").textContent = done + " of " + m.length + " answered";
+      }
+      function q(v) {
+        return '"' + String(v).replace(/"/g, '""') + '"';
+      }
+      function csv() {
+        const who =
+          ($("who").value || "").trim().replace(/[\r\n,]+/g, " ") || "tester";
+        const rows = mine()
+          .filter((s) => (answers[s.id] || "").trim())
+          .map((s) =>
+            [who, s.id, (answers[s.id] || "").replace(/\s+/g, " ").trim()]
+              .map(q)
+              .join(","),
+          );
+        return ["tester,scenario_id,query"].concat(rows).join("\n") + "\n";
+      }
+      $("dl").onclick = () => {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([csv()], { type: "text/csv" }));
+        a.download =
+          "answers_" +
+          (($("who").value || "tester").trim().replace(/[^\w-]+/g, "") ||
+            "tester") +
+          ".csv";
+        a.click();
+        $("msg").textContent =
+          "File saved. Please send it back to whoever gave you this page.";
+      };
+      $("copy").onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(csv());
+          $("msg").textContent =
+            "Copied. Paste it into a message to send it back.";
+        } catch {
+          $("msg").textContent =
+            "Copying was blocked. Use Download file instead.";
+        }
+      };
+      $("t").addEventListener("change", render);
+      $("of").addEventListener("change", render);
+      render();
+    </script>
+  </body>
+</html>

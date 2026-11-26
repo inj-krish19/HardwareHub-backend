@@ -1,0 +1,410 @@
+[
+  {
+    "id": "S01",
+    "category": "PSU",
+    "text": "A friend's desktop is lifeless. She presses the button on the front and there is no reaction of any kind: nothing lights up, nothing spins, no sound.",
+    "expected": "No power / PC will not turn on"
+  },
+  {
+    "id": "S02",
+    "category": "PSU",
+    "text": "There is a thin, high-pitched electrical buzz coming from the rear of the case. It gets worse when a game is running.",
+    "expected": "Loud coil whine from PSU area"
+  },
+  {
+    "id": "S03",
+    "category": "PSU",
+    "text": "The metal box at the back where the power cable enters feels scorching hot, and you cannot see its fan moving.",
+    "expected": "PSU overheating or fan not spinning"
+  },
+  {
+    "id": "S04",
+    "category": "RAM",
+    "text": "One of the memory sticks refuses to stay put in its slot: the little clips will not lock and it looks loose.",
+    "expected": "RAM slot is damaged or does not hold the RAM"
+  },
+  {
+    "id": "S05",
+    "category": "RAM",
+    "text": "You fitted 16 GB of memory but Windows reports that only about half of it is available.",
+    "expected": "RAM capacity showing less than installed"
+  },
+  {
+    "id": "S06",
+    "category": "RAM",
+    "text": "Several times a day Windows suddenly shows a blue screen with a sad face, and the error text is different each time.",
+    "expected": "Random crashes or Blue Screen errors"
+  },
+  {
+    "id": "S07",
+    "category": "RAM",
+    "text": "You have just added extra memory. The machine powers up and the fans spin, but the monitor stays completely black.",
+    "expected": "PC turns on but no display on monitor"
+  },
+  {
+    "id": "S08",
+    "category": "RAM",
+    "text": "Your computer begins to start, then reboots itself, again and again, and never reaches the desktop.",
+    "expected": "PC keeps restarting in a continuous loop"
+  },
+  {
+    "id": "S09",
+    "category": "RAM",
+    "text": "When you switch the computer on it plays a pattern of short beeps and a small orange light stays lit on the board.",
+    "expected": "Startup warning beeps or motherboard error light"
+  },
+  {
+    "id": "S10",
+    "category": "Cooling",
+    "text": "After a few minutes of gaming the frame rate collapses. A monitoring tool shows the processor at an extremely high temperature and a lower clock speed.",
+    "expected": "CPU thermal throttling under load"
+  },
+  {
+    "id": "S11",
+    "category": "Cooling",
+    "text": "You have a sealed liquid cooler with a radiator. The pipes feel stone cold and silent while the processor temperature shoots up.",
+    "expected": "AIO pump failure or no liquid cooling circulation"
+  },
+  {
+    "id": "S12",
+    "category": "Cooling",
+    "text": "A scraping, clattering sound comes from the heatsink sitting on top of the processor.",
+    "expected": "Unusual noise from cooler (rattling, grinding, or buzzing)"
+  },
+  {
+    "id": "S13",
+    "category": "Cooling",
+    "text": "In the BIOS the cooler shows zero RPM, yet when you look inside you can see the fan turning.",
+    "expected": "Cooler not detected or fan/pump headers not reading"
+  },
+  {
+    "id": "S14",
+    "category": "Cooling",
+    "text": "Every fan in the machine roars at maximum all the time, even when you are only looking at the desktop.",
+    "expected": "Loud or constantly high fan speeds"
+  },
+  {
+    "id": "S15",
+    "category": "CPU",
+    "text": "You swapped the old processor for a newer one and now the machine will not boot at all.",
+    "expected": "PC won't start after installing a new processor"
+  },
+  {
+    "id": "S16",
+    "category": "CPU",
+    "text": "While fitting the chip you notice a few of the tiny gold-coloured pins in the socket have gone crooked.",
+    "expected": "Bent pins or a damaged processor socket"
+  },
+  {
+    "id": "S17",
+    "category": "CPU",
+    "text": "Task Manager shows the processor maxed out all the time even though you have nothing open, and everything feels sluggish.",
+    "expected": "CPU usage is always at 100 percent"
+  },
+  {
+    "id": "S18",
+    "category": "Display",
+    "text": "The screen displays a floating message saying it cannot detect an input and then goes dark.",
+    "expected": "Monitor says no signal"
+  },
+  {
+    "id": "S19",
+    "category": "Display",
+    "text": "The picture keeps flashing and blinking on and off every few seconds.",
+    "expected": "Screen flickering or blinking"
+  },
+  {
+    "id": "S20",
+    "category": "Display",
+    "text": "Everything looks fuzzy and squashed, the icons are enormous and the picture does not fill the monitor.",
+    "expected": "Blurry, stretched or wrong-sized display"
+  },
+  {
+    "id": "S21",
+    "category": "Display",
+    "text": "You connected an extra screen next to the first one, but it stays black and Windows acts as if it does not exist.",
+    "expected": "Second monitor not detected"
+  },
+  {
+    "id": "S22",
+    "category": "Display",
+    "text": "Coloured vertical stripes run down the display and a small patch of pixels never lights up.",
+    "expected": "Lines or dead spots on the screen"
+  },
+  {
+    "id": "S23",
+    "category": "Laptop",
+    "text": "The charger is plugged into the laptop but the battery level will not rise and a note says it is plugged in.",
+    "expected": "Laptop battery not charging"
+  },
+  {
+    "id": "S24",
+    "category": "Laptop",
+    "text": "You press the power key on a notebook and it shows absolutely no sign of life.",
+    "expected": "Laptop won't turn on"
+  },
+  {
+    "id": "S25",
+    "category": "Laptop",
+    "text": "The underside of the notebook is burning and its fan sounds like a jet engine.",
+    "expected": "Laptop overheating or fan too loud"
+  },
+  {
+    "id": "S26",
+    "category": "Laptop",
+    "text": "You can hear a notebook running and its keyboard lights are on, but the display is dark.",
+    "expected": "Laptop screen is black but the laptop is on"
+  },
+  {
+    "id": "S27",
+    "category": "Laptop",
+    "text": "Several letters on a notebook's keyboard do nothing at all when pressed.",
+    "expected": "Some laptop keyboard keys not working"
+  },
+  {
+    "id": "S28",
+    "category": "Networking",
+    "text": "Phones in the house browse the web happily, but your desktop says it has no connection.",
+    "expected": "No internet on my PC"
+  },
+  {
+    "id": "S29",
+    "category": "Networking",
+    "text": "The wireless networks list has vanished from Windows and the option to join one is no longer there.",
+    "expected": "WiFi option missing or WiFi adapter not detected"
+  },
+  {
+    "id": "S30",
+    "category": "Networking",
+    "text": "Other devices stream and download quickly, but this one crawls along on the same network.",
+    "expected": "Internet is slow on my PC only"
+  },
+  {
+    "id": "S31",
+    "category": "Networking",
+    "text": "The wireless link keeps dropping out every few minutes and then reconnecting.",
+    "expected": "WiFi keeps disconnecting"
+  },
+  {
+    "id": "S32",
+    "category": "Peripherals",
+    "text": "Typing and moving the pointer both do nothing; the machine seems to ignore you.",
+    "expected": "Keyboard or mouse not responding"
+  },
+  {
+    "id": "S33",
+    "category": "Peripherals",
+    "text": "You insert a pen drive and Windows pops up saying it does not understand what was connected.",
+    "expected": "USB device not recognised"
+  },
+  {
+    "id": "S34",
+    "category": "Peripherals",
+    "text": "A video plays on screen but you can hear nothing from the speakers or the earphones.",
+    "expected": "No sound from speakers or headphones"
+  },
+  {
+    "id": "S35",
+    "category": "Peripherals",
+    "text": "Your printer is listed as unavailable and documents just pile up waiting.",
+    "expected": "Printer is offline or not printing"
+  },
+  {
+    "id": "S36",
+    "category": "Peripherals",
+    "text": "During a video call the other people can neither see nor hear you.",
+    "expected": "Webcam or microphone not working"
+  },
+  {
+    "id": "S37",
+    "category": "Budget",
+    "text": "You have about 60,000 rupees and want to assemble a machine mainly to play games.",
+    "expected": "Build a gaming PC on a budget"
+  },
+  {
+    "id": "S38",
+    "category": "Budget",
+    "text": "A student wants a computer for programming and assignments and does not have much money.",
+    "expected": "Build a PC for coding and college work"
+  },
+  {
+    "id": "S39",
+    "category": "Budget",
+    "text": "You want to cut videos and design posters. Where should the money go?",
+    "expected": "Build a PC for video editing or design"
+  },
+  {
+    "id": "S40",
+    "category": "Budget",
+    "text": "Is it smarter to purchase a ready-made computer from a shop or put one together yourself?",
+    "expected": "Should I buy a prebuilt PC or build my own?"
+  },
+  {
+    "id": "S41",
+    "category": "Budget",
+    "text": "You have never assembled a computer. Which component deserves the biggest slice of your budget?",
+    "expected": "First-time PC builder: where should the money go?"
+  },
+  {
+    "id": "S42",
+    "category": "Compatibility",
+    "text": "You bought new memory sticks online and want to be sure they suit the board you already have.",
+    "expected": "Will this RAM work with my motherboard?"
+  },
+  {
+    "id": "S43",
+    "category": "Compatibility",
+    "text": "Can the new chip you found fit and run on the board that is already in your case?",
+    "expected": "Will this processor work with my motherboard?"
+  },
+  {
+    "id": "S44",
+    "category": "Compatibility",
+    "text": "You want a particular video card. Will it physically fit in your case and function with your machine?",
+    "expected": "Will this graphics card fit and run in my PC?"
+  },
+  {
+    "id": "S45",
+    "category": "Compatibility",
+    "text": "You want to add a slim modern storage stick to an older computer. Will it be accepted?",
+    "expected": "Will this SSD work in my PC?"
+  },
+  {
+    "id": "S46",
+    "category": "Compatibility",
+    "text": "You are eyeing a huge tower-shaped heatsink. Will it clear the side panel and suit your chip?",
+    "expected": "Will this CPU cooler fit my PC and processor?"
+  },
+  {
+    "id": "S47",
+    "category": "Compatibility",
+    "text": "You own a 450 watt unit and plan to add hungrier components. Will it cope?",
+    "expected": "Is my power supply strong enough for my parts?"
+  },
+  {
+    "id": "S48",
+    "category": "Compatibility",
+    "text": "Your six-year-old computer: is it able to run the newest version of Windows?",
+    "expected": "Can my old PC run Windows 11?"
+  },
+  {
+    "id": "S49",
+    "category": "Upgrade",
+    "text": "Your computer has become sluggish. What is the single most worthwhile part to replace first?",
+    "expected": "My PC feels slow — what should I upgrade first?"
+  },
+  {
+    "id": "S50",
+    "category": "Upgrade",
+    "text": "You only have money for one improvement for gaming: the processor or the video card?",
+    "expected": "Should I upgrade my CPU or GPU first for gaming?"
+  },
+  {
+    "id": "S51",
+    "category": "Upgrade",
+    "text": "You have 8 GB of memory. Is that enough, or would extra help?",
+    "expected": "Should I add more RAM?"
+  },
+  {
+    "id": "S52",
+    "category": "Upgrade",
+    "text": "Your computer still boots from an old spinning disk. Is replacing it with a flash drive worth the cost?",
+    "expected": "Is switching from a hard drive to an SSD worth it?"
+  },
+  {
+    "id": "S53",
+    "category": "Upgrade",
+    "text": "Would a recent video card perform properly inside a ten-year-old machine?",
+    "expected": "Will a new graphics card work well with my old PC?"
+  },
+  {
+    "id": "S54",
+    "category": "Upgrade",
+    "text": "Should you pour money into an ageing computer or just replace the whole thing?",
+    "expected": "Is my old PC worth upgrading or should I buy a new one?"
+  },
+  {
+    "id": "S55",
+    "category": "Upgrade",
+    "text": "Can you improve a notebook by swapping some of its parts?",
+    "expected": "Can I upgrade my laptop?"
+  },
+  {
+    "id": "S56",
+    "category": "Maintenance",
+    "text": "How frequently does the dust have to be removed from a computer?",
+    "expected": "How often should I clean my PC?"
+  },
+  {
+    "id": "S57",
+    "category": "Maintenance",
+    "text": "You want to get the dirt out of the case without breaking anything.",
+    "expected": "How do I safely clean the inside of my PC?"
+  },
+  {
+    "id": "S58",
+    "category": "Maintenance",
+    "text": "After how long does the grey compound between the chip and heatsink need renewing?",
+    "expected": "When should I replace thermal paste?"
+  },
+  {
+    "id": "S59",
+    "category": "Maintenance",
+    "text": "How can you make sure your photos and documents survive if the drive dies?",
+    "expected": "How do I keep my files safe and back up my data?"
+  },
+  {
+    "id": "S60",
+    "category": "Maintenance",
+    "text": "What is the careful way to keep the operating system and hardware software current?",
+    "expected": "How do I keep drivers and Windows updated safely?"
+  },
+  {
+    "id": "S61",
+    "category": "Maintenance",
+    "text": "It is peak summer and the room is boiling. How do you stop the machine from suffering?",
+    "expected": "How do I keep my PC cool in hot weather?"
+  },
+  {
+    "id": "S62",
+    "category": "Maintenance",
+    "text": "Where you live the electricity often cuts out or surges. How do you shield the computer?",
+    "expected": "How do I protect my PC from power cuts and voltage fluctuations?"
+  },
+  {
+    "id": "S63",
+    "category": "Off-topic",
+    "text": "Ask the assistant something that has nothing to do with computers, such as today's weather or a recipe.",
+    "expected": null
+  },
+  {
+    "id": "S64",
+    "category": "Off-topic",
+    "text": "Ask the assistant for a joke or a bit of general trivia.",
+    "expected": null
+  },
+  {
+    "id": "S65",
+    "category": "Off-topic",
+    "text": "Ask about a problem with a mobile phone, for example a cracked screen.",
+    "expected": null
+  },
+  {
+    "id": "S66",
+    "category": "Off-topic",
+    "text": "Ask about a games console that will not start up.",
+    "expected": null
+  },
+  {
+    "id": "S67",
+    "category": "Off-topic",
+    "text": "Ask something about cooking or sport results.",
+    "expected": null
+  },
+  {
+    "id": "S68",
+    "category": "Off-topic",
+    "text": "Ask for advice on choosing a mobile phone plan.",
+    "expected": null
+  }
+]
