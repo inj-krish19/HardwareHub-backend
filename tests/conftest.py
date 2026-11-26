@@ -45,7 +45,7 @@ if TEST_DB_URL:
     os.environ["DATABASE_URL"] = TEST_DB_URL
     os.environ.setdefault("CORS_ORIGIN", "http://localhost:3000")
     os.environ.setdefault("ADMIN_ID", "test-admin")
-    os.environ.setdefault("ADMIN_SECRET", "test-secret")
+    os.environ.setdefault("ADMIN_SECRET", "test-secret-0123456789")
 
 # Prefixes of the random names tests give to what they create.
 GUIDE_PREFIX = "ztest"  # guide titles, slugs and categories

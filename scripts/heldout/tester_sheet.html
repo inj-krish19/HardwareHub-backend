@@ -14,6 +14,7 @@
         --mute: #64748b;
         --brand: #0284c7;
       }
+
       @media (prefers-color-scheme: dark) {
         :root {
           --bg: #0b1220;
@@ -24,9 +25,11 @@
           --brand: #38bdf8;
         }
       }
+
       * {
         box-sizing: border-box;
       }
+
       body {
         margin: 0;
         font:
@@ -38,22 +41,27 @@
         background: var(--bg);
         color: var(--ink);
       }
+
       main {
         max-width: 680px;
         margin: 0 auto;
         padding: 20px 16px 120px;
       }
+
       h1 {
         font-size: 1.4rem;
         margin: 0 0 4px;
       }
+
       p {
         margin: 8px 0;
       }
+
       .mute {
         color: var(--mute);
         font-size: 0.9rem;
       }
+
       .box {
         background: var(--card);
         border: 1px solid var(--line);
@@ -61,6 +69,7 @@
         padding: 14px 16px;
         margin: 14px 0;
       }
+
       .card {
         background: var(--card);
         border: 1px solid var(--line);
@@ -68,12 +77,14 @@
         padding: 14px 16px;
         margin: 12px 0;
       }
+
       .card .n {
         font-size: 0.75rem;
         color: var(--mute);
         letter-spacing: 0.04em;
         text-transform: uppercase;
       }
+
       input,
       textarea {
         width: 100%;
@@ -84,23 +95,28 @@
         background: transparent;
         color: inherit;
       }
+
       label {
         display: block;
         font-size: 0.85rem;
         color: var(--mute);
         margin: 10px 0 4px;
       }
+
       .row {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
       }
+
       .row > div {
         flex: 1 1 120px;
       }
+
       .row > div.wide {
         flex-basis: 100%;
       }
+
       button {
         font: inherit;
         padding: 10px 14px;
@@ -110,10 +126,12 @@
         color: #fff;
         cursor: pointer;
       }
+
       button.ghost {
         background: transparent;
         color: var(--brand);
       }
+
       .bar {
         position: fixed;
         left: 0;
@@ -123,6 +141,7 @@
         border-top: 1px solid var(--line);
         padding: 10px 16px;
       }
+
       .bar .in {
         max-width: 680px;
         margin: 0 auto;
@@ -130,11 +149,13 @@
         gap: 10px;
         align-items: center;
       }
+
       .bar .count {
         flex: 1;
         font-size: 0.9rem;
         color: var(--mute);
       }
+
       #msg {
         color: var(--brand);
         font-size: 0.9rem;
@@ -142,6 +163,7 @@
       }
     </style>
   </head>
+
   <body>
     <main>
       <h1>Help us test a PC troubleshooting chatbot</h1>
