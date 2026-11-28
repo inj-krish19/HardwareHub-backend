@@ -1,12 +1,27 @@
 from __future__ import annotations
 
 import uuid
+from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class ChatStartRequest(BaseModel):
-    query: str = Field(..., min_length=1, max_length=500)
+    # "typed" is what the person wrote. "photo" is text the browser read from a photo
+    # (the photo itself never leaves their device). Photo text is longer and can hold
+    # personal details (a username, a PC name), so it is never written to the missed-query log.
+    query: str = Field(..., min_length=1, max_length=4000)
+    source: Literal["typed", "photo"] = "typed"
+
+    @model_validator(mode="after")
+    def _typed_text_is_short(self) -> "ChatStartRequest":
+        if self.source == "typed" and len(self.query) > 500:
+            raise ValueError("query must be 500 characters or fewer")
+        return self
+    # "photo" means the text was read from a picture on the person's own device. Such text can
+    # hold names, serial numbers and other private details, so it is never written to the
+    # missed-query log.
+    source: Literal["typed", "photo"] = "typed"
 
 
 class ChatAnswerRequest(BaseModel):

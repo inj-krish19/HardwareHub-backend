@@ -13,6 +13,8 @@ from app.rule_engine import router as intent_router
 from app.rule_engine import tree_walker
 from app.rule_engine.formatter import format_report, format_result
 from app.db.query_log import log_unmatched
+from app.rule_engine import screen_text
+from app.rule_engine import screen_text
 from app.rule_engine.matcher import rank_matches
 from app.schemas.chatbot import (
     BotSelectionRequest,
@@ -83,30 +85,39 @@ def _titles_for_bot(db: Session, bot_type: str) -> list[str]:
 
 @router.post("/start", response_model=ChatStepResponse)
 def start_chat(payload: ChatStartRequest, db: Session = Depends(get_db)) -> ChatStepResponse:
-    intent = intent_router.route(payload.query)
+    # Text read from a photo of an error screen: spot the kind of screen and add the
+    # hand-written terms of the guides that handle it, so the matcher can find them.
+    # Typed messages are matched exactly as before.
+    hints = screen_text.detect(payload.query) if payload.source == "photo" else []
+    query = screen_text.augment_query(payload.query, hints)
+
+    intent = intent_router.route(query)
     bot = intent_router.INTENT_TO_BOT.get(intent) if intent else None
 
     # Match across every bot's content; the intent only nudges the score.
     symptoms = db.execute(select(Symptom)).scalars().all()
-    matches = rank_matches(payload.query, symptoms, bot, limit=3)
+    matches = rank_matches(query, symptoms, bot, limit=3)
     if matches:
         # Up to three candidates. The widget adds its own "None of these" button;
         # picking one goes through /symptom-selection, and "none" through /confirm
         # with confirmed=false (symptom_id is the top match, which that endpoint ignores).
+        question = (
+            "Is this what you mean?"
+            if len(matches) == 1
+            else "I found a few guides that might match. Which one is closest?"
+        )
         return ChatStepResponse(
             symptom_id=matches[0].id,
             kind="suggest",
-            message=(
-                "Is this what you mean?"
-                if len(matches) == 1
-                else "I found a few guides that might match. Which one is closest?"
-            ),
+            message=f"{screen_text.describe(hints)} {question}".strip(),
             options=[m.title for m in matches],
         )
 
     # Nothing matched: remember the wording (text only) so an admin can turn it
-    # into a keyword or a new guide.
-    log_unmatched(db, payload.query)
+    # into a keyword or a new guide. Never for photo text: a screen can show a
+    # username or a PC name, and that must not be kept.
+    if payload.source == "typed":
+        log_unmatched(db, payload.query)
 
     # No confident match. If the intent told us which bot, jump straight to that
     # bot's guide list instead of making the user pick a bot again.
