@@ -31,6 +31,12 @@ person types a message
 - **Final answers** are numbered steps. A final answer is either a fix (`conclusion`) or
   "needs a professional" (`escalate`). For the second kind the chat offers a copyable summary
   for a technician (`POST /chat/report`), built from the same replay.
+- **Photos of error screens and part labels** are read in the person's browser (see the frontend README); only the
+  text arrives, as `POST /chat/start` with `source: "photo"`. `rule_engine/screen_text.py` then spots the kind of screen
+  (blue screen, "no bootable device", monitor "no signal", CPU fan error, overheating, memory error) or part label
+  (RAM, SSD, graphics card, processor, power supply) from a few hand-written phrases and adds the hand-written
+  search terms of the guides that handle it. It never writes an answer. Photo text is never written to the
+  missed-query log, because a screen can show a username or a PC name.
 - **Guides the matcher misses** are logged (text only, no identity) so an admin can turn each miss
   into a keyword. See "Missed queries" below.
 
@@ -202,7 +208,7 @@ backend/
     models/            SQLAlchemy models (catalog, rules, feedback, query_log)
     schemas/           request and response models
     api/v1/            chatbot, guides, catalog, compare, admin
-    rule_engine/       router, matcher, tree_walker, formatter (see "How an answer is produced")
+    rule_engine/       router, matcher, screen_text, tree_walker, formatter (see "How an answer is produced")
     data/              seed guides and the product seed
   scripts/             match_eval.py and its query file; smoke_check.py; heldout/ is the tester kit
   tests/               pytest
